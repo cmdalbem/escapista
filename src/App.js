@@ -1,15 +1,17 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 
-import './App.css';
+import Database from './Database.js'
+import Producao from './Producao.js'
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
+import './App.css';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this._onVideoEnd = this._onVideoEnd.bind(this);
+    this._onVideoError = this._onVideoError.bind(this);
 
     this.state = {
       data: [],
@@ -19,72 +21,55 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch(
-      "https://api.airtable.com/v0/app5PlDbzK24kIJtP/Table%201?api_key=keyitXI1MaCb75MYj"
-    )
-      .then(res => res.json())
-      .then(res => {
-        if (res.records && res.records.length > 0) {
-          res.records = res.records.filter(i => i.fields['running time']);
+    Database.get()
+      .then(records => {
+        const producao = Producao.computeCurrentVideoAndOffset(records);
 
-          this.setState({
-            data: res.records
-          });
+        console.debug('producao =',producao);
 
-          console.debug('airtable entries:',res.records);
-
-          this.computeCurrentVideoAndOffset(Math.floor((new Date().getTime())/1000));
-        } else {
-          console.warning('No records from Airtable.')
-        }
-      })
-      .catch(error => console.log(error));
+        this.setState({
+          data: records,
+          videoIndex: producao.videoIndex,
+          videoStart: producao.videoStart
+        });
+    })
   }
 
   nextVideo() {
+    console.debug('nextVideo');
+
     this.setState({
-      videoIndex: this.state.videoIndex,
+      videoIndex: this.state.videoIndex + 1,
       videoStart: 0
     })
   }
 
-  _onStateChange(data) {
-    if (data === 0) {
-      this.nextVideo();
-    }
+  _onVideoEnd() {
+    console.debug('_onVideoEnd');
+    this.nextVideo();
   }
- 
-  computeCurrentVideoAndOffset(seed) {
-    const data = this.state.data;
 
-    let accs = [];
-    const lengths = data.map(i => i.fields['running time']*60);
-    const totalLength = lengths.reduce((a, b) => a + b, 0);
-    seed = seed % totalLength;
-    
-    let accumulatedLengths = [lengths[0]];
-    for(let i=1; i<lengths.length; i++) {
-      accumulatedLengths[i] = lengths[i] + accumulatedLengths[i-1];
-    }
-
-    let videoIndex = 0;
-    for(let i=0; seed>accumulatedLengths[i]; i++) {
-      videoIndex = i+1;
-      console.debug('videoIndex',videoIndex);
-    }
-
-    const videoStart = Math.floor(seed % lengths[videoIndex]);
-    
-    console.debug('seed',seed);
-    console.debug('accumulatedLengths',accumulatedLengths);
-    console.debug('videoIndex =',videoIndex);
-    console.debug('videoStart =',videoStart);
-
-    this.setState({
-      videoIndex: videoIndex,
-      videoStart: videoStart
-    })
+  _onVideoError(e) {
+    console.warn('_onVideoError', e);
+    this.nextVideo();
   }
+
+  // Source: https://developers.google.com/youtube/iframe_api_reference#onStateChange
+  //   -1 (unstarted)
+  //   0 (ended)
+  //   1 (playing)
+  //   2 (paused)
+  //   3 (buffering)
+  //   5 (video cued).
+  // _onStateChange(e) {
+  //   console.warn('_onStateChange', e);
+
+  //   switch(e.data) {
+  //     case 0:
+  //       this.nextVideo();
+  //       break;
+  //   }
+  // }
 
   render() {
     const data = this.state.data;
@@ -93,7 +78,7 @@ class App extends React.Component {
 
     if (isReady) {
       currentVideo = data[this.state.videoIndex];
-      videoId = currentVideo.fields['video-id'];
+      videoId = currentVideo.fields['id'];
       console.debug('videoId =',videoId);
 
       youtubeConfig = {
@@ -103,7 +88,7 @@ class App extends React.Component {
           disablekb: 1,
           enablejsapi: 1,
           modestbranding: 1,
-          origin: 'www.cristianodalbem.com',
+          origin: 'https://slowproject.vercel.app/',
           start: this.state.videoStart 
         },
       };
@@ -114,17 +99,22 @@ class App extends React.Component {
         {
           isReady ?
             <div>
-              {/* <h1>
+              <div style={{color: 'white'}}>
                 {currentVideo.fields['title']}
-              </h1> */}
+              </div>
               <div className="video-background">
                 <div className="video-foreground">
-                  <YouTube videoId={videoId} opts={youtubeConfig} onStateChange={this._onStateChange}/>
+                  <YouTube
+                    videoId={videoId}
+                    opts={youtubeConfig}
+                    onEnd={this._onVideoEnd}
+                    onError={this._onVideoError}
+                  />
                 </div>
               </div>
             </div>
             :
-            <h1>Loading...</h1>
+            <h1>Carregando...</h1>
         }
       </div>
     );
