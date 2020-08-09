@@ -3,11 +3,16 @@ class Producao {
         return Math.floor((new Date().getTime())/1000);
     }
 
-    static computeCurrentVideoAndOffset(data) {
+    static computeCurrentVideoAndOffset(records) {
+        if (!records || records.length == 0) {
+            console.warn('computeCurrentVideoAndOffset(): empty records');
+            return null;
+        }
+        
         const seed = this.getSeed();
     
         let accs = [];
-        const lengths = data.map(i => i.fields['duration']*60);
+        const lengths = records.map(i => i.fields['duration']*60);
         const totalLength = lengths.reduce((a, b) => a + b, 0);
         const normalizedSeed = seed % totalLength;
         

@@ -23,25 +23,33 @@ class App extends React.Component {
   componentDidMount() {
     Database.get()
       .then(records => {
-        const producao = Producao.computeCurrentVideoAndOffset(records);
-
-        console.debug('producao =',producao);
-
         this.setState({
           data: records,
-          videoIndex: producao.videoIndex,
-          videoStart: producao.videoStart
         });
+        this.sync();
     })
+  }
+
+  sync() {
+    const records = this.state.data;
+    const producao = Producao.computeCurrentVideoAndOffset(records);
+
+    console.debug('producao =',producao);
+
+    this.setState({
+      videoIndex: producao.videoIndex,
+      videoStart: producao.videoStart
+    });
   }
 
   nextVideo() {
     console.debug('nextVideo');
 
-    this.setState({
-      videoIndex: this.state.videoIndex + 1,
-      videoStart: 0
-    })
+    this.sync();
+    // this.setState({
+    //   videoIndex: this.state.videoIndex + 1,
+    //   videoStart: 0
+    // })
   }
 
   _onVideoEnd() {
