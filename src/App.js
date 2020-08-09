@@ -1,7 +1,6 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 
-import logo from './logo.svg';
 import './App.css';
 
 function getRandomInt(max) {
@@ -27,6 +26,7 @@ class App extends React.Component {
       .then(res => {
         if (res.records && res.records.length > 0) {
           res.records = res.records.filter(i => i.fields['running time']);
+
           this.setState({
             data: res.records
           });
@@ -34,6 +34,8 @@ class App extends React.Component {
           console.debug('airtable entries:',res.records);
 
           this.computeCurrentVideoAndOffset(Math.floor((new Date().getTime())/1000));
+        } else {
+          console.warning('No records from Airtable.')
         }
       })
       .catch(error => console.log(error));
@@ -75,8 +77,8 @@ class App extends React.Component {
     
     console.debug('seed',seed);
     console.debug('accumulatedLengths',accumulatedLengths);
-    console.debug('videoIndex=',videoIndex);
-    console.debug('videoStart=',videoStart);
+    console.debug('videoIndex =',videoIndex);
+    console.debug('videoStart =',videoStart);
 
     this.setState({
       videoIndex: videoIndex,
@@ -86,11 +88,13 @@ class App extends React.Component {
 
   render() {
     const data = this.state.data;
-    let youtubeConfig;
-    let videoId;
+    const isReady = data && data.length > 0 && this.state.videoIndex >= 0;
+    let currentVideo, youtubeConfig, videoId;
 
-    if (this.state.videoIndex) {
-      videoId = data[this.state.videoIndex].fields['video-id'];
+    if (isReady) {
+      currentVideo = data[this.state.videoIndex];
+      videoId = currentVideo.fields['video-id'];
+      console.debug('videoId =',videoId);
 
       youtubeConfig = {
         playerVars: {
@@ -108,10 +112,15 @@ class App extends React.Component {
     return (
       <div>
         {
-          this.state.videoIndex ?
-            <div className="video-background">
-              <div className="video-foreground">
-                <YouTube videoId={videoId} opts={youtubeConfig} onStateChange={this._onStateChange}/>
+          isReady ?
+            <div>
+              {/* <h1>
+                {currentVideo.fields['title']}
+              </h1> */}
+              <div className="video-background">
+                <div className="video-foreground">
+                  <YouTube videoId={videoId} opts={youtubeConfig} onStateChange={this._onStateChange}/>
+                </div>
               </div>
             </div>
             :
