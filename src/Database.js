@@ -24,18 +24,18 @@ class Database {
 
     static get() {
         return fetch(
-            `https://api.airtable.com/v0/app5PlDbzK24kIJtP/Table%201?api_key=${AIRTABLE_API_KEY}`
+            `https://api.airtable.com/v0/app5PlDbzK24kIJtP/Videos?api_key=${AIRTABLE_API_KEY}`
             )
             .then(res => res.json())
             .then(res => {
                 if (res.records && res.records.length > 0) {
-                res.records = this.filterRecords(res.records);
+                    res.records = this.filterRecords(res.records);
 
-                console.debug('airtable entries:',res.records);
+                    console.debug('airtable entries:',res.records);
         
-                return res.records;
-            } else {
-            console.warning('No records from Airtable.')
+                    return res.records;
+                } else {
+                    console.error('No records from Airtable.')
             }
         })
         .catch(error => console.log(error));

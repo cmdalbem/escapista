@@ -4,7 +4,7 @@ class Producao {
     }
 
     static computeCurrentVideoAndOffset(records) {
-        if (!records || records.length == 0) {
+        if (!records || records.length === 0) {
             console.warn('computeCurrentVideoAndOffset(): empty records');
             return null;
         }
