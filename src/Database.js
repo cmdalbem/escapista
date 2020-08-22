@@ -2,13 +2,8 @@ const AIRTABLE_API_KEY = 'keyitXI1MaCb75MYj';
 const AIRTABLE_BASE_ID = 'app5PlDbzK24kIJtP';
 
 class Database {
-    base;
     categories = {};
     videos = []
-
-    constructor() {
-        this.base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(AIRTABLE_BASE_ID);
-    }
 
     async fetchTable(tableName) {
         let response, data

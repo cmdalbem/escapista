@@ -54,7 +54,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.currentCategory != this.state.currentCategory) {
+    if (prevState.currentCategory !== this.state.currentCategory) {
       this.sync();
     }
   }
