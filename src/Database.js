@@ -5,9 +5,9 @@ class Database {
     categories = {};
     videos = []
 
-    async fetchTable(tableName) {
+    async fetchTable(tableName, options = '') {
         let response, data
-        response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}`);
+        response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}${options}`);
         data = await response.json();
         return data.records;;
     }
@@ -26,7 +26,7 @@ class Database {
             console.error('No categories from Airtable.')
         };
 
-        videos = await this.fetchTable('Videos');
+        videos = await this.fetchTable('Videos','&view=Filtered');
         if (videos && videos.length > 0) {
             console.debug('airtable entries:',videos);
 
