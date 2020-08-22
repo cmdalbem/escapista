@@ -12,11 +12,26 @@ class Database {
         return data.records;;
     }
 
+    printCategories() {
+        console.group('Categories');
+        Object.keys(this.categories).forEach(key => {
+            const c = this.categories[key];
+            console.group(c.fields.title);
+            c.videos.forEach(v => {
+                console.log(v.fields.title);
+            });
+            console.groupEnd();
+        });
+        console.groupEnd();
+    }
+
     async get() {
         let categories, videos;
 
+        // Query categories
         categories = await this.fetchTable('Categories');
         if (categories && categories.length > 0) {
+            // Fill our map of categories, still empty
             categories.forEach(record => {
                 this.categories[record.id] = record;
                 this.categories[record.id].videos = [];
@@ -26,15 +41,22 @@ class Database {
             console.error('No categories from Airtable.')
         };
 
+        // Query videos
         videos = await this.fetchTable('Videos','&view=Filtered');
         if (videos && videos.length > 0) {
             console.debug('airtable entries:',videos);
 
             this.videos = videos;
 
+            // Fill categories map
             videos.forEach(r => {
-                const categories = r.fields.categories;
+                let categories = r.fields.categories;
                 if (categories) {
+                    // Remove duplicates (damn, Airtable!)
+                    categories = categories.filter( (value, index, self) => { 
+                        return self.indexOf(value) === index;
+                    })
+
                     categories.forEach(c => {
                         this.categories[c].videos.push(r);
                     });
@@ -42,6 +64,8 @@ class Database {
                     console.warn('Video',r.fields.title,'without any category');
                 }
             });
+
+            this.printCategories();
 
             return {    
                 videos: this.videos,
