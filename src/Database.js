@@ -1,5 +1,3 @@
-import Airtable from 'airtable';
-
 const AIRTABLE_API_KEY = 'keyitXI1MaCb75MYj';
 const AIRTABLE_BASE_ID = 'app5PlDbzK24kIJtP';
 

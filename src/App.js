@@ -117,7 +117,7 @@ class App extends React.Component {
           key={id}
           style={{backgroundColor: this.state.currentCategory === id ? 'white' : 'gray'}}
           >
-            {this.state.categories[id].fields.title}
+            {this.state.categories[id].fields.title} ({this.state.categories[id].videos.length})
         </button>
       );
     } 
