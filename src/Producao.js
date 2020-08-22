@@ -5,13 +5,12 @@ class Producao {
 
     static computeCurrentVideoAndOffset(records) {
         if (!records || records.length === 0) {
-            console.warn('computeCurrentVideoAndOffset(): empty records');
+            console.error('computeCurrentVideoAndOffset(): empty records');
             return null;
         }
         
         const seed = this.getSeed();
     
-        let accs = [];
         const lengths = records.map(i => i.fields['duration']*60);
         const totalLength = lengths.reduce((a, b) => a + b, 0);
         const normalizedSeed = seed % totalLength;

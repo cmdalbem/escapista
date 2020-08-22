@@ -7,59 +7,66 @@ import Producao from './Producao.js'
 import './App.css';
 
 class App extends React.Component {
+  database;
+
   constructor(props) {
     super(props);
 
     this._onVideoEnd = this._onVideoEnd.bind(this);
     this._onVideoError = this._onVideoError.bind(this);
+    this._onSwitchCategory = this._onSwitchCategory.bind(this);
+
+    this.database = new Database();
 
     this.state = {
-      data: [],
-      videoIndex: 0,
+      videos: [],
+      categories: [],
+      currentCategory: null,
+      currentVideo: null,
       videoStart: 0
     };
   }
 
-  componentDidMount() {
-    Database.get()
-      .then(records => {
-        this.setState({
-          data: records,
-        });
-        this.sync();
-    })
+  async componentDidMount() {
+    // this.database.get()
+    //   .then(obj => {
+    //     this.setState(obj);
+    //     this.sync();
+    // })
+    this.setState(await this.database.get());
   }
 
   sync() {
-    const records = this.state.data;
-    const producao = Producao.computeCurrentVideoAndOffset(records);
+    if (!this.state.currentCategory) {
+      console.error('No current category.');
+      return;
+    }
 
-    console.debug('producao =',producao);
+    const videos = this.state.categories[this.state.currentCategory].videos;
+    const producao = Producao.computeCurrentVideoAndOffset(videos);
 
-    this.setState({
-      videoIndex: producao.videoIndex,
-      videoStart: producao.videoStart
-    });
+    if (producao) {
+      this.setState({
+        currentVideo: videos[producao.videoIndex],
+        videoStart: producao.videoStart
+      });
+    }
   }
 
-  nextVideo() {
-    console.debug('nextVideo');
-
-    this.sync();
-    // this.setState({
-    //   videoIndex: this.state.videoIndex + 1,
-    //   videoStart: 0
-    // })
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.currentCategory != this.state.currentCategory) {
+      this.sync();
+    }
   }
 
   _onVideoEnd() {
     console.debug('_onVideoEnd');
-    this.nextVideo();
+    this.sync();
   }
 
   _onVideoError(e) {
     console.warn('_onVideoError', e);
-    this.nextVideo();
+    // this.sync();
   }
 
   // Source: https://developers.google.com/youtube/iframe_api_reference#onStateChange
@@ -79,14 +86,16 @@ class App extends React.Component {
   //   }
   // }
 
+  _onSwitchCategory(e) {
+    this.setState({ currentCategory: e.currentTarget.dataset.id });
+  }
+
   render() {
-    const data = this.state.data;
-    const isReady = data && data.length > 0 && this.state.videoIndex >= 0;
-    let currentVideo, youtubeConfig, videoId;
+    const isReady = this.state.currentVideo;
+    let youtubeConfig, videoId, categoriesSwitcher;
 
     if (isReady) {
-      currentVideo = data[this.state.videoIndex];
-      videoId = currentVideo.fields['id'];
+      videoId = this.state.currentVideo.fields['id'];
       console.debug('videoId =',videoId);
 
       youtubeConfig = {
@@ -100,6 +109,17 @@ class App extends React.Component {
           start: this.state.videoStart 
         },
       };
+
+      categoriesSwitcher = Object.keys(this.state.categories).map( id =>
+        <button 
+          onClick={this._onSwitchCategory}
+          data-id={id}
+          key={id}
+          style={{backgroundColor: this.state.currentCategory === id ? 'white' : 'gray'}}
+          >
+            {this.state.categories[id].fields.title}
+        </button>
+      );
     } 
     
     return (
@@ -107,9 +127,14 @@ class App extends React.Component {
         {
           isReady ?
             <div>
-              <div style={{color: 'white'}}>
-                {currentVideo.fields['title']}
+              <div style={{ color: 'white' }}>
+                {this.state.currentVideo.fields['title']}
               </div>
+
+              <div style={{ color: 'white' }}>
+                {categoriesSwitcher}
+              </div>
+
               <div className="video-background">
                 <div className="video-foreground">
                   <YouTube
