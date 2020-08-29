@@ -15,7 +15,7 @@ class Database {
     printCategories() {
         console.group('Categories');
         Object.keys(this.categories).forEach(key => {
-            const c = this.categories[key];
+            const c = this.categories[key]
             console.group(c.fields.title);
             c.videos.forEach(v => {
                 console.log(v.fields.title);
@@ -65,7 +65,7 @@ class Database {
                 }
             });
 
-            this.printCategories();
+            // this.printCategories();
 
             return {    
                 videos: this.videos,

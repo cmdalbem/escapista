@@ -4,6 +4,9 @@ import YouTube from 'react-youtube';
 import Database from './Database.js'
 import Producao from './Producao.js'
 
+import BottomBar from './BottomBar.js'
+import MainBar from './MainBar.js'
+
 import './App.css';
 
 class App extends React.Component {
@@ -15,6 +18,7 @@ class App extends React.Component {
     this._onVideoEnd = this._onVideoEnd.bind(this);
     this._onVideoError = this._onVideoError.bind(this);
     this._onSwitchCategory = this._onSwitchCategory.bind(this);
+    this._onToggleUI = this._onToggleUI.bind(this);
 
     this.database = new Database();
 
@@ -23,16 +27,12 @@ class App extends React.Component {
       categories: [],
       currentCategory: null,
       currentVideo: null,
-      videoStart: 0
+      videoStart: 0,
+      isUIVisible: true,
     };
   }
 
   async componentDidMount() {
-    // this.database.get()
-    //   .then(obj => {
-    //     this.setState(obj);
-    //     this.sync();
-    // })
     this.setState(await this.database.get());
   }
 
@@ -90,6 +90,10 @@ class App extends React.Component {
     this.setState({ currentCategory: e.currentTarget.dataset.id });
   }
 
+  _onToggleUI() {
+    this.setState({ isUIVisible: !this.state.isUIVisible });
+  }
+
   render() {
     const isReady = this.state.currentVideo;
     let youtubeConfig, videoId, categoriesSwitcher;
@@ -105,21 +109,10 @@ class App extends React.Component {
           disablekb: 1,
           enablejsapi: 1,
           modestbranding: 1,
-          origin: 'https://slowproject.vercel.app/',
+          origin: 'https://slowproject.app/',
           start: this.state.videoStart 
         },
       };
-
-      categoriesSwitcher = Object.keys(this.state.categories).map( id =>
-        <button 
-          onClick={this._onSwitchCategory}
-          data-id={id}
-          key={id}
-          style={{backgroundColor: this.state.currentCategory === id ? 'white' : 'gray'}}
-          >
-            {this.state.categories[id].fields.title} ({this.state.categories[id].videos.length})
-        </button>
-      );
     } 
     
     return (
@@ -127,13 +120,26 @@ class App extends React.Component {
         {
           isReady ?
             <div>
-              <div style={{ color: 'white' }}>
-                {this.state.currentVideo.fields['title']}
+              <div className="mt-8 ml-12 absolute">
+                  <button
+                      className="p-4 hover:opacity-50 text-white"
+                      onClick={this._onToggleUI}>
+                      ☰
+                  </button>
               </div>
 
-              <div style={{ color: 'white' }}>
-                {categoriesSwitcher}
-              </div>
+              {
+                this.state.isUIVisible && <MainBar
+                  categories={this.state.categories}
+                  currentCategory={this.state.currentCategory}
+                  onSwitchCategory={this._onSwitchCategory}
+                  onToggleUI={this._onToggleUI}
+                />
+              }
+              
+              {   
+                this.state.isUIVisible && <BottomBar currentVideo={this.state.currentVideo}/>   
+              }
 
               <div className="video-background">
                 <div className="video-foreground">

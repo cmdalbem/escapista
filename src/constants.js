@@ -1,0 +1,1 @@
+export const MAIN_BAR_WIDTH = 384;
