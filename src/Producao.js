@@ -1,4 +1,5 @@
 class Producao {
+    // Seed is based on current clock time, in seconds
     static getSeed() {
         return Math.floor((new Date().getTime())/1000);
     }
@@ -20,21 +21,26 @@ class Producao {
           accumulatedLengths[i] = lengths[i] + accumulatedLengths[i-1];
         }
     
-        let videoIndex = 0;
+        let currentVideoIndex = 0;
         for(let i=0; normalizedSeed > accumulatedLengths[i]; i++) {
-          videoIndex = i+1;
-          console.debug('videoIndex',videoIndex);
+          currentVideoIndex = i+1;
+          console.debug('currentVideoIndex',currentVideoIndex);
         }
+
+        currentVideoIndex %= records.length;
+        const nextVideoIndex = (currentVideoIndex+1) % records.length;
     
-        const videoStart = Math.floor(normalizedSeed % lengths[videoIndex]);
+        const videoStart = Math.floor(normalizedSeed % lengths[currentVideoIndex]);
         
         console.debug('normalizedSeed',normalizedSeed);
         console.debug('accumulatedLengths',accumulatedLengths);
-        console.debug('videoIndex =',videoIndex);
+        console.debug('currentVideoIndex =',currentVideoIndex);
+        console.debug('nextVideoIndex =',nextVideoIndex);
         console.debug('videoStart =',videoStart);
     
         return {
-            videoIndex: videoIndex,
+            currentVideoIndex: currentVideoIndex,
+            nextVideoIndex: nextVideoIndex,
             videoStart: videoStart
         };
       }

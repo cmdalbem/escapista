@@ -20,6 +20,7 @@ class App extends React.Component {
     this.onSwitchCategory = this.onSwitchCategory.bind(this);
     this.onToggleUI = this.onToggleUI.bind(this);
     this.onToggleMute = this.onToggleMute.bind(this);
+    this.sync = this.sync.bind(this);
 
     this.database = new Database();
 
@@ -49,7 +50,8 @@ class App extends React.Component {
 
     if (producao) {
       this.setState({
-        currentVideo: videos[producao.videoIndex],
+        currentVideo: videos[producao.currentVideoIndex],
+        nextVideo: videos[producao.nextVideoIndex],
         videoStart: producao.videoStart
       });
     }
@@ -119,6 +121,7 @@ class App extends React.Component {
               
                 <BottomBar
                   currentVideo={this.state.currentVideo}
+                  nextVideo={this.state.nextVideo}
                   onToggleMute={this.onToggleMute}
                   isMuted={this.state.isMuted}
                 />
