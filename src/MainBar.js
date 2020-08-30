@@ -13,7 +13,9 @@ class MainBar extends React.Component {
     return (
         <div
             className="bg-white absolute left-0 top-0 h-full"
-            style={{width: MAIN_BAR_WIDTH, fontFamily: 'Alata, sans-serif'}
+            style={{
+                width: MAIN_BAR_WIDTH,
+                fontFamily: 'Alata, sans-serif'}
             }>
                 <div className="mt-8 ml-12 absolute">
                     <button

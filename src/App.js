@@ -7,20 +7,26 @@ import Producao from './Producao.js'
 import BottomBar from './BottomBar.js'
 import MainBar from './MainBar.js'
 
+import IconMenu from './IconMenu.js'
+
 import './App.css';
 
 class App extends React.Component {
   database;
+  playerRef;
 
   constructor(props) {
     super(props);
 
-    this._onVideoEnd = this._onVideoEnd.bind(this);
-    this._onVideoError = this._onVideoError.bind(this);
-    this._onSwitchCategory = this._onSwitchCategory.bind(this);
-    this._onToggleUI = this._onToggleUI.bind(this);
+    this.onVideoEnd = this.onVideoEnd.bind(this);
+    this.onVideoError = this.onVideoError.bind(this);
+    this.onSwitchCategory = this.onSwitchCategory.bind(this);
+    this.onToggleUI = this.onToggleUI.bind(this);
+    this.onToggleMute = this.onToggleMute.bind(this);
 
     this.database = new Database();
+
+    this.playerRef = React.createRef();
 
     this.state = {
       videos: [],
@@ -29,6 +35,7 @@ class App extends React.Component {
       currentVideo: null,
       videoStart: 0,
       isUIVisible: true,
+      isMuted: false,
     };
   }
 
@@ -57,15 +64,23 @@ class App extends React.Component {
     if (prevState.currentCategory !== this.state.currentCategory) {
       this.sync();
     }
+
+    if (prevState.isMuted !== this.state.isMuted) {
+      if (this.state.isMuted) {
+        this.playerRef.current.internalPlayer.mute();
+      } else {
+        this.playerRef.current.internalPlayer.unMute();
+      }
+    }
   }
 
-  _onVideoEnd() {
-    console.debug('_onVideoEnd');
+  onVideoEnd() {
+    console.debug('onVideoEnd');
     this.sync();
   }
 
-  _onVideoError(e) {
-    console.warn('_onVideoError', e);
+  onVideoError(e) {
+    console.warn('onVideoError', e);
     // this.sync();
   }
 
@@ -76,8 +91,8 @@ class App extends React.Component {
   //   2 (paused)
   //   3 (buffering)
   //   5 (video cued).
-  // _onStateChange(e) {
-  //   console.warn('_onStateChange', e);
+  // onStateChange(e) {
+  //   console.warn('onStateChange', e);
 
   //   switch(e.data) {
   //     case 0:
@@ -86,12 +101,16 @@ class App extends React.Component {
   //   }
   // }
 
-  _onSwitchCategory(e) {
+  onSwitchCategory(e) {
     this.setState({ currentCategory: e.currentTarget.dataset.id });
   }
 
-  _onToggleUI() {
+  onToggleUI() {
     this.setState({ isUIVisible: !this.state.isUIVisible });
+  }
+
+  onToggleMute() {
+    this.setState({ isMuted: !this.state.isMuted });
   }
 
   render() {
@@ -123,31 +142,40 @@ class App extends React.Component {
               <div className="mt-8 ml-12 absolute">
                   <button
                       className="p-4 hover:opacity-50 text-white"
-                      onClick={this._onToggleUI}>
-                      ☰
+                      onClick={this.onToggleUI}>
+                      <IconMenu/>
                   </button>
               </div>
 
-              {
-                this.state.isUIVisible && <MainBar
+              <div 
+                className={this.state.isUIVisible ? 'opacity-100' : 'opacity-0'}
+                style={{
+                  // transition: 'opacity 0.8s cubic-bezier(0.57, 0, 0.58, 1)'
+                  transition: 'opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1)'
+                }}
+                >
+                <MainBar
                   categories={this.state.categories}
                   currentCategory={this.state.currentCategory}
-                  onSwitchCategory={this._onSwitchCategory}
-                  onToggleUI={this._onToggleUI}
+                  onSwitchCategory={this.onSwitchCategory}
+                  onToggleUI={this.onToggleUI}
                 />
-              }
               
-              {   
-                this.state.isUIVisible && <BottomBar currentVideo={this.state.currentVideo}/>   
-              }
+                <BottomBar
+                  currentVideo={this.state.currentVideo}
+                  onToggleMute={this.onToggleMute}
+                  isMuted={this.state.isMuted}
+                />
+              </div>
 
               <div className="video-background">
                 <div className="video-foreground">
                   <YouTube
                     videoId={videoId}
                     opts={youtubeConfig}
-                    onEnd={this._onVideoEnd}
-                    onError={this._onVideoError}
+                    onEnd={this.onVideoEnd}
+                    onError={this.onVideoError}
+                    ref={this.playerRef}
                   />
                 </div>
               </div>

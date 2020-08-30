@@ -2,10 +2,12 @@ import React from 'react';
 
 import { MAIN_BAR_WIDTH } from './constants.js';
 
+import IconVolume from './IconVolume.js'
+
 
 class BottomBar extends React.Component {
   render() {
-    const currentVideo = this.props.currentVideo;
+    const { currentVideo, isMuted } = this.props;
 
     const channelTitle = currentVideo.fields['channelTitle'] && currentVideo.fields['channelTitle'][0];
     const channelUrl = currentVideo.fields['channelUrl'] && currentVideo.fields['channelUrl'][0];
@@ -26,27 +28,41 @@ class BottomBar extends React.Component {
     
     return (
         <div 
-          className="bg-white absolute left-0 bottom-0 w-full h-24 text-sm pt-2"
-          style={{paddingLeft: MAIN_BAR_WIDTH}}
+          className="bg-white absolute left-0 bottom-0 w-full h-24 text-xs pt-3 pr-6 flex justify-between"
+          style={{
+            paddingLeft: MAIN_BAR_WIDTH,
+            fontFamily: 'Noto Sans, sans-serif'}}
           >
             <div>
-              <a
-                className="hover:underline"
-                target="_blank" rel="noopener noreferrer"
-                href={currentVideo.fields['url']}
-                >
-                  {currentVideo.fields['title']}
-              </a>
-            </div>
+              <div>
+                <a
+                  className="hover:underline"
+                  target="_blank" rel="noopener noreferrer"
+                  href={currentVideo.fields['url']}
+                  >
+                    {currentVideo.fields['title']}
+                </a>
+              </div>
 
+              <div>
+                <a
+                  className="italic hover:underline"
+                  target="_blank" rel="noopener noreferrer"
+                  href={channelUrl}
+                  >
+                    {channelTitle}
+                </a>
+              </div>
+            </div>
+            
             <div>
-              <a
-                className="italic hover:underline"
-                target="_blank" rel="noopener noreferrer"
-                href={channelUrl}
-                >
-                  {channelTitle}
-              </a>
+              <button
+                className="hover:opacity-50"
+                onClick={this.props.onToggleMute}>
+                {
+                  <IconVolume isMuted={isMuted}/>
+                }
+              </button>
             </div>
         </div>
     );
