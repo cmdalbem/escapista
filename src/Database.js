@@ -9,7 +9,16 @@ class Database {
         let response, data
         response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}${options}`);
         data = await response.json();
-        return data.records;;
+
+        if (data.offset) {
+            let response2, data2;
+            response2 = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}${options}&offset=${data.offset}`);
+            data2 = await response2.json();
+
+            return data.records.concat(data2.records);
+        } else {
+            return data.records;
+        }
     }
 
     printCategories() {

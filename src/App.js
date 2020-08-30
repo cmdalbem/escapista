@@ -45,15 +45,11 @@ class App extends React.Component {
       return;
     }
 
-    const videos = this.state.categories[this.state.currentCategory].videos;
-    const producao = Producao.computeCurrentVideoAndOffset(videos);
+    const currentPlaylist = this.state.categories[this.state.currentCategory].videos;
+    const producao = Producao.computeCurrentVideoAndOffset(currentPlaylist);
 
     if (producao) {
-      this.setState({
-        currentVideo: videos[producao.currentVideoIndex],
-        nextVideo: videos[producao.nextVideoIndex],
-        videoStart: producao.videoStart
-      });
+      this.setState(producao);
     }
   }
 
@@ -62,23 +58,6 @@ class App extends React.Component {
       this.sync();
     }
   }
-
-  // Source: https://developers.google.com/youtube/iframe_api_reference#onStateChange
-  //   -1 (unstarted)
-  //   0 (ended)
-  //   1 (playing)
-  //   2 (paused)
-  //   3 (buffering)
-  //   5 (video cued).
-  // onStateChange(e) {
-  //   console.warn('onStateChange', e);
-
-  //   switch(e.data) {
-  //     case 0:
-  //       this.nextVideo();
-  //       break;
-  //   }
-  // }
 
   onSwitchCategory(e) {
     this.setState({ currentCategory: e.currentTarget.dataset.id });
@@ -122,6 +101,8 @@ class App extends React.Component {
                 <BottomBar
                   currentVideo={this.state.currentVideo}
                   nextVideo={this.state.nextVideo}
+                  time1={this.state.time1}
+                  time2={this.state.time2}
                   onToggleMute={this.onToggleMute}
                   isMuted={this.state.isMuted}
                 />

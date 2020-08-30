@@ -8,7 +8,13 @@ import IconGlobe from './IconGlobe.js'
 
 class BottomBar extends React.Component {
   render() {
-    const { currentVideo, nextVideo, isMuted } = this.props;
+    const {
+      currentVideo,
+      nextVideo,
+      isMuted,
+      time1,
+      time2
+    } = this.props;
     
     const channelTitle = 
       currentVideo.fields['channelTitle'] &&
@@ -60,6 +66,10 @@ class BottomBar extends React.Component {
                       {channelTitle}
                   </a>
                 </div>
+
+                <div>
+                  {time1}
+                </div>
               </div>
 
               {
@@ -89,14 +99,18 @@ class BottomBar extends React.Component {
                 {/* </a> */}
               </div>
 
-              <div>
+              <div className="italic">
                 {/* <a
-                  className="italic hover:underline"
+                  className="hover:underline"
                   target="_blank" rel="noopener noreferrer"
                   href={nextChannelUrl}
                   > */}
                     { nextChannelTitle }
                 {/* </a> */}
+              </div>
+
+              <div>
+                {time2}
               </div>
             </div>
             

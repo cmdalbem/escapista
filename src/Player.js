@@ -36,6 +36,23 @@ class Player extends React.Component {
         // this.props.sync();
     }
 
+    // Source: https://developers.google.com/youtube/iframe_api_reference#onStateChange
+    //   -1 (unstarted)
+    //   0 (ended)
+    //   1 (playing)
+    //   2 (paused)
+    //   3 (buffering)
+    //   5 (video cued).
+    // onStateChange(e) {
+    //   console.warn('onStateChange', e);
+
+    //   switch(e.data) {
+    //     case 0:
+    //       this.nextVideo();
+    //       break;
+    //   }
+    // }
+
     render() {
         const { videoStart, videoId, isUIVisible } = this.props;
 
