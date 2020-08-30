@@ -1,11 +1,11 @@
 import React from 'react';
-import YouTube from 'react-youtube';
 
 import Database from './Database.js'
 import Producao from './Producao.js'
 
 import BottomBar from './BottomBar.js'
 import MainBar from './MainBar.js'
+import Player from './Player.js'
 
 import IconMenu from './IconMenu.js'
 
@@ -13,20 +13,15 @@ import './App.css';
 
 class App extends React.Component {
   database;
-  playerRef;
 
   constructor(props) {
     super(props);
 
-    this.onVideoEnd = this.onVideoEnd.bind(this);
-    this.onVideoError = this.onVideoError.bind(this);
     this.onSwitchCategory = this.onSwitchCategory.bind(this);
     this.onToggleUI = this.onToggleUI.bind(this);
     this.onToggleMute = this.onToggleMute.bind(this);
 
     this.database = new Database();
-
-    this.playerRef = React.createRef();
 
     this.state = {
       videos: [],
@@ -64,24 +59,6 @@ class App extends React.Component {
     if (prevState.currentCategory !== this.state.currentCategory) {
       this.sync();
     }
-
-    if (prevState.isMuted !== this.state.isMuted) {
-      if (this.state.isMuted) {
-        this.playerRef.current.internalPlayer.mute();
-      } else {
-        this.playerRef.current.internalPlayer.unMute();
-      }
-    }
-  }
-
-  onVideoEnd() {
-    console.debug('onVideoEnd');
-    this.sync();
-  }
-
-  onVideoError(e) {
-    console.warn('onVideoError', e);
-    // this.sync();
   }
 
   // Source: https://developers.google.com/youtube/iframe_api_reference#onStateChange
@@ -115,25 +92,7 @@ class App extends React.Component {
 
   render() {
     const isReady = this.state.currentVideo;
-    let youtubeConfig, videoId, categoriesSwitcher;
 
-    if (isReady) {
-      videoId = this.state.currentVideo.fields['id'];
-      console.debug('videoId =',videoId);
-
-      youtubeConfig = {
-        playerVars: {
-          autoplay: 1,
-          controls: 0,
-          disablekb: 1,
-          enablejsapi: 1,
-          modestbranding: 1,
-          origin: 'https://slowproject.app/',
-          start: this.state.videoStart 
-        },
-      };
-    } 
-    
     return (
       <div>
         {
@@ -149,10 +108,7 @@ class App extends React.Component {
 
               <div 
                 className={this.state.isUIVisible ? 'opacity-100' : 'opacity-0'}
-                style={{
-                  // transition: 'opacity 0.8s cubic-bezier(0.57, 0, 0.58, 1)'
-                  transition: 'opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1)'
-                }}
+                style={{ transition: 'opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1)' }}
                 >
                 <MainBar
                   categories={this.state.categories}
@@ -168,17 +124,13 @@ class App extends React.Component {
                 />
               </div>
 
-              <div className="video-background">
-                <div className="video-foreground">
-                  <YouTube
-                    videoId={videoId}
-                    opts={youtubeConfig}
-                    onEnd={this.onVideoEnd}
-                    onError={this.onVideoError}
-                    ref={this.playerRef}
-                  />
-                </div>
-              </div>
+              <Player
+                videoId={this.state.currentVideo.fields['id']}
+                videoStart={this.state.videoStart}
+                sync={this.sync}
+                isMuted={this.state.isMuted}
+                isUIVisible={this.state.isUIVisible}
+              />
             </div>
             :
             <h1>Carregando...</h1>
