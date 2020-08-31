@@ -75,9 +75,9 @@ class App extends React.Component {
     const isReady = this.state.currentVideo;
 
     return (
-      <div>
+      <div className="antialised">
         {
-          isReady ?
+          isReady &&
             <div>
               <div className="mt-8 ml-12 absolute">
                   <button
@@ -88,7 +88,7 @@ class App extends React.Component {
               </div>
 
               <div 
-                className={this.state.isUIVisible ? 'opacity-100' : 'opacity-0'}
+                className={this.state.isUIVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}
                 style={{ transition: 'opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1)' }}
                 >
                 <MainBar
@@ -111,13 +111,12 @@ class App extends React.Component {
               <Player
                 videoId={this.state.currentVideo.fields['id']}
                 videoStart={this.state.videoStart}
+                onToggleUI={this.onToggleUI}
                 sync={this.sync}
                 isMuted={this.state.isMuted}
                 isUIVisible={this.state.isUIVisible}
               />
             </div>
-            :
-            <h1>Carregando...</h1>
         }
       </div>
     );
