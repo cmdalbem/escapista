@@ -43,15 +43,19 @@ class Player extends React.Component {
     //   2 (paused)
     //   3 (buffering)
     //   5 (video cued).
-    // onStateChange(e) {
-    //   console.warn('onStateChange', e);
+    onStateChange(e) {
+      const statuses = [
+        'unstarted',
+        'ended',
+        'playing',
+        'paused',
+        'buffering',
+        '',
+        'video cued'
+      ];
 
-    //   switch(e.data) {
-    //     case 0:
-    //       this.nextVideo();
-    //       break;
-    //   }
-    // }
+      console.debug('YouTube Player status:', e.data, statuses[e.data+1]);
+    }
 
     render() {
         const { videoStart, videoId, isUIVisible } = this.props;
@@ -91,6 +95,7 @@ class Player extends React.Component {
                             opts={youtubeConfig}
                             onEnd={this.onVideoEnd}
                             onError={this.onVideoError}
+                            onStateChange={this.onStateChange}
                             ref={this.playerRef}
                         />
                     </div>
