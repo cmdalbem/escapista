@@ -25,9 +25,6 @@ class MainBar extends React.Component {
                                 key={id}
                             >
                                 {categories[id].fields.title}
-                                <span className="ml-2 opacity-25">
-                                    {categories[id].videos.length}
-                                </span>
                             </button>
                         )
                     }
