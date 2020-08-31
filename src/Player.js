@@ -78,7 +78,10 @@ class Player extends React.Component {
                 // transition: 'all 1s',
                 // zIndex: -1
             }}>
-                <div className="video-background">
+                <div
+                    className="video-background cursor-pointer"
+                    onClick={this.props.onToggleUI}
+                    >
                     <div className="video-foreground">
                         <YouTube
                             videoId={videoId}
