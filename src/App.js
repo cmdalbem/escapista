@@ -22,6 +22,7 @@ class App extends React.Component {
     this.onToggleUI = this.onToggleUI.bind(this);
     this.onToggleMute = this.onToggleMute.bind(this);
     this.sync = this.sync.bind(this);
+    this.skipVideo = this.skipVideo.bind(this);
 
     this.database = new Database();
 
@@ -70,6 +71,14 @@ class App extends React.Component {
 
   onToggleMute() {
     this.setState({ isMuted: !this.state.isMuted });
+  }
+
+  skipVideo() {
+    console.warn('Something went wrong, skipping this video', this.state.currentVideo);
+    
+    const currentPlaylist = this.state.categories[this.state.currentCategory].videos;
+    currentPlaylist.splice(this.state.currentVideo, 1);
+    this.sync();
   }
 
   render() {
@@ -133,10 +142,11 @@ class App extends React.Component {
               <Player
                 videoId={this.state.currentVideo.fields['id']}
                 videoStart={this.state.videoStart}
-                onToggleUI={this.onToggleUI}
-                sync={this.sync}
                 isMuted={this.state.isMuted}
                 isUIVisible={this.state.isUIVisible}
+                onToggleUI={this.onToggleUI}
+                sync={this.sync}
+                skipVideo={this.skipVideo}
               />
             </div>
         }

@@ -6,12 +6,14 @@ import { MAIN_BAR_WIDTH } from './constants.js';
 
 class Player extends React.Component {
     playerRef;
+    // livenessCheckTimeout;
 
     constructor(props) {
         super(props);
 
-        this.onVideoEnd = this.onVideoEnd.bind(this);
-        this.onVideoError = this.onVideoError.bind(this);
+        this.onEnd = this.onEnd.bind(this);
+        this.onError = this.onError.bind(this);
+        this.onStateChange = this.onStateChange.bind(this);
 
         this.playerRef = React.createRef();
     }
@@ -26,35 +28,50 @@ class Player extends React.Component {
         }
       }
 
-    onVideoEnd() {
-        console.debug('onVideoEnd');
+    onEnd() {
+        console.debug('onEnd');
         this.props.sync();
     }
 
-    onVideoError(e) {
-        console.warn('onVideoError', e);
-        // this.props.sync();
+    onError(e) {
+        const msg = {
+             2: 'The request contains an invalid parameter value. For example, this error occurs if you specify a video ID that does not have 11 characters, or if the video ID contains invalid characters, such as exclamation points or asterisks.'
+            ,5: 'The requested content cannot be played in an HTML5 player or another error related to the HTML5 player has occurred.'
+            ,100: 'The video requested was not found. This error occurs when a video has been removed (for any reason) or has been marked as private.'
+            ,101: 'The owner of the requested video does not allow it to be played in embedded players.'
+            ,150: 'The owner of the requested video does not allow it to be played in embedded players.'
+        };
+
+        console.warn('YouTube Player error', e.data, msg[e.data]);
+
+        this.props.skipVideo();
     }
 
-    // Source: https://developers.google.com/youtube/iframe_api_reference#onStateChange
-    //   -1 (unstarted)
-    //   0 (ended)
-    //   1 (playing)
-    //   2 (paused)
-    //   3 (buffering)
-    //   5 (video cued).
     onStateChange(e) {
-      const statuses = [
-        'unstarted',
-        'ended',
-        'playing',
-        'paused',
-        'buffering',
-        '',
-        'video cued'
-      ];
+        // Source: https://developers.google.com/youtube/iframe_api_reference#onStateChange
+        const msg = [
+            'unstarted',// -1
+            'ended',    // 0
+            'playing',  // 1
+            'paused',   // 2
+            'buffering',// 3
+            '',         // 4
+            'video cued'// 5
+        ];
 
-      console.debug('YouTube Player status:', e.data, statuses[e.data+1]);
+        console.debug('YouTube Player status:', e.data, msg[e.data + 1]);
+
+        // // If status is 'unstarted', trigger a timeout check, otherwise clear it
+        // if (e.data === -1) {
+        //     this.livenessCheckTimeout = setTimeout(() => {
+        //         this.playerRef.current.internalPlayer.getPlayerState()
+        //             .then(result => {
+        //                 console.debug('state', result);
+        //             })
+        //     }, TIMEOUT_MS)
+        // } else {
+        //     clearTimeout(this.livenessCheckTimeout);
+        // }
     }
 
     render() {
@@ -93,8 +110,8 @@ class Player extends React.Component {
                         <YouTube
                             videoId={videoId}
                             opts={youtubeConfig}
-                            onEnd={this.onVideoEnd}
-                            onError={this.onVideoError}
+                            onEnd={this.onEnd}
+                            onError={this.onError}
                             onStateChange={this.onStateChange}
                             ref={this.playerRef}
                         />
