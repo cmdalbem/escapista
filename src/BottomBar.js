@@ -47,6 +47,10 @@ class BottomBar extends React.Component {
           >
             <div className="w-7/12 flex">
               <div>
+                {time1}
+              </div>
+
+              <div className="ml-4">
                 <div>
                   <a
                     className="hover:underline"
@@ -66,18 +70,13 @@ class BottomBar extends React.Component {
                       {channelTitle}
                   </a>
                 </div>
-
-                <div>
-                  {time1}
-                </div>
               </div>
 
               {
                 latlong && 
-                // <div className="w-4/12">
                 <div className="ml-4">
                   <a
-                    className="hover:underline text-gray-500"
+                    className="hover:underline text-gray-700"
                     target="_blank" rel="noopener noreferrer"
                     href={`https://www.google.com/maps/@${latlong},12z`}
                     >
@@ -88,29 +87,31 @@ class BottomBar extends React.Component {
             </div>
 
 
-            <div className="w-3/12 text-gray-500">
-              <div className="truncate">
-                {/* <a
-                  className="hover:underline"
-                  target="_blank" rel="noopener noreferrer"
-                  href={nextVideo.fields['url']}
-                  > */}
-                    { nextVideo.fields['title'] }
-                {/* </a> */}
-              </div>
-
-              <div className="italic">
-                {/* <a
-                  className="hover:underline"
-                  target="_blank" rel="noopener noreferrer"
-                  href={nextChannelUrl}
-                  > */}
-                    { nextChannelTitle }
-                {/* </a> */}
-              </div>
-
+            <div className="w-3/12 flex text-gray-500">
               <div>
                 {time2}
+              </div>
+
+              <div className="ml-4 truncate">
+                <div className="truncate">
+                  <a
+                    className="hover:underline"
+                    target="_blank" rel="noopener noreferrer"
+                    href={nextVideo.fields['url']}
+                    >
+                      { nextVideo.fields['title'] }
+                  </a>
+                </div>
+
+                <div className="italic">
+                  <a
+                    className="hover:underline"
+                    target="_blank" rel="noopener noreferrer"
+                    href={nextChannelUrl}
+                    >
+                      { nextChannelTitle }
+                  </a>
+                </div>
               </div>
             </div>
             
