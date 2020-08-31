@@ -79,17 +79,20 @@ class App extends React.Component {
         {
           isReady &&
             <div>
-              <div className="mt-8 ml-12 absolute">
-                  <button
-                      className="p-4 hover:opacity-50 text-white"
-                      onClick={this.onToggleUI}>
-                      <IconMenu/>
-                  </button>
-              </div>
+              {
+                !this.state.isUIVisible && 
+                <div className="mt-8 ml-12 absolute z-10">
+                    <button
+                        className="p-4 hover:opacity-50 text-white"
+                        onClick={this.onToggleUI}>
+                        <IconMenu/>
+                    </button>
+                </div>
+              }
 
               <div 
-                className={this.state.isUIVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-                style={{ transition: 'opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1)' }}
+                // className={this.state.isUIVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}
+                // style={{ transition: 'opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1)' }}
                 >
                 <MainBar
                   categories={this.state.categories}

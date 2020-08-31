@@ -63,23 +63,26 @@ class Player extends React.Component {
                 disablekb: 1,
                 enablejsapi: 1,
                 modestbranding: 1,
+                fs: 0,
+                loop: 0,
+                rel: 0,
+                showinfo: 0,
+                autohide: 1,
                 origin: 'https://slowproject.app/',
                 start: videoStart
             },
         };
 
         return (
-            <div style={{
-                // position: 'absolute',
-                // top: '0',
-                // right: '0',
-                // left: isUIVisible ? MAIN_BAR_WIDTH : 0,
-                // bottom: isUIVisible ? 96 : 0,
-                // transition: 'all 1s',
-                // zIndex: -1
-            }}>
+            <div className="overflow-hidden">
                 <div
                     className="video-background cursor-pointer"
+                    style={{
+                        transition: 'transform 1.8s cubic-bezier(0.65, 0, 0.35, 1)',
+                        transform: isUIVisible ? 
+                            `translate(${MAIN_BAR_WIDTH}px, -96px)` :
+                            `translate(0, 0)`
+                    }}
                     onClick={this.props.onToggleUI}
                     >
                     <div className="video-foreground">
