@@ -7,7 +7,8 @@ import BottomBar from './BottomBar.js'
 import MainBar from './MainBar.js'
 import Player from './Player.js'
 
-import IconMenu from './IconMenu.js'
+import { Fade as Hamburger } from 'hamburger-react'
+
 
 import './App.css';
 
@@ -79,26 +80,44 @@ class App extends React.Component {
         {
           isReady &&
             <div>
-              {
-                !this.state.isUIVisible && 
-                <div className="mt-8 ml-12 absolute z-10">
-                    <button
-                        className="p-4 hover:opacity-50 text-white"
-                        onClick={this.onToggleUI}>
-                        <IconMenu/>
-                    </button>
-                </div>
-              }
+              <div 
+                className={`
+                  mt-8 pt-1 ml-12 absolute z-10 flex items-center
+                  ${this.state.isUIVisible ? 'text-black' : 'text-white'}`
+                }>
+                  <Hamburger
+                    size={16}
+                    duration={1.8}
+                    toggled={this.state.isUIVisible} 
+                    toggle={this.onToggleUI}
+                  />
+
+                  <h1
+                      className={`inline-block text-2xl leading-6 ml-8`}
+                      style={{
+                        fontFamily: 'Unna, sans-serif',
+                        transition: this.state.isUIVisible 
+                          ? 'color 1.2s ease-out 0.8s'
+                          : 'color 0.8s ease-out'
+                      }}>
+                      Escapista
+                  </h1>
+              </div>
 
               <div 
-                // className={this.state.isUIVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-                // style={{ transition: 'opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1)' }}
-                >
+                className={
+                  this.state.isUIVisible
+                    ? 'opacity-100'
+                    : 'opacity-0 pointer-events-none'}
+                style={{
+                  transition: this.state.isUIVisible 
+                    ? 'opacity 1.2s ease-out 0.8s'
+                    : 'opacity 0.8s ease-out'
+                }}>
                 <MainBar
                   categories={this.state.categories}
                   currentCategory={this.state.currentCategory}
                   onSwitchCategory={this.onSwitchCategory}
-                  onToggleUI={this.onToggleUI}
                 />
               
                 <BottomBar
