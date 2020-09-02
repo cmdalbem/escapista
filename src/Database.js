@@ -5,14 +5,14 @@ class Database {
     categories = {};
     videos = []
 
-    async fetchTable(tableName, options = '') {
+    async fetchTable(tableName, view) {
         let response, data
-        response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}${options}`);
+        response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}&view=${view}`);
         data = await response.json();
 
         if (data.offset) {
             let response2, data2;
-            response2 = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}${options}&offset=${data.offset}`);
+            response2 = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}&view=${view}&offset=${data.offset}`);
             data2 = await response2.json();
 
             return data.records.concat(data2.records);
@@ -38,7 +38,7 @@ class Database {
         let categories, videos;
 
         // Query categories
-        categories = await this.fetchTable('Categories');
+        categories = await this.fetchTable('Categories','Gallery');
         if (categories && categories.length > 0) {
             // Fill our map of categories, still empty
             categories.forEach(record => {
@@ -51,7 +51,7 @@ class Database {
         };
 
         // Query videos
-        videos = await this.fetchTable('Videos','&view=Filtered');
+        videos = await this.fetchTable('Videos','Filtered');
         if (videos && videos.length > 0) {
             console.debug('airtable entries:',videos);
 
