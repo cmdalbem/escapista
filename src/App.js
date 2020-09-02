@@ -96,7 +96,8 @@ class App extends React.Component {
                 }>
                   <Hamburger
                     size={16}
-                    duration={1.8}
+                    duration={1}
+                    easing="cubic-bezier(0.65, 0, 0.35, 1)"
                     toggled={this.state.isUIVisible} 
                     toggle={this.onToggleUI}
                   />
@@ -106,8 +107,8 @@ class App extends React.Component {
                       style={{
                         fontFamily: 'Unna, sans-serif',
                         transition: this.state.isUIVisible 
-                          ? 'color 1.2s ease-out 0.8s'
-                          : 'color 0.8s ease-out'
+                          ? 'color 1s cubic-bezier(0.65, 0, 0.35, 1) 1s'
+                          : 'color 1s cubic-bezier(0.65, 0, 0.35, 1) 1s'
                       }}>
                       Escapista
                   </h1>
