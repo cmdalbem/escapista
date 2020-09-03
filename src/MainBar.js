@@ -11,7 +11,7 @@ class MainBar extends React.Component {
 
         return (
             <div
-                className="bg-white absolute left-0 top-0 h-full"
+                className="absolute left-0 top-0 h-full"
                 style={{ width: MAIN_BAR_WIDTH }}
                 >
                 <div

@@ -3,10 +3,31 @@ import React from 'react';
 import { MAIN_BAR_WIDTH } from './constants.js';
 
 import IconVolume from './IconVolume.js'
-import IconGlobe from './IconGlobe.js'
+import IconFullScreen from './IconFullScreen.js'
+// import IconGlobe from './IconGlobe.js'
 
 
 class BottomBar extends React.Component {
+  state = {
+    isFullscreen: false
+  }
+
+  onToggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen(); 
+      }
+    }
+  }
+
+  onFullScreenChange(e) {
+    this.setState({
+      isFullScreen: document.fullscreenElement
+    })
+  }
+
   render() {
     const {
       currentVideo,
@@ -40,7 +61,7 @@ class BottomBar extends React.Component {
 
     return (
         <div 
-          className="bg-white absolute left-0 bottom-0 w-full h-24 text-xs pt-2 flex justify-between"
+          className="absolute left-0 bottom-0 w-full h-24 text-xs pt-2 flex justify-between"
           style={{
             paddingLeft: MAIN_BAR_WIDTH,
             fontFamily: 'Noto Sans, sans-serif'}}
@@ -115,17 +136,24 @@ class BottomBar extends React.Component {
               </div>
             </div>
             
-            <div className="w-1/12 flex justify-end items-start">
+            <div className="w-1/12 flex justify-end items-start -mt-4">
               <button
-                className="hover:opacity-50"
+                className="p-4 hover:opacity-50"
                 onClick={this.props.onToggleMute}>
                 {
-                  <IconVolume isMuted={isMuted}/>
+                  <IconVolume isMuted={this.state.isMuted}/>
+                }
+              </button>
+              <button
+                className="p-4 hover:opacity-50"
+                onClick={this.onToggleFullscreen}>
+                {
+                  <IconFullScreen isFullScreen={this.state.isFullScreen}/>
                 }
               </button>
             </div>
 
-            <div className="w-1/12"></div>
+            {/* <div className="w-1/12"></div> */}
         </div>
     );
   }
