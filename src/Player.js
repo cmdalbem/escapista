@@ -1,7 +1,7 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 
-import { MAIN_BAR_WIDTH } from './constants.js';
+import { MAIN_BAR_WIDTH, LIVENESS_CHECK_MS } from './constants.js';
 
 
 class Player extends React.Component {
@@ -27,9 +27,12 @@ class Player extends React.Component {
 
     onReady() {
         this.updateVolume();
-        
-        // Just to make sure
-        this.playerRef.current.internalPlayer.playVideo();
+
+        // Just to make sure (also turns it up after computer sleeping)
+        setInterval(() => {
+            this.playerRef.current.internalPlayer.playVideo();
+            console.debug('.');
+        }, LIVENESS_CHECK_MS);
     }
 
     updateVolume() {
