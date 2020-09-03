@@ -13,6 +13,7 @@ class Player extends React.Component {
 
         this.onEnd = this.onEnd.bind(this);
         this.onError = this.onError.bind(this);
+        this.onReady = this.onReady.bind(this);
         this.onStateChange = this.onStateChange.bind(this);
 
         this.playerRef = React.createRef();
@@ -20,13 +21,24 @@ class Player extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.isMuted !== this.props.isMuted) {
-          if (this.props.isMuted) {
-            this.playerRef.current.internalPlayer.mute();
-          } else {
-            this.playerRef.current.internalPlayer.unMute();
-          }
+          this.updateVolume();
         }
       }
+
+    onReady() {
+        this.updateVolume();
+        
+        // Just to make sure
+        this.playerRef.current.internalPlayer.playVideo();
+    }
+
+    updateVolume() {
+        if (this.props.isMuted) {
+            this.playerRef.current.internalPlayer.mute();
+        } else {
+            this.playerRef.current.internalPlayer.unMute();
+        }
+    }
 
     onEnd() {
         console.debug('onEnd');
@@ -112,6 +124,7 @@ class Player extends React.Component {
                             opts={youtubeConfig}
                             onEnd={this.onEnd}
                             onError={this.onError}
+                            onReady={this.onReady}
                             onStateChange={this.onStateChange}
                             ref={this.playerRef}
                         />

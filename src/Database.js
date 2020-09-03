@@ -1,3 +1,5 @@
+import { slugify } from './utils.js';
+
 const AIRTABLE_API_KEY = 'keyitXI1MaCb75MYj';
 const AIRTABLE_BASE_ID = 'app5PlDbzK24kIJtP';
 
@@ -66,8 +68,10 @@ class Database {
                         return self.indexOf(value) === index;
                     })
 
-                    categories.forEach(c => {
-                        this.categories[c].videos.push(r);
+                    categories.forEach(i => {
+                        const c = this.categories[i];
+                        c.videos.push(r);
+                        c.slug = slugify(c.fields.title);
                     });
                 } else {
                     console.warn('Video',r.fields.title,'without any category');
@@ -78,8 +82,7 @@ class Database {
 
             return {    
                 videos: this.videos,
-                categories: this.categories,
-                currentCategory: Object.keys(this.categories)[0]
+                categories: this.categories
             };
         } else {
             console.error('No videos from Airtable.')

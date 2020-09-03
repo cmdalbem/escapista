@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { MAIN_BAR_WIDTH } from './constants.js';
+import { slugify } from './utils.js';
 
 
 class MainBar extends React.Component {
@@ -21,10 +22,11 @@ class MainBar extends React.Component {
                             <button
                                 className={`pb-4 hover:opacity-100 ${currentCategory === id ? 'opacity-100' : 'opacity-25'}`}
                                 onClick={this.props.onSwitchCategory}
+                                // data-id={slugify(categories[id].fields.title)}
                                 data-id={id}
                                 key={id}
                             >
-                                {categories[id].fields.title}
+                                { categories[id].fields.title }
                             </button>
                         )
                     }
