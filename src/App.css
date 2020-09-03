@@ -7,39 +7,40 @@
   Source:
   https://stackoverflow.com/questions/24579785/force-iframe-youtube-video-to-center-fit-and-full-cover-the-screen-in-the-backgr
   */
-.video-background iframe,
-.video-foreground {
-  pointer-events: none
-}
-
 .video-background {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  /* z-index: -1; */
 }
 
-.video-background iframe,
-.video-foreground {
+.video-background iframe {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  transform: translate(-50%, -50%);
 }
 
 @media (min-aspect-ratio: 16/9) {
-  .video-foreground {
-      height:300%;
-      top: -100%
+  .video-background iframe {
+    /* height = 100 * (9 / 16) = 56.25 */
+    height: 56.25vw;
+  }
+}
+@media (max-aspect-ratio: 16/9) {
+  .video-background iframe {
+    /* width = 100 / (9 / 16) = 177.777777 */
+    width: 177.78vh;
   }
 }
 
-@media (max-aspect-ratio: 16/9) {
-  .video-foreground {
-      width:300%;
-      left: -100%
-  }
+@media all and (max-width: 600px) {
+  .vid-info { width: 50%; padding: .5rem; }
+  .vid-info h1 { margin-bottom: .2rem; }
+}
+@media all and (max-width: 500px) {
+  .vid-info .acronym { display: none; }
 }
