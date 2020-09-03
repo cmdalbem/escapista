@@ -30,16 +30,20 @@ class Player extends React.Component {
 
         // Just to make sure (also turns it up after computer sleeping)
         setInterval(() => {
-            this.playerRef.current.internalPlayer.playVideo();
-            console.debug('.');
+            if (this.playerRef.current) {
+                this.playerRef.current.internalPlayer.playVideo();
+                console.debug('.');
+            }
         }, LIVENESS_CHECK_MS);
     }
 
     updateVolume() {
-        if (this.props.isMuted) {
-            this.playerRef.current.internalPlayer.mute();
-        } else {
-            this.playerRef.current.internalPlayer.unMute();
+        if (this.playerRef.current) {
+            if (this.props.isMuted) {
+                this.playerRef.current.internalPlayer.mute();
+            } else {
+                this.playerRef.current.internalPlayer.unMute();
+            }
         }
     }
 
