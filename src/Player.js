@@ -39,7 +39,7 @@ class Player extends React.Component {
         // Inject Hotjar whitelist attribute
         const iframeEl = document.querySelector('iframe');
         if (iframeEl && iframeEl.setAttribute) {
-            setAttribute('data-hj-allow-iframe','')
+            iframeEl.setAttribute('data-hj-allow-iframe','')
         }
     }
 
