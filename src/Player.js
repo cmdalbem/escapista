@@ -25,7 +25,7 @@ class Player extends React.Component {
         }
       }
 
-    onReady() {
+    onReady(e) {
         this.updateVolume();
 
         // Just to make sure (also turns it up after computer sleeping)
@@ -35,6 +35,12 @@ class Player extends React.Component {
                 console.debug('.');
             }
         }, LIVENESS_CHECK_MS);
+
+        // Inject Hotjar whitelist attribute
+        const iframeEl = document.querySelector('iframe');
+        if (iframeEl && iframeEl.setAttribute) {
+            setAttribute('data-hj-allow-iframe','')
+        }
     }
 
     updateVolume() {
