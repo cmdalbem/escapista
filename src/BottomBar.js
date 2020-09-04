@@ -69,33 +69,29 @@ class BottomBar extends React.Component {
 
     return (
         <div 
-          className="absolute left-0 bottom-0 w-full h-24 text-xs pt-4 flex justify-between"
+          className="absolute left-0 bottom-0 w-full h-24 text-xs pt-2 flex justify-between"
           style={{
             paddingLeft: MAIN_BAR_WIDTH,
             fontFamily: 'Noto Sans, sans-serif'}}
           >
             <div className="w-7/12 flex">
-              <div>
+              <div className="mt-2">
                 {time1}
               </div>
 
               <div className="ml-4">
                 <div>
-                  <a
-                    className="hover:underline"
-                    target="_blank" rel="noopener noreferrer"
-                    href={currentVideo.fields['url']}
-                    >
+                  <a target="_blank" rel="noopener noreferrer"
+                    className="hover:underline text-xl"
+                    href={currentVideo.fields['url']} >
                       {currentVideo.fields['title']}
                   </a>
                 </div>
 
                 <div>
-                  <a
+                  <a target="_blank" rel="noopener noreferrer"
                     className="italic hover:underline"
-                    target="_blank" rel="noopener noreferrer"
-                    href={channelUrl}
-                    >
+                    href={channelUrl} >
                       {channelTitle}
                   </a>
                 </div>
@@ -103,12 +99,10 @@ class BottomBar extends React.Component {
 
               {
                 latlong && 
-                <div className="ml-4">
-                  <a
-                    className="hover:underline text-gray-700"
-                    target="_blank" rel="noopener noreferrer"
-                    href={`https://www.google.com/maps/@${latlong},12z`}
-                    >
+                <div className="ml-4 mt-2">
+                  <a target="_blank" rel="noopener noreferrer"
+                    className="hover:underline text-gray-700 whitespace-no-wrap"
+                    href={`https://www.google.com/maps/@${latlong},12z`} >
                       {latlongLabel}
                   </a>
                 </div>
@@ -117,34 +111,30 @@ class BottomBar extends React.Component {
 
 
             <div className="w-3/12 flex text-gray-500">
-              <div>
+              <div className="mt-2">
                 {time2}
               </div>
 
               <div className="ml-4 truncate">
                 <div className="truncate">
-                  <a
-                    className="hover:underline"
-                    target="_blank" rel="noopener noreferrer"
-                    href={nextVideo.fields['url']}
-                    >
+                  <a target="_blank" rel="noopener noreferrer"
+                    className="hover:underline text-xl"
+                    href={nextVideo.fields['url']} >
                       { nextVideo.fields['title'] }
                   </a>
                 </div>
 
                 <div className="italic">
-                  <a
+                  <a target="_blank" rel="noopener noreferrer"
                     className="hover:underline"
-                    target="_blank" rel="noopener noreferrer"
-                    href={nextChannelUrl}
-                    >
+                    href={nextChannelUrl} >
                       { nextChannelTitle }
                   </a>
                 </div>
               </div>
             </div>
             
-            <div className="w-1/12 flex justify-end items-start -mt-4">
+            <div className="w-1/12 flex justify-end items-start -mt-2">
               <button
                 className="p-4 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
                 onClick={this.props.onToggleMute}>
