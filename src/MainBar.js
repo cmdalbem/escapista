@@ -20,7 +20,11 @@ class MainBar extends React.Component {
                     {
                         Object.keys(categories).map(id =>
                             <button
-                                className={`pb-4 hover:opacity-100 ${currentCategory === id ? 'opacity-100' : 'opacity-25'}`}
+                                className={`
+                                    py-2 w-full text-left
+                                    hover:opacity-100 transition-opacity duration-300
+                                    ${currentCategory === id ? 'opacity-100' : 'opacity-25'}
+                                `}
                                 onClick={this.props.onSwitchCategory}
                                 // data-id={slugify(categories[id].fields.title)}
                                 data-id={id}
