@@ -138,14 +138,16 @@ class App extends React.Component {
             <div
               className={`
                 mt-8 pt-1 ml-12 absolute z-10 flex items-center
+                cursor-pointer hover:opacity-75
                 ${this.state.isUIVisible ? 'text-black' : 'text-white'}`
-              }>
+              }
+              onClick={this.onToggleUI}
+              >
               <Hamburger
                 size={16}
                 duration={1}
                 easing="cubic-bezier(0.65, 0, 0.35, 1)"
                 toggled={this.state.isUIVisible}
-                toggle={this.onToggleUI}
               />
 
               <h1
