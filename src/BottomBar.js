@@ -8,8 +8,16 @@ import IconFullScreen from './IconFullScreen.js'
 
 
 class BottomBar extends React.Component {
-  state = {
-    isFullscreen: false
+  constructor(props) {
+    super(props);
+
+    this.onFullScreenChange = this.onFullScreenChange.bind(this);
+
+    document.addEventListener('fullscreenchange', this.onFullScreenChange);
+
+    this.state = {
+      isFullscreen: false
+    }
   }
 
   onToggleFullscreen() {
@@ -61,7 +69,7 @@ class BottomBar extends React.Component {
 
     return (
         <div 
-          className="absolute left-0 bottom-0 w-full h-24 text-xs pt-2 flex justify-between"
+          className="absolute left-0 bottom-0 w-full h-24 text-xs pt-4 flex justify-between"
           style={{
             paddingLeft: MAIN_BAR_WIDTH,
             fontFamily: 'Noto Sans, sans-serif'}}
@@ -138,18 +146,14 @@ class BottomBar extends React.Component {
             
             <div className="w-1/12 flex justify-end items-start -mt-4">
               <button
-                className="p-4 hover:opacity-50"
+                className="p-4 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
                 onClick={this.props.onToggleMute}>
-                {
-                  <IconVolume isMuted={this.state.isMuted}/>
-                }
+                  <IconVolume isMuted={this.props.isMuted}/>
               </button>
               <button
-                className="p-4 hover:opacity-50"
+                className="p-4 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
                 onClick={this.onToggleFullscreen}>
-                {
                   <IconFullScreen isFullScreen={this.state.isFullScreen}/>
-                }
               </button>
             </div>
 
