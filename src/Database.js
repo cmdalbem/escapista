@@ -23,7 +23,7 @@ class Database {
         }
     }
 
-    printCategories() {
+    printCategoriesContents() {
         console.group('Categories');
         Object.keys(this.categories).forEach(key => {
             const c = this.categories[key]
@@ -34,6 +34,13 @@ class Database {
             console.groupEnd();
         });
         console.groupEnd();
+    }
+
+    printCategories() {
+        Object.keys(this.categories).forEach(key => {
+            const c = this.categories[key]
+            console.debug(c.fields.title, '\t\t', c.videos.length)
+        });
     }
 
     async get() {
@@ -63,22 +70,28 @@ class Database {
             videos.forEach(r => {
                 let categories = r.fields.categories;
                 if (categories) {
-                    // Remove duplicates (damn, Airtable!)
+                    // Remove duplicated categories (damn, Airtable!)
                     categories = categories.filter( (value, index, self) => { 
                         return self.indexOf(value) === index;
                     })
 
                     categories.forEach(i => {
                         const c = this.categories[i];
-                        c.videos.push(r);
-                        c.slug = slugify(c.fields.title);
+
+                        if (c.videos.filter(v => v.fields.id === r.fields.id).length > 0) {
+                            console.warn('Found duplicated video!', r.fields.id, r.fields.title);
+                        } else {
+                            c.videos.push(r);
+                            c.slug = slugify(c.fields.title);
+                        }
                     });
                 } else {
                     console.warn('Video',r.fields.title,'without any category');
                 }
             });
 
-            // this.printCategories();
+            // this.printCategoriesContents();
+            this.printCategories();
 
             return {    
                 videos: this.videos,
