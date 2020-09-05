@@ -114,7 +114,7 @@ class BottomBar extends React.Component {
               </div>
 
               <div className="ml-4">
-                <div className="h-16 overflow-hidden">
+                <div className="overflow-hidden" style={{maxHeight: '4rem'}}>
                   <a target="_blank" rel="noopener noreferrer"
                     className="hover:underline text-xl"
                     href={currentVideo.fields['url']} >
