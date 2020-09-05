@@ -191,7 +191,7 @@ class App extends React.Component {
             <Player
               videoId={this.state.currentVideo.fields['id']}
               videoStart={this.state.videoStart}
-              videoEnd={this.state.currentVideo.fields.duration}
+              videoEnd={this.state.currentVideo.fields.duration * 60}
               isMuted={this.state.isMuted}
               isUIVisible={this.state.isUIVisible}
               onToggleUI={this.onToggleUI}
