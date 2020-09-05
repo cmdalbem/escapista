@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { MAIN_BAR_WIDTH, BOTTOM_BAR_HEIGHT } from './constants.js';
+import {
+  MAIN_BAR_WIDTH,
+  BOTTOM_BAR_HEIGHT,
+  LABELS_TRANSITION_MS
+} from './constants.js';
 
 import IconVolume from './IconVolume.js'
 import IconFullScreen from './IconFullScreen.js'
@@ -16,8 +20,34 @@ class BottomBar extends React.Component {
     document.addEventListener('fullscreenchange', this.onFullScreenChange);
 
     this.state = {
-      isFullscreen: false
+      loading: true,
+      isFullscreen: false,
+      ...this.props
     }
+
+    this.delayedStateUpdate();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.currentVideo !== this.props.currentVideo) {
+      console.debug('currentVideo', this.props.currentVideo);
+
+      this.setState({
+        loading: true
+      })
+
+      // Delay updating content to give time for transition
+      this.delayedStateUpdate();
+    }
+  }
+
+  delayedStateUpdate() {
+    setTimeout(() => {
+      this.setState({
+        loading: false,
+        ...this.props
+      })
+    }, LABELS_TRANSITION_MS);
   }
 
   onToggleFullscreen() {
@@ -43,8 +73,8 @@ class BottomBar extends React.Component {
       isMuted,
       time1,
       time2
-    } = this.props;
-    
+    } = this.state;
+
     const channelTitle = 
       currentVideo.fields['channelTitle'] &&
       currentVideo.fields['channelTitle'][0];
@@ -60,16 +90,15 @@ class BottomBar extends React.Component {
       nextVideo.fields['channelUrl'][0];
     
     const latlong = currentVideo.fields['latlong'];
-    let latlongLabel;
-    if (latlong) {
-      latlongLabel = latlong.split(',').map(i => i+'°').join(' ');
-    }
-
-    console.debug('currentVideo', currentVideo);
+    const latlongLabel = latlong && latlong.split(',').map(i => i+'°').join(' ');
 
     return (
         <div 
-          className="absolute left-0 bottom-0 w-full text-xs pt-2 flex justify-between"
+          className={`
+            absolute left-0 bottom-0 w-full text-xs pt-2 flex justify-between
+            transition-all ease-out duration-${LABELS_TRANSITION_MS} transform
+            ${this.state.loading ? '-translate-y-2 opacity-0' : '-translate-y-0 opacity-100'}
+          `}
           style={{
             paddingLeft: MAIN_BAR_WIDTH,
             height: BOTTOM_BAR_HEIGHT + 'px',
@@ -109,7 +138,6 @@ class BottomBar extends React.Component {
                 </div>
               }
             </div>
-
 
             <div className="w-3/12 flex text-gray-500">
               <div className="mt-2">
