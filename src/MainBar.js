@@ -21,7 +21,7 @@ class MainBar extends React.Component {
                             <button
                                 className={`
                                     py-2 w-full text-left
-                                    hover:opacity-100 transition-opacity duration-300
+                                    hover:opacity-100 transition-opacity ease-in duration-300
                                     ${currentCategory === id ? 'opacity-100' : 'opacity-25'}
                                 `}
                                 onClick={this.props.onSwitchCategory}

@@ -19,6 +19,7 @@ class Player extends React.Component {
         this.onError = this.onError.bind(this);
         this.onReady = this.onReady.bind(this);
         this.onStateChange = this.onStateChange.bind(this);
+        this.gameLoop = this.gameLoop.bind(this);
 
         this.playerRef = React.createRef();
 
@@ -54,18 +55,30 @@ class Player extends React.Component {
     onReady(e) {
         this.updateVolume();
 
-        // Just to make sure (also turns it up after computer sleeping)
-        setInterval(() => {
-            if (this.playerRef.current) {
-                this.playerRef.current.internalPlayer.playVideo();
-                console.debug('.');
-            }
-        }, LIVENESS_CHECK_MS);
+        setInterval(this.gameLoop, LIVENESS_CHECK_MS);
 
         // Inject Hotjar whitelist attribute
         const iframeEl = document.querySelector('iframe');
         if (iframeEl && iframeEl.setAttribute) {
             iframeEl.setAttribute('data-hj-allow-iframe','')
+        }
+    }
+
+    gameLoop() {
+        console.debug('.');
+        
+        if (this.playerRef.current) {
+            // Just to make sure (also turns it up after computer sleeping)
+            this.playerRef.current.internalPlayer.playVideo();
+            
+            // Update progress bar
+            this.playerRef.current.internalPlayer.getCurrentTime()
+                .then(time => {
+                    const total = this.state.videoEnd;
+                    const percent = Math.ceil((time/total) * 100);
+                    const progressBar = document.querySelector('#progressBar');
+                    progressBar.style.width = percent + '%';
+                });
         }
     }
 
@@ -92,9 +105,7 @@ class Player extends React.Component {
             ,101: 'The owner of the requested video does not allow it to be played in embedded players.'
             ,150: 'The owner of the requested video does not allow it to be played in embedded players.'
         };
-
         console.warn('YouTube Player error', e.data, msg[e.data]);
-
         this.props.skipVideo();
     }
 
@@ -110,24 +121,10 @@ class Player extends React.Component {
             'video cued'// 5
         ];
         const statusStr = msg[e.data + 1];
-
         console.debug('YouTube Player status:', e.data, statusStr);
-
         this.setState({
             playerStatus: statusStr
         });
-
-        // // If status is 'unstarted', trigger a timeout check, otherwise clear it
-        // if (e.data === -1) {
-        //     this.livenessCheckTimeout = setTimeout(() => {
-        //         this.playerRef.current.internalPlayer.getPlayerState()
-        //             .then(result => {
-        //                 console.debug('state', result);
-        //             })
-        //     }, TIMEOUT_MS)
-        // } else {
-        //     clearTimeout(this.livenessCheckTimeout);
-        // }
     }
 
     render() {

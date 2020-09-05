@@ -106,7 +106,12 @@ class BottomBar extends React.Component {
           >
             <div className="w-7/12 flex">
               <div className="mt-2">
-                {time1}
+                <div>
+                  {time1}
+                </div>
+                <div className="h-px w-full bg-gray-200">
+                  <div id="progressBar" className="h-px bg-gray-600 w-0 transition-all duration-1000"></div>
+                </div> 
               </div>
 
               <div className="ml-4">
@@ -141,7 +146,10 @@ class BottomBar extends React.Component {
 
             <div className="w-3/12 flex text-gray-500">
               <div className="mt-2">
-                {time2}
+                <div>
+                  {time2}
+                </div>
+                <div className="h-px w-full bg-gray-200"/>
               </div>
 
               <div className="ml-4 truncate">
