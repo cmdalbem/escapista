@@ -1,12 +1,16 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 
-import { MAIN_BAR_WIDTH, LIVENESS_CHECK_MS } from './constants.js';
+import {
+    MAIN_BAR_WIDTH,
+    BOTTOM_BAR_HEIGHT,
+    LIVENESS_CHECK_MS,
+    VIDEO_TRANSITION_MS
+} from './constants.js';
 
 
 class Player extends React.Component {
     playerRef;
-    // livenessCheckTimeout;
 
     constructor(props) {
         super(props);
@@ -17,13 +21,33 @@ class Player extends React.Component {
         this.onStateChange = this.onStateChange.bind(this);
 
         this.playerRef = React.createRef();
+
+        this.state = {
+            playerStatus: undefined,
+            videoStart: this.props.videoStart,
+            videoId: this.props.videoId
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.isMuted !== this.props.isMuted) {
-          this.updateVolume();
+            this.updateVolume();
         }
-      }
+
+        if (prevProps.videoId !== this.props.videoId) {
+            this.setState({
+                playerStatus: undefined
+            })
+
+            //   Delay update of Player data to give time to animation transition
+            setTimeout(() => {
+                this.setState({
+                    videoStart: this.props.videoStart,
+                    videoId: this.props.videoId
+                })
+            }, VIDEO_TRANSITION_MS);
+        }
+    }
 
     onReady(e) {
         this.updateVolume();
@@ -83,8 +107,13 @@ class Player extends React.Component {
             '',         // 4
             'video cued'// 5
         ];
+        const statusStr = msg[e.data + 1];
 
-        console.debug('YouTube Player status:', e.data, msg[e.data + 1]);
+        console.debug('YouTube Player status:', e.data, statusStr);
+
+        this.setState({
+            playerStatus: statusStr
+        });
 
         // // If status is 'unstarted', trigger a timeout check, otherwise clear it
         // if (e.data === -1) {
@@ -100,7 +129,7 @@ class Player extends React.Component {
     }
 
     render() {
-        const { videoStart, videoId, isUIVisible } = this.props;
+        const { isUIVisible } = this.props;
 
         const youtubeConfig = {
             playerVars: {
@@ -115,7 +144,7 @@ class Player extends React.Component {
                 showinfo: 0,
                 autohide: 1,
                 origin: 'https://slowproject.app/',
-                start: videoStart
+                start: this.state.videoStart
             },
         };
 
@@ -126,14 +155,18 @@ class Player extends React.Component {
                     style={{
                         transition: 'transform 1.8s cubic-bezier(0.65, 0, 0.35, 1)',
                         transform: isUIVisible ? 
-                            `translate(${MAIN_BAR_WIDTH}px, -96px)` :
+                            `translate(${MAIN_BAR_WIDTH}px, -${BOTTOM_BAR_HEIGHT}px)` :
                             `translate(0, 0)`
                     }}
-                    onClick={this.props.onToggleUI}
-                    >
-                    <div className="video-foreground">
+                    onClick={this.props.onToggleUI}>
+                    <div className="absolute w-full h-full bg-gray-200 animate-pulse"/>
+                    
+                    <div className={`video-foreground
+                        transition-opacity ease-in-out duration-${VIDEO_TRANSITION_MS}
+                        ${this.state.playerStatus === 'playing' ? 'opacity-100' : 'opacity-0'}
+                    `}>
                         <YouTube
-                            videoId={videoId}
+                            videoId={this.state.videoId}
                             opts={youtubeConfig}
                             onEnd={this.onEnd}
                             onError={this.onError}

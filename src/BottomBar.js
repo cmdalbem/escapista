@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MAIN_BAR_WIDTH } from './constants.js';
+import { MAIN_BAR_WIDTH, BOTTOM_BAR_HEIGHT } from './constants.js';
 
 import IconVolume from './IconVolume.js'
 import IconFullScreen from './IconFullScreen.js'
@@ -69,9 +69,10 @@ class BottomBar extends React.Component {
 
     return (
         <div 
-          className="absolute left-0 bottom-0 w-full h-24 text-xs pt-2 flex justify-between"
+          className="absolute left-0 bottom-0 w-full text-xs pt-2 flex justify-between"
           style={{
             paddingLeft: MAIN_BAR_WIDTH,
+            height: BOTTOM_BAR_HEIGHT + 'px',
             fontFamily: 'Noto Sans, sans-serif'}}
           >
             <div className="w-7/12 flex">
