@@ -70,7 +70,6 @@ class BottomBar extends React.Component {
     const {
       currentVideo,
       nextVideo,
-      isMuted,
       time1,
       time2
     } = this.state;
@@ -175,7 +174,7 @@ class BottomBar extends React.Component {
               <button
                 className="p-4 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
                 onClick={this.props.onToggleMute}>
-                  <IconVolume isMuted={isMuted}/>
+                  <IconVolume isMuted={this.props.isMuted}/>
               </button>
               <button
                 className="p-4 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
