@@ -79,14 +79,14 @@ class Database {
                         const c = this.categories[i];
 
                         if (c.videos.filter(v => v.fields.id === r.fields.id).length > 0) {
-                            console.warn('Found duplicated video!', r.fields.id, r.fields.title);
+                            console.debug('Found duplicated video!', r.fields.id, r.fields.title);
                         } else {
                             c.videos.push(r);
                             c.slug = slugify(c.fields.title);
                         }
                     });
                 } else {
-                    console.warn('Video',r.fields.title,'without any category');
+                    console.debug('Video',r.fields.title,'without any category');
                 }
             });
 

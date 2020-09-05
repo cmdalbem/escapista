@@ -79,7 +79,7 @@ class App extends React.Component {
     possibleParams.forEach( p => {
         let value = params.get(p);
         if (value) {
-            ret[p] = value == 'true';
+            ret[p] = value === 'true';
         }
     })
 
@@ -191,6 +191,7 @@ class App extends React.Component {
             <Player
               videoId={this.state.currentVideo.fields['id']}
               videoStart={this.state.videoStart}
+              videoEnd={this.state.currentVideo.fields.duration}
               isMuted={this.state.isMuted}
               isUIVisible={this.state.isUIVisible}
               onToggleUI={this.onToggleUI}

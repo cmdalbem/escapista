@@ -139,7 +139,7 @@ class BottomBar extends React.Component {
               <button
                 className="p-4 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
                 onClick={this.props.onToggleMute}>
-                  <IconVolume isMuted={this.props.isMuted}/>
+                  <IconVolume isMuted={isMuted}/>
               </button>
               <button
                 className="p-4 hover:bg-gray-200 transition-colors duration-300 rounded-lg"

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { MAIN_BAR_WIDTH } from './constants.js';
-import { slugify } from './utils.js';
 
 
 class MainBar extends React.Component {
@@ -26,7 +25,6 @@ class MainBar extends React.Component {
                                     ${currentCategory === id ? 'opacity-100' : 'opacity-25'}
                                 `}
                                 onClick={this.props.onSwitchCategory}
-                                // data-id={slugify(categories[id].fields.title)}
                                 data-id={id}
                                 key={id}
                             >
