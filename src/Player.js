@@ -25,6 +25,7 @@ class Player extends React.Component {
         this.state = {
             playerStatus: undefined,
             videoStart: this.props.videoStart,
+            videoEnd: this.props.videoEnd,
             videoId: this.props.videoId
         }
     }
@@ -43,6 +44,7 @@ class Player extends React.Component {
             setTimeout(() => {
                 this.setState({
                     videoStart: this.props.videoStart,
+                    videoEnd: this.props.videoEnd,
                     videoId: this.props.videoId
                 })
             }, VIDEO_TRANSITION_MS);
@@ -144,7 +146,8 @@ class Player extends React.Component {
                 showinfo: 0,
                 autohide: 1,
                 origin: 'https://slowproject.app/',
-                start: this.state.videoStart
+                start: this.state.videoStart,
+                end: this.state.videoEnd
             },
         };
 
