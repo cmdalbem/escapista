@@ -1,6 +1,8 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 
+import Spinner from './Spinner.js'
+
 import {
     MAIN_BAR_WIDTH,
     BOTTOM_BAR_HEIGHT,
@@ -161,7 +163,21 @@ class Player extends React.Component {
                             `translate(0, 0)`
                     }}
                     onClick={this.props.onToggleUI}>
-                    <div className="absolute w-full h-full bg-gray-200 animate-pulse"/>
+                    
+                    <div
+                        className="absolute w-full h-full bg-gray-200 flex items-center justify-center"
+                        style={{
+                            paddingRight: isUIVisible && MAIN_BAR_WIDTH,
+                            paddingTop: isUIVisible && BOTTOM_BAR_HEIGHT
+                        }}
+                    >
+                        {
+                            this.state.playerStatus !== 'playing' &&
+                            <div className="h-10 w-10 text-green-400">
+                                <Spinner/>
+                            </div>
+                        }
+                    </div>
                     
                     <div className={`video-foreground
                         transition-opacity ease-in-out duration-${VIDEO_TRANSITION_MS}
