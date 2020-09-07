@@ -77,7 +77,7 @@ class Player extends React.Component {
             this.playerRef.current.internalPlayer.getCurrentTime()
                 .then(time => {
                     const total = this.state.videoEnd;
-                    const percent = Math.ceil((time/total) * 100);
+                    const percent = ((time/total) * 100).toFixed(2);
                     const progressBar = document.querySelector('#progressBar');
                     progressBar.style.width = percent + '%';
                 });
