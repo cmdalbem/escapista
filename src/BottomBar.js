@@ -129,8 +129,9 @@ class BottomBar extends React.Component {
       nextVideo.fields['channelUrl'] &&
       nextVideo.fields['channelUrl'][0];
     
-    const latlong = currentVideo.fields['latlong'];
-    const latlongLabel = latlong && latlong.split(',').map(i => i+'°').join(' ');
+    let latlong, latlongLabel;
+    // latlong = currentVideo.fields['latlong'];
+    // latlongLabel = latlong && latlong.split(',').map(i => i+'°').join(' ');
 
     return (
         <div className={`
@@ -164,7 +165,7 @@ class BottomBar extends React.Component {
                     </div>
 
                     <div className="ml-4">
-                      <div className="text-2xl overflow-hidden" style={{maxHeight: '3em'}}>
+                      <div className="text-xl overflow-hidden" style={{maxHeight: '3em'}}>
                         <a target="_blank" rel="noopener noreferrer"
                           className="hover:underline"
                           href={currentVideo.fields['url']} >
@@ -195,7 +196,7 @@ class BottomBar extends React.Component {
                 </div>
               </div>
 
-              <div className="w-4/12 flex flex-col text-gray-500">
+              <div className="w-4/12 pr-8 flex flex-col text-gray-500">
                 <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/>
 
                 <div className="flex">
@@ -206,7 +207,7 @@ class BottomBar extends React.Component {
                   <div className="ml-4 truncate">
                     <div className="truncate">
                       <a target="_blank" rel="noopener noreferrer"
-                        className="hover:underline text-2xl"
+                        className="hover:underline text-xl"
                         href={nextVideo.fields['url']} >
                           { nextVideo.fields['title'] }
                       </a>
