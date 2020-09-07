@@ -10,7 +10,7 @@ class MainBar extends React.Component {
 
         return (
             <div
-                className="absolute left-0 top-0 h-full"
+                className="absolute left-0 top-0 h-full text-green-900"
                 style={{ width: MAIN_BAR_WIDTH }}
                 >
                 <div
@@ -20,9 +20,9 @@ class MainBar extends React.Component {
                         Object.keys(categories).map(id =>
                             <button
                                 className={`
-                                    py-2 w-full text-left
-                                    hover:opacity-100 transition-opacity ease-in duration-300
-                                    ${currentCategory === id ? 'opacity-100' : 'opacity-25'}
+                                    py-2 w-full text-left focus:outline-none
+                                    hover:text-current focus:text-current transition-all ease-in duration-300
+                                    ${currentCategory === id ? 'text-current' : 'text-gray-400'}
                                 `}
                                 onClick={this.props.onSwitchCategory}
                                 data-id={id}

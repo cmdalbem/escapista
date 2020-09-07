@@ -133,7 +133,7 @@ class App extends React.Component {
     const isReady = this.state.currentVideo;
 
     return (
-      <div className="antialised">
+      <div>
         {
           isReady &&
           <div>
@@ -141,7 +141,7 @@ class App extends React.Component {
               className={`
                 mt-8 pt-1 ml-12 absolute z-10 flex items-center
                 cursor-pointer hover:opacity-75
-                ${this.state.isUIVisible ? 'text-black' : 'text-white'}`
+                ${this.state.isUIVisible ? 'text-green-900' : 'text-white'}`
               }
               onClick={this.onToggleUI}
               >
