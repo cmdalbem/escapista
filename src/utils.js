@@ -47,3 +47,16 @@ export function slugify(str) {
         .replace(/^-+/, '') // Trim - from start of text
         .replace(/-+$/, '') // Trim - from end of text
 }
+
+export function throttle(callback, limit) {
+    var wait = false;
+    return function () {
+        if (!wait) {
+            callback.apply(null, arguments);
+            wait = true;
+            setTimeout(function () {
+                wait = false;
+            }, limit);
+        }
+    }
+}

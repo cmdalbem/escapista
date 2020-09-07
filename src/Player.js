@@ -5,7 +5,9 @@ import {
     MAIN_BAR_WIDTH,
     BOTTOM_BAR_HEIGHT,
     LIVENESS_CHECK_MS,
-    VIDEO_TRANSITION_MS
+    VIDEO_TRANSITION_MS,
+    ESCAPIST_EASING_BEZIER,
+    ESCAPIST_EASING_TIMING
 } from './constants.js';
 
 
@@ -153,7 +155,7 @@ class Player extends React.Component {
                 <div
                     className="video-background cursor-pointer"
                     style={{
-                        transition: 'transform 1.8s cubic-bezier(0.65, 0, 0.35, 1)',
+                        transition: `transform ${ESCAPIST_EASING_TIMING} ${ESCAPIST_EASING_BEZIER}`,
                         transform: isUIVisible ? 
                             `translate(${MAIN_BAR_WIDTH}px, -${BOTTOM_BAR_HEIGHT}px)` :
                             `translate(0, 0)`

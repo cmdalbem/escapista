@@ -3,6 +3,8 @@ import {
   withRouter
 } from "react-router-dom";
 
+import { Fade as Hamburger } from 'hamburger-react'
+
 import Database from './Database.js'
 import Producao from './Producao.js'
 
@@ -10,7 +12,7 @@ import BottomBar from './BottomBar.js'
 import MainBar from './MainBar.js'
 import Player from './Player.js'
 
-import { Fade as Hamburger } from 'hamburger-react'
+import { ESCAPIST_EASING_BEZIER } from './constants.js'
 
 import './App.css';
 
@@ -146,7 +148,7 @@ class App extends React.Component {
               <Hamburger
                 size={16}
                 duration={1}
-                easing="cubic-bezier(0.65, 0, 0.35, 1)"
+                easing={`${ESCAPIST_EASING_BEZIER}`}
                 toggled={this.state.isUIVisible}
               />
 
@@ -155,8 +157,8 @@ class App extends React.Component {
                 style={{
                   fontFamily: 'Unna, sans-serif',
                   transition: this.state.isUIVisible
-                    ? 'color 1s cubic-bezier(0.65, 0, 0.35, 1) 1s'
-                    : 'color 1s cubic-bezier(0.65, 0, 0.35, 1) 1s'
+                    ? `color 1s ${ESCAPIST_EASING_BEZIER} 1s`
+                    : `color 1s ${ESCAPIST_EASING_BEZIER} 1s`
                 }}>
                 Escapista
                     </h1>
@@ -171,22 +173,24 @@ class App extends React.Component {
                 transition: this.state.isUIVisible
                   ? 'opacity 1.2s ease-out 0.8s'
                   : 'opacity 0.8s ease-out'
-              }}>
+              }}
+              >
               <MainBar
                 categories={this.state.categories}
                 currentCategory={this.state.currentCategory}
                 onSwitchCategory={this.onSwitchCategory}
               />
-
-              <BottomBar
-                currentVideo={this.state.currentVideo}
-                nextVideo={this.state.nextVideo}
-                time1={this.state.time1}
-                time2={this.state.time2}
-                onToggleMute={this.onToggleMute}
-                isMuted={this.state.isMuted}
-              />
             </div>
+
+            <BottomBar
+              isUIVisible={this.state.isUIVisible}
+              currentVideo={this.state.currentVideo}
+              nextVideo={this.state.nextVideo}
+              time1={this.state.time1}
+              time2={this.state.time2}
+              onToggleMute={this.onToggleMute}
+              isMuted={this.state.isMuted}
+            />
 
             <Player
               videoId={this.state.currentVideo.fields['id']}
