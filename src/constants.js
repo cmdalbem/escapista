@@ -1,4 +1,6 @@
-export const MAIN_BAR_WIDTH = 384;
+import { isMobile } from "react-device-detect";
+
+export const MAIN_BAR_WIDTH = isMobile ? 192 : 384;
 export const BOTTOM_BAR_HEIGHT = 144;
 
 export const ESCAPIST_EASING_BEZIER = 'cubic-bezier(0.65, 0, 0.35, 1)';

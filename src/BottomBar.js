@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { BrowserView, isMobile } from "react-device-detect";
+
 import {
   MAIN_BAR_WIDTH,
   BOTTOM_BAR_HEIGHT,
@@ -27,21 +29,24 @@ class BottomBar extends React.Component {
 
     document.addEventListener('fullscreenchange', this.onFullScreenChange);
 
-    document.addEventListener(
-      'mousemove', 
-      throttle(this.onMouseMove, 300),
-      { capture: true, passive: true }
-    );
+    if (!isMobile) {
+      document.addEventListener(
+        'mousemove', 
+        throttle(this.onMouseMove, 300),
+        { capture: true, passive: true }
+      );
+
+      this.autoCloseMenu();
+    }
 
     this.state = {
       loading: true,
       isFullscreen: false,
-      open: true,
+      open: !isMobile,
       ...this.props
     }
 
     this.delayStateUpdate();
-    this.autoCloseMenu();
   }
 
   onMouseMove(e) {
@@ -135,7 +140,7 @@ class BottomBar extends React.Component {
 
     return (
         <div className={`
-            bg-white z-10 fixed left-0 bottom-0 w-full
+            bg-white z-1 fixed left-0 bottom-0 w-full
             transform transition-all
             ${this.props.isUIVisible || this.state.open ? '-translate-y-0' : 'translate-y-full'}
           `} style={{
@@ -153,7 +158,7 @@ class BottomBar extends React.Component {
               height: BOTTOM_BAR_HEIGHT + 'px',
               fontFamily: 'Noto Sans, sans-serif'}}
             >
-              <div className="w-7/12 pr-8 flex flex-col">
+              <div className={`${isMobile ? 'w-10/12' : 'w-7/12'} pr-8 flex flex-col`}>
                 <div className="mb-1 mt-2 h-2px w-full bg-gray-300">
                   <div id="progressBar" className="h-2px bg-green-900 w-0 transition-all duration-1000"></div>
                 </div> 
@@ -196,33 +201,33 @@ class BottomBar extends React.Component {
                 </div>
               </div>
 
-              <div className="w-4/12 pr-8 flex flex-col text-gray-500">
-                <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/>
+              <BrowserView viewClassName="w-4/12 pr-8 flex flex-col text-gray-500">
+                  <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/>
 
-                <div className="flex">
-                  <div className="mt-2 font-bold">
-                    {time2}
-                  </div>
-
-                  <div className="ml-4 truncate">
-                    <div className="truncate">
-                      <a target="_blank" rel="noopener noreferrer"
-                        className="hover:underline text-xl"
-                        href={nextVideo.fields['url']} >
-                          { nextVideo.fields['title'] }
-                      </a>
+                  <div className="flex">
+                    <div className="mt-2 font-bold">
+                      {time2}
                     </div>
 
-                    <div className="">
-                      <a target="_blank" rel="noopener noreferrer"
-                        className="hover:underline"
-                        href={nextChannelUrl} >
-                          { nextChannelTitle }
-                      </a>
+                    <div className="ml-4 truncate">
+                      <div className="truncate">
+                        <a target="_blank" rel="noopener noreferrer"
+                          className="hover:underline text-xl"
+                          href={nextVideo.fields['url']} >
+                            { nextVideo.fields['title'] }
+                        </a>
+                      </div>
+
+                      <div className="">
+                        <a target="_blank" rel="noopener noreferrer"
+                          className="hover:underline"
+                          href={nextChannelUrl} >
+                            { nextChannelTitle }
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+              </BrowserView>
               
               <div className="w-1/12 flex justify-end items-start mt-1">
                 <button
