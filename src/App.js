@@ -132,11 +132,6 @@ class App extends React.Component {
         {
           isReady &&
           <div>
-            <LogoMenu
-              isUIVisible={this.state.isUIVisible}
-              onToggleUI={this.onToggleUI}
-            />
-
             <BottomBar
               isUIVisible={this.state.isUIVisible}
               currentVideo={this.state.currentVideo}
@@ -174,6 +169,11 @@ class App extends React.Component {
               onToggleUI={this.onToggleUI}
               sync={this.sync}
               skipVideo={this.skipVideo}
+            />
+
+            <LogoMenu
+              isUIVisible={this.state.isUIVisible}
+              onToggleUI={this.onToggleUI}
             />
           </div>
         }

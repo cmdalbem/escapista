@@ -14,7 +14,7 @@ export default function LogoMenu(props) {
   return (
     <div
       className={`
-        flex items-center pt-1 absolute z-1
+        fixed top-0 left-0 z-1 flex items-center pt-1
         cursor-pointer hover:opacity-75
         ${isMobile ? 'mt-4 ml-2' : 'mt-8 ml-12'}
         ${isUIVisible ? 'text-green-900' : 'text-white'}`
