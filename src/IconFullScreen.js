@@ -12,7 +12,7 @@ function IconFullScreen(props) {
             viewBox="0 0 16 16"
         >
             <path
-                stroke="#333"
+                stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="1.333"

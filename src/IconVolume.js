@@ -13,7 +13,7 @@ function IconVolume(props) {
                 viewBox="0 0 16 16"
             >
                 <path
-                    stroke="#333"
+                    stroke="currentColor"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="1.333"
@@ -21,7 +21,7 @@ function IconVolume(props) {
                     clipRule="evenodd"
                 ></path>
                 <path
-                    stroke="#333"
+                    stroke="currentColor"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="1.333"
@@ -37,7 +37,7 @@ function IconVolume(props) {
                 viewBox="0 0 17 16"
             >
                 <path
-                    stroke="#333"
+                    stroke="currentColor"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="1.333"
@@ -45,7 +45,7 @@ function IconVolume(props) {
                     clipRule="evenodd"
                 ></path>
                 <path
-                    fill="#333"
+                    fill="currentColor"
                     d="M13.852 2.815a.667.667 0 00-.943.943l.943-.943zm-.943 9.427a.667.667 0 10.943.943l-.943-.943zm-1.41-7.073a.667.667 0 00-.943.942l.943-.942zm-.943 4.713a.667.667 0 00.943.943l-.943-.943zm2.353-6.124a6 6 0 010 8.484l.943.943a7.333 7.333 0 000-10.37l-.943.943zm-2.353 2.353a2.667 2.667 0 010 3.77l.943.944a4 4 0 000-5.656l-.943.942z"
                 ></path>
             </svg>

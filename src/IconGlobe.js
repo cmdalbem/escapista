@@ -11,7 +11,7 @@ function IconGlobe() {
       style={{display:'inline'}}
     >
       <path
-        stroke="#333"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.333"
@@ -19,14 +19,14 @@ function IconGlobe() {
         clipRule="evenodd"
       ></path>
       <path
-        stroke="#333"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.333"
         d="M1.333 8h13.334"
       ></path>
       <path
-        stroke="#333"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.333"
