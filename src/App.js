@@ -1,6 +1,11 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
 
+import {
+  withOrientationChange,
+  MobileView
+} from "react-device-detect";
+
 import Database from './Database.js'
 import Producao from './Producao.js'
 
@@ -8,6 +13,8 @@ import LogoMenu from './LogoMenu.js'
 import BottomBar from './BottomBar.js'
 import MainBar from './MainBar.js'
 import Player from './Player.js'
+
+import IconRotate from './IconRotate.js'
 
 import './App.css';
 
@@ -129,6 +136,18 @@ class App extends React.Component {
 
     return (
       <div>
+        <MobileView>
+        {
+          this.props.isPortrait &&
+          <div className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center text-white z-10 bg-green-700">
+            <IconRotate/>
+            <div className="w-1/2 my-2 text-2xl text-center leading-tight unna">
+              Gire seu celular para ter a melhor experiência.
+            </div>
+          </div>
+        }
+        </MobileView>
+
         {
           isReady &&
           <div>
@@ -183,4 +202,4 @@ class App extends React.Component {
 }
 
 
-export default withRouter(App);
+export default withOrientationChange(withRouter(App));
