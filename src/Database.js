@@ -7,19 +7,24 @@ class Database {
     categories = {};
     videos = []
 
-    async fetchTable(tableName, view) {
-        let response, data
-        response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}&view=${view}`);
-        data = await response.json();
+    async fetchTable(tableName, view, offset, accumulator=[]) {
+        let queryUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}&view=${view}`;
+        if (offset) {
+            queryUrl += `&offset=${offset}`;
+        }
+        
+        const response = await fetch(queryUrl);
+        const data = await response.json();
+        let accumulated = data.records;
+
+        accumulated = accumulated.concat(accumulator);
 
         if (data.offset) {
-            let response2, data2;
-            response2 = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}&view=${view}&offset=${data.offset}`);
-            data2 = await response2.json();
-
-            return data.records.concat(data2.records);
+            console.debug('fetchTable(): offset detected, recursing...');
+            return this.fetchTable(tableName, view, data.offset, accumulated);
         } else {
-            return data.records;
+            console.debug('fetchTable(): end of pagination, returning.');
+            return accumulated;
         }
     }
 
