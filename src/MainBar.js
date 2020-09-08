@@ -17,10 +17,9 @@ class MainBar extends React.Component {
                 >
                 <div
                     className={`
-                        flex flex-col items-start text-lg
+                        flex flex-col items-start text-lg noto
                         ${isMobile ? 'pl-16 mt-20' : 'pl-32 mt-32'}
-                    `}
-                    style={{ fontFamily: 'Noto Sans, sans-serif' }}>
+                    `}>
                     {
                         Object.keys(categories).map(id =>
                             <button

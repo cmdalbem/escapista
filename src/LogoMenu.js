@@ -12,10 +12,10 @@ export default function LogoMenu(props) {
   } = props;
 
   return (
-    <div
+    <button
       className={`
         fixed top-0 left-0 z-1 flex items-center pt-1
-        cursor-pointer hover:opacity-75
+        cursor-pointer hover:opacity-75 focus:opacity-75
         ${isMobile ? 'mt-4 ml-2' : 'mt-8 ml-12'}
         ${isUIVisible ? 'text-green-900' : 'text-white'}`
       }
@@ -30,11 +30,10 @@ export default function LogoMenu(props) {
 
       <h1
         className={`
-            inline-block text-2xl leading-6
+            inline-block text-2xl leading-6 unna
             ${isMobile ? 'ml-2' : 'ml-8'}
           `}
         style={{
-          fontFamily: 'Unna, sans-serif',
           transition: isUIVisible
             ? `color 1s ${ESCAPIST_EASING_BEZIER} 1s`
             : `color 1s ${ESCAPIST_EASING_BEZIER} 1s`
@@ -42,6 +41,6 @@ export default function LogoMenu(props) {
       >
         Escapista
       </h1>
-    </div>
+    </button>
   )
 }

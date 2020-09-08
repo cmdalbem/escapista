@@ -149,14 +149,13 @@ class BottomBar extends React.Component {
           }}>
           <div 
             className={`
-              text-xs pt-2 flex justify-between text-green-900
+              text-xs pt-2 flex justify-between text-green-900 noto
               transform transition-all ease-out duration-${LABELS_TRANSITION_MS}
               ${this.state.loading ? '-translate-y-2 opacity-0' : '-translate-y-0 opacity-100'}
             `}
             style={{
               paddingLeft: MAIN_BAR_WIDTH,
-              height: BOTTOM_BAR_HEIGHT + 'px',
-              fontFamily: 'Noto Sans, sans-serif'}}
+              height: BOTTOM_BAR_HEIGHT + 'px'}}
             >
               <div className={`${isMobile ? 'w-10/12' : 'w-7/12'} pr-8 flex flex-col`}>
                 <div className="mb-1 mt-2 h-2px w-full bg-gray-300">

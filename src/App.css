@@ -3,6 +3,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.unna {
+  font-family: Unna, sans-serif;
+  font-weight: 700;
+}
+
+.noto {
+  font-family: Noto Sans, sans-serif;
+}
+
 .h-2px {
   height: 2px;
 }
