@@ -122,7 +122,8 @@ class BottomBar extends React.Component {
 
     const opts = {
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
+      hour12: true
     };
     const time1Str = time1.toLocaleTimeString('pt-br', opts);
     const time2Str = time2.toLocaleTimeString('pt-br', opts);
@@ -171,7 +172,7 @@ class BottomBar extends React.Component {
 
                 <div className="flex justify-between">
                   <div className="flex">
-                    <div className="mt-2 font-bold">
+                    <div className="mt-2 font-bold whitespace-no-wrap">
                         {time1Str}
                     </div>
 
@@ -211,7 +212,7 @@ class BottomBar extends React.Component {
                   <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/>
 
                   <div className="flex">
-                    <div className="mt-2 font-bold">
+                    <div className="mt-2 font-bold whitespace-no-wrap">
                       {time2Str}
                     </div>
 
