@@ -151,6 +151,17 @@ class App extends React.Component {
         {
           isReady &&
           <div>
+            <Player
+              videoId={this.state.currentVideo.fields['id']}
+              videoStart={this.state.videoStart}
+              videoEnd={this.state.currentVideo.fields.duration * 60}
+              isMuted={this.state.isMuted}
+              isUIVisible={this.state.isUIVisible}
+              onToggleUI={this.onToggleUI}
+              sync={this.sync}
+              skipVideo={this.skipVideo}
+            />
+            
             <BottomBar
               isUIVisible={this.state.isUIVisible}
               currentVideo={this.state.currentVideo}
@@ -178,17 +189,6 @@ class App extends React.Component {
                 onSwitchCategory={this.onSwitchCategory}
               />
             </div>
-
-            <Player
-              videoId={this.state.currentVideo.fields['id']}
-              videoStart={this.state.videoStart}
-              videoEnd={this.state.currentVideo.fields.duration * 60}
-              isMuted={this.state.isMuted}
-              isUIVisible={this.state.isUIVisible}
-              onToggleUI={this.onToggleUI}
-              sync={this.sync}
-              skipVideo={this.skipVideo}
-            />
 
             <LogoMenu
               isUIVisible={this.state.isUIVisible}
