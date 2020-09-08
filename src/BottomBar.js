@@ -120,6 +120,13 @@ class BottomBar extends React.Component {
       time2
     } = this.state;
 
+    const opts = {
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+    const time1Str = time1.toLocaleTimeString('pt-br', opts);
+    const time2Str = time2.toLocaleTimeString('pt-br', opts);
+
     const channelTitle = 
       currentVideo.fields['channelTitle'] &&
       currentVideo.fields['channelTitle'][0];
@@ -165,7 +172,7 @@ class BottomBar extends React.Component {
                 <div className="flex justify-between">
                   <div className="flex">
                     <div className="mt-2 font-bold">
-                        {time1}
+                        {time1Str}
                     </div>
 
                     <div className="ml-4">
@@ -205,7 +212,7 @@ class BottomBar extends React.Component {
 
                   <div className="flex">
                     <div className="mt-2 font-bold">
-                      {time2}
+                      {time2Str}
                     </div>
 
                     <div className="ml-4 truncate">

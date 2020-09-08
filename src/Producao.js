@@ -5,10 +5,6 @@ class Producao {
     }
 
     static computeTimes(currentVideo, videoStartSec) {
-      const opts = {
-        hour: '2-digit',
-        minute: '2-digit'
-      };
       const nowMs = Math.floor(Date.now());
       let time1, time2;
 
@@ -17,9 +13,6 @@ class Producao {
 
       time1 = new Date(time1);
       time2 = new Date(time2);
-
-      time1 = time1.toLocaleTimeString('pt-br', opts);
-      time2 = time2.toLocaleTimeString('pt-br', opts);
 
       console.debug('time1 =',time1);
       console.debug('time2 =',time2);
