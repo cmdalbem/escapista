@@ -107,9 +107,13 @@ class BottomBar extends React.Component {
   }
 
   onFullScreenChange(e) {
+    const isFullScreen = document.fullscreenElement;
+
     this.setState({
-      isFullScreen: document.fullscreenElement
+      isFullScreen: isFullScreen
     })
+
+    this.props.setUIState(!isFullScreen);
   }
 
   render() {

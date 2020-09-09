@@ -26,6 +26,7 @@ class App extends React.Component {
     super(props);
 
     this.onSwitchCategory = this.onSwitchCategory.bind(this);
+    this.setUIState = this.setUIState.bind(this);
     this.onToggleUI = this.onToggleUI.bind(this);
     this.onToggleMute = this.onToggleMute.bind(this);
     this.sync = this.sync.bind(this);
@@ -116,7 +117,11 @@ class App extends React.Component {
   }
 
   onToggleUI() {
-    this.setState({ isUIVisible: !this.state.isUIVisible });
+    this.setUIState(!this.state.isUIVisible)
+  }
+
+  setUIState(value) {
+    this.setState({ isUIVisible: value });
   }
 
   onToggleMute() {
@@ -168,8 +173,9 @@ class App extends React.Component {
               nextVideo={this.state.nextVideo}
               time1={this.state.time1}
               time2={this.state.time2}
-              onToggleMute={this.onToggleMute}
               isMuted={this.state.isMuted}
+              setUIState={this.setUIState}
+              onToggleMute={this.onToggleMute}
             />
 
             <div
