@@ -16,7 +16,7 @@ export default function LogoMenu(props) {
       className={`
         fixed top-0 left-0 z-1 flex items-center pt-1
         cursor-pointer hover:opacity-75 focus:opacity-75
-        ${isMobile ? 'mt-4 ml-2' : 'mt-8 ml-12'}
+        ${isMobile ? 'mt-2 ml-2' : 'mt-8 ml-8'}
         ${isUIVisible ? 'text-green-900' : 'text-white'}`
       }
       onClick={onToggleUI}
@@ -24,14 +24,14 @@ export default function LogoMenu(props) {
       <Hamburger
         size={16}
         duration={1}
-        easing={`${ESCAPIST_EASING_BEZIER}`}
+        easing={ESCAPIST_EASING_BEZIER}
         toggled={isUIVisible}
       />
 
       <h1
         className={`
             inline-block text-2xl leading-6 unna
-            ${isMobile ? 'ml-2' : 'ml-8'}
+            ${isMobile ? 'ml-2' : 'ml-4'}
           `}
         style={{
           transition: isUIVisible

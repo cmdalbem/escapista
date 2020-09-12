@@ -240,14 +240,14 @@ class BottomBar extends React.Component {
                   </div>
               </BrowserView>
               
-              <div className="w-1/12 flex justify-end items-start mt-1">
+              <div className="w-1/12 pr-2 flex justify-end items-start">
                 <button
-                  className="p-4 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
+                  className="p-5 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
                   onClick={this.props.onToggleMute}>
                     <IconVolume isMuted={this.props.isMuted}/>
                 </button>
                 <button
-                  className="p-4 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
+                  className="p-5 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
                   onClick={this.onToggleFullscreen}>
                     <IconFullScreen isFullScreen={this.state.isFullScreen}/>
                 </button>

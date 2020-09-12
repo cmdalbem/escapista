@@ -23,8 +23,8 @@ class MainBar extends React.Component {
                 >
                 <div
                     className={`
-                        flex flex-col items-start text-lg noto
-                        ${isMobile ? 'pl-16 mt-20' : 'pl-32 mt-32'}
+                        flex flex-col items-start noto
+                        ${isMobile ? 'pl-16 mt-16' : 'pl-24 mt-32'}
                     `}>
                     {
                         Object.keys(categories).map(id =>
@@ -32,7 +32,7 @@ class MainBar extends React.Component {
                                 className={`
                                     w-full text-left focus:outline-none
                                     hover:text-current focus:text-current transition-all ease-in duration-300
-                                    ${isMobile ? 'py-1' : 'py-2'}
+                                    ${isMobile ? 'py-1 text-xl' : 'py-0 text-5xl font-light tracking-tighter'}
                                     ${currentCategory === id ? 'text-current' : 'text-gray-400'}
                                 `}
                                 onClick={this.props.onSwitchCategory}
