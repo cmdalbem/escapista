@@ -6,6 +6,8 @@ import {
   MobileView
 } from "react-device-detect";
 
+import { withTranslation } from 'react-i18next';
+
 import Database from './Database.js'
 import Producao from './Producao.js'
 
@@ -208,4 +210,4 @@ class App extends React.Component {
 }
 
 
-export default withOrientationChange(withRouter(App));
+export default withTranslation()(withOrientationChange(withRouter(App)));

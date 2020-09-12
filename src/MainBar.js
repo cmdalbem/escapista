@@ -1,4 +1,5 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 
 import { isMobile } from "react-device-detect";
 
@@ -7,8 +8,13 @@ import { MAIN_BAR_WIDTH } from './constants.js';
 
 class MainBar extends React.Component {
     render() {
-        const categories = this.props.categories;
-        const currentCategory = this.props.currentCategory;
+        const {
+            i18n,
+            categories,
+            currentCategory
+        } = this.props;
+
+        const lang = i18n.language.split('-')[0];
 
         return (
             <div
@@ -32,9 +38,13 @@ class MainBar extends React.Component {
                                 onClick={this.props.onSwitchCategory}
                                 data-id={id}
                                 key={id}
-                            >
-                                { categories[id].fields.title }
-                            </button>
+                            >{
+                                lang === 'es' 
+                                    ? categories[id].fields['title-es']
+                                : lang === 'en' 
+                                    ? categories[id].fields['title-en']
+                                    : categories[id].fields['title']
+                            }</button>
                         )
                     }
                 </div>
@@ -44,4 +54,4 @@ class MainBar extends React.Component {
 }
 
 
-export default MainBar;
+export default withTranslation()(MainBar);
