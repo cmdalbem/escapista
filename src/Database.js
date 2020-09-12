@@ -3,6 +3,12 @@ import { slugify } from './utils.js';
 const AIRTABLE_API_KEY = 'keyitXI1MaCb75MYj';
 const AIRTABLE_BASE_ID = 'app5PlDbzK24kIJtP';
 
+const debugStyles = {
+    blue: 'color: lightblue;',
+    gray: 'color: gray;',
+    important: 'font-size: 1.2em;',
+}
+
 class Database {
     categories = {};
     videos = []
@@ -20,10 +26,10 @@ class Database {
         accumulated = accumulated.concat(accumulator);
 
         if (data.offset) {
-            console.debug('fetchTable(): offset detected, recursing...');
+            console.debug(`%cfetchTable(${tableName}): offset detected, recursing...`, debugStyles.blue);
             return this.fetchTable(tableName, view, data.offset, accumulated);
         } else {
-            console.debug('fetchTable(): end of pagination, returning.');
+            console.debug(`%cfetchTable(${tableName}): end of pagination, returning.`, debugStyles.blue);
             return accumulated;
         }
     }
@@ -84,14 +90,14 @@ class Database {
                         const c = this.categories[i];
 
                         if (c.videos.filter(v => v.fields.id === r.fields.id).length > 0) {
-                            console.debug('Found duplicated video!', r.fields.id, r.fields.title);
+                            console.debug(`%c[duplicate] ${r.fields.id} ${r.fields.title}`, debugStyles.gray);
                         } else {
                             c.videos.push(r);
                             c.slug = slugify(c.fields.title);
                         }
                     });
                 } else {
-                    console.debug('Video',r.fields.title,'without any category');
+                    // console.debug(`%c[no category] ${r.fields.title}`, debugStyles.gray);
                 }
             });
 
