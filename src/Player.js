@@ -155,12 +155,15 @@ class Player extends React.Component {
         return (
             <div className="overflow-hidden">
                 <div
-                    className="video-background cursor-pointer"
+                    className="video-background"
                     style={{
                         transition: `transform ${ESCAPIST_EASING_TIMING} ${ESCAPIST_EASING_BEZIER}`,
                         transform: isUIVisible ? 
-                            `translate(${MAIN_BAR_WIDTH}px, -${BOTTOM_BAR_HEIGHT}px)` :
-                            `translate(0, 0)`
+                            `translate(${MAIN_BAR_WIDTH}px, -${BOTTOM_BAR_HEIGHT}px)`:
+                            `translate(0, 0)`,
+                        cursor: isUIVisible ? 
+                            'zoom-in':
+                            'zoom-out',
                     }}
                     onClick={this.props.onToggleUI}>
                     
