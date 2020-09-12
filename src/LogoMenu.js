@@ -1,5 +1,5 @@
 import React from 'react';
-import { Fade as Hamburger } from 'hamburger-react'
+import { Slant as Hamburger } from 'hamburger-react'
 import { isMobile } from "react-device-detect";
 
 import { ESCAPIST_EASING_BEZIER } from './constants.js'
