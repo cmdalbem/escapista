@@ -36,6 +36,7 @@ class App extends React.Component {
 
     this.database = new Database();
 
+    const saved = this.getStateFromLocalStorage();
     const params = this.getParamsFromURL();
 
     this.state = {
@@ -44,9 +45,23 @@ class App extends React.Component {
       currentCategory: null,
       currentVideo: null,
       videoStart: 0,
-      isUIVisible: params.ui!==undefined ? params.ui : true,
-      isMuted: params.muted!==undefined ? params.muted : false,
+      isUIVisible:
+        params.ui !== undefined
+          ? params.ui
+        : saved
+          ? saved.isUIVisible
+          : true,
+      isMuted:
+        params.muted !== undefined
+          ? params.muted
+        : saved
+          ? saved.isMuted
+          : false,
     };
+
+    window.addEventListener('beforeunload', e => {
+      this.saveStateToLocalStorage();
+    });
   }
 
   getCategoryByName(categories, name) {
@@ -55,11 +70,16 @@ class App extends React.Component {
 
   async componentDidMount() {
     const data = await this.database.get();
-    let category;
     
+    let category;
     let pathname = this.props.location.pathname.split('/')[1];
     if (pathname) {
       category = this.getCategoryByName(data.categories, pathname);
+    } else {
+      const prevState = this.getStateFromLocalStorage();
+      if (prevState) {
+        category = prevState.currentCategory;
+      }
     }
 
     this.setState({
@@ -91,7 +111,25 @@ class App extends React.Component {
     })
 
     return ret;
-}
+  }
+
+
+  getStateFromLocalStorage() {
+    const savedState = JSON.parse(window.localStorage.getItem('escapista-app-state'));
+    console.debug('Retrived saved state from local storage:', savedState);
+    return savedState;
+  }
+
+  saveStateToLocalStorage() {
+    const state = {
+      isUIVisible: this.state.isUIVisible,
+      isMuted: this.state.isMuted,
+      currentCategory: this.state.currentCategory
+    }
+
+    const str = JSON.stringify(state);
+    window.localStorage.setItem('escapista-app-state', str);
+  }
 
   sync() {
     const currentPlaylist = this.state.categories[this.state.currentCategory].videos;
