@@ -32,7 +32,7 @@ class MainBar extends React.Component {
                                 className={`
                                     w-full text-left focus:outline-none
                                     hover:text-current focus:text-current transition-all ease-in duration-300
-                                    ${isMobile ? 'py-1 text-xl' : 'py-0 text-5xl font-light tracking-tighter'}
+                                    ${isMobile ? 'py-1 text-xl' : 'py-0 text-4xl font-light tracking-tighter'}
                                     ${currentCategory === id ? 'text-current' : 'text-gray-400'}
                                 `}
                                 onClick={this.props.onSwitchCategory}
