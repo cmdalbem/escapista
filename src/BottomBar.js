@@ -221,20 +221,20 @@ class BottomBar extends React.Component {
                     </div>
 
                     <div className="ml-4 truncate">
-                      <div className="truncate">
-                        <a target="_blank" rel="noopener noreferrer"
-                          className="hover:underline text-xl"
-                          href={nextVideo.fields['url']} >
+                      <div className="truncate text-xl">
+                        {/* <a target="_blank" rel="noopener noreferrer"
+                          className="hover:underline"
+                          href={nextVideo.fields['url']} > */}
                             { nextVideo.fields['title'] }
-                        </a>
+                        {/* </a> */}
                       </div>
 
                       <div className="">
-                        <a target="_blank" rel="noopener noreferrer"
+                        {/* <a target="_blank" rel="noopener noreferrer"
                           className="hover:underline"
-                          href={nextChannelUrl} >
+                          href={nextChannelUrl} > */}
                             { nextChannelTitle }
-                        </a>
+                        {/* </a> */}
                       </div>
                     </div>
                   </div>
