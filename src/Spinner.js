@@ -13,7 +13,7 @@ export default function () {
                 fill="none"
                 stroke="currentColor"
                 strokeMiterlimit="10"
-                strokeWidth="2"
+                strokeWidth="3"
                 className="path"
             ></circle>
         </svg>

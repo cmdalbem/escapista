@@ -69,9 +69,9 @@ class Player extends React.Component {
     }
 
     gameLoop() {
-        console.debug('.');
-        
         if (this.playerRef.current) {
+            console.debug('.');
+
             // Just to make sure (also turns it up after computer sleeping)
             this.playerRef.current.internalPlayer.playVideo();
             
@@ -176,7 +176,7 @@ class Player extends React.Component {
                     >
                         {
                             this.state.playerStatus !== 'playing' &&
-                            <div className="h-10 w-10 text-green-400">
+                            <div className="h-10 w-10 text-gray-400">
                                 <Spinner/>
                             </div>
                         }
