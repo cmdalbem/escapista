@@ -90,8 +90,8 @@ class App extends React.Component {
 
   updateURL() {
     const searchParams = new URLSearchParams();
-    searchParams.set('muted', this.state.isMuted);
-    searchParams.set('ui', this.state.isUIVisible);
+    // searchParams.set('muted', this.state.isMuted);
+    // searchParams.set('ui', this.state.isUIVisible);
     
     const slug = this.state.categories[this.state.currentCategory].slug;
     
@@ -112,7 +112,6 @@ class App extends React.Component {
 
     return ret;
   }
-
 
   getStateFromLocalStorage() {
     const savedState = JSON.parse(window.localStorage.getItem('escapista-app-state'));
