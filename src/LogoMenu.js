@@ -35,8 +35,8 @@ export default function LogoMenu(props) {
           `}
         style={{
           transition: isUIVisible
-            ? `color 1s ${ESCAPIST_EASING_BEZIER} 1s`
-            : `color 1s ${ESCAPIST_EASING_BEZIER} 1s`
+            ? `color .5s ${ESCAPIST_EASING_BEZIER} 1.3s`
+            : `color .5s ${ESCAPIST_EASING_BEZIER} 1.3s`
         }}
       >
         Escapista
