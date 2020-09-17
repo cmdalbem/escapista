@@ -3,13 +3,14 @@
   "name": "Escapista",
   "start_url": ".",
   "display": "fullscreen",
-  "theme_color": "#2f855a",
+  "description": "Para onde você quer escapar?",
+  "theme_color": "#2F855A",
   "background_color": "#ffffff",
   "orientation": "landscape",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "favicon.png",
+      "sizes": "32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
