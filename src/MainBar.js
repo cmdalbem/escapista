@@ -52,22 +52,6 @@ class MainBar extends React.Component {
                 </div>
 
                 <div className="flex flex-col -mb-2">
-                    <button className={`py-2 text-left focus:outline-none hover:text-current focus:text-current
-                        text-gray-500 text-xs
-                        `}
-                        onClick={this.props.onSwitchCategory}
-                    >
-                        Manifesto
-                    </button>
-                    
-                    <button className={`py-2 text-left focus:outline-none hover:text-current focus:text-current
-                        text-gray-500 text-xs
-                        `}
-                        onClick={this.props.onSwitchCategory}
-                    >
-                        Feedback 
-                    </button>
-                    
                     <a 
                         target="_blank"
                         rel="noopener noreferrer"
@@ -79,6 +63,20 @@ class MainBar extends React.Component {
                     >
                         Sugerir vídeo
                     </a>
+
+                    <button disabled className={`py-2 text-left
+                        text-gray-500 text-xs
+                        `}
+                    >
+                        Manifesto <span className="bg-gray-400 text-white rounded font-bold text-xs px-1">SOON</span>
+                    </button>
+                    
+                    <button disabled className={`py-2 text-left
+                        text-gray-500 text-xs
+                        `}
+                    >
+                        Feedback <span className="bg-gray-400 text-white rounded font-bold text-xs px-1">SOON</span>
+                    </button>
                 </div>
             </div>
         );
