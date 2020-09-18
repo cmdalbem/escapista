@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 
-import { isMobile } from "react-device-detect";
+import { BrowserView, isMobile } from "react-device-detect";
 
 import { BOTTOM_BAR_HEIGHT, MAIN_BAR_WIDTH } from './constants.js';
 
@@ -9,7 +9,7 @@ import { BOTTOM_BAR_HEIGHT, MAIN_BAR_WIDTH } from './constants.js';
 class MainBar extends React.Component {
     render() {
         const {
-            i18n,
+            t, i18n,
             categories,
             currentCategory
         } = this.props;
@@ -21,7 +21,7 @@ class MainBar extends React.Component {
                 className={`
                     fixed left-0 top-0 z-1 h-full noto
                     text-green-900 flex flex-col justify-between
-                    ${isMobile ? 'pl-16 pt-16' : 'pl-24 pt-40'}
+                    ${isMobile ? 'pl-6 pt-16' : 'pl-20 pt-32'}
                 `}
                 style={{
                     width: MAIN_BAR_WIDTH,
@@ -34,7 +34,7 @@ class MainBar extends React.Component {
                                 className={`
                                     w-full text-left focus:outline-none
                                     hover:text-current focus:text-current transition-all ease-in duration-300
-                                    ${isMobile ? 'py-1 text-xl' : 'py-0 text-4xl font-light tracking-tighter'}
+                                    ${isMobile ? 'py-1 text-lg' : 'py-2 text-xl'}
                                     ${currentCategory === id ? 'text-current' : 'text-gray-400'}
                                 `}
                                 onClick={this.props.onSwitchCategory}
@@ -51,33 +51,35 @@ class MainBar extends React.Component {
                     }
                 </div>
 
-                <div className="flex flex-col -mb-2">
-                    <a 
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://airtable.com/shrAnseaRWniVl9ar"
-                        className={`
-                            py-2 text-left focus:outline-none hover:text-current focus:text-current
-                            text-gray-500 text-xs
-                        `}
-                    >
-                        Sugerir vídeo
-                    </a>
+                <BrowserView>
+                    <div className="flex flex-col -mb-2">
+                        <a 
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href="https://airtable.com/shrAnseaRWniVl9ar"
+                            className={`
+                                py-2 text-left focus:outline-none hover:text-current focus:text-current
+                                text-gray-500 text-sm 
+                            `}
+                        >
+                            { t('suggest-videos') }
+                        </a>
 
-                    <button disabled className={`py-2 text-left
-                        text-gray-500 text-xs
-                        `}
-                    >
-                        Manifesto <span className="bg-gray-400 text-white rounded font-bold text-xs px-1">SOON</span>
-                    </button>
-                    
-                    <button disabled className={`py-2 text-left
-                        text-gray-500 text-xs
-                        `}
-                    >
-                        Feedback <span className="bg-gray-400 text-white rounded font-bold text-xs px-1">SOON</span>
-                    </button>
-                </div>
+                        {/* <button disabled className={`py-2 text-left
+                            text-gray-500 text-xs
+                            `}
+                        >
+                            { t('manifesto') }
+                        </button>
+                        
+                        <button disabled className={`py-2 text-left
+                            text-gray-500 text-xs
+                            `}
+                        >
+                            { t('feedback') }
+                        </button> */}
+                    </div>
+                </BrowserView>
             </div>
         );
     }
