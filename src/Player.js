@@ -75,14 +75,16 @@ class Player extends React.Component {
             // Just to make sure (also turns it up after computer sleeping)
             this.playerRef.current.internalPlayer.playVideo();
             
-            // Update progress bar
-            this.playerRef.current.internalPlayer.getCurrentTime()
-                .then(time => {
-                    const total = this.state.videoEnd;
-                    const percent = ((time/total) * 100).toFixed(2);
-                    const progressBar = document.querySelector('#progressBar');
-                    progressBar.style.width = percent + '%';
-                });
+            // // Update progress bar
+            // this.playerRef.current.internalPlayer.getCurrentTime()
+            //     .then(time => {
+            //         const total = this.state.videoEnd;
+            //         const percent = ((time/total) * 100).toFixed(2);
+            //         const progressBar = document.querySelector('#progressBar');
+            //         if (progressBar) {
+            //             progressBar.style.width = percent + '%';
+            //         }
+            //     });
         }
     }
 
