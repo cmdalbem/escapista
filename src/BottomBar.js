@@ -1,4 +1,5 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 
 import { BrowserView, isMobile } from "react-device-detect";
 
@@ -121,16 +122,20 @@ class BottomBar extends React.Component {
       currentVideo,
       nextVideo,
       time1,
-      time2
+      time2,
+      time3
     } = this.state;
 
-    const opts = {
+    const { i18n } = this.props;
+
+    const dateTimeOpts = {
       hour: '2-digit',
       minute: '2-digit',
       hour12: true
     };
-    const time1Str = time1.toLocaleTimeString('pt-br', opts);
-    const time2Str = time2.toLocaleTimeString('pt-br', opts);
+    const time1Str = time1.toLocaleTimeString(i18n.language, dateTimeOpts);
+    const time2Str = time2.toLocaleTimeString(i18n.language, dateTimeOpts);
+    const time3Str = time3.toLocaleTimeString(i18n.language, dateTimeOpts);
 
     const channelTitle = 
       currentVideo.fields['channelTitle'] &&
@@ -161,7 +166,7 @@ class BottomBar extends React.Component {
           }}>
           <div 
             className={`
-              text-xs pt-2 flex justify-between text-green-900 noto
+              pt-2 flex justify-between text-green-900 noto
               transform transition-all ease-out duration-${LABELS_TRANSITION_MS}
               ${this.state.loading ? '-translate-y-2 opacity-0' : '-translate-y-0 opacity-100'}
             `}
@@ -170,18 +175,14 @@ class BottomBar extends React.Component {
               height: BOTTOM_BAR_HEIGHT + 'px'}}
             >
               <div className={`${isMobile ? 'w-10/12' : 'w-7/12'} pr-8 flex flex-col`}>
-                <div className="mb-1 mt-2 h-2px w-full bg-gray-300">
-                  <div id="progressBar" className="h-2px bg-green-900 w-0 transition-all duration-1000"></div>
-                </div> 
+                <div className="mt-2 text-xs font-extrabold whitespace-no-wrap">
+                    {time1Str} — {time2Str}
+                </div>
 
                 <div className="flex justify-between">
-                  <div className="flex">
-                    <div className="mt-2 font-bold whitespace-no-wrap">
-                        {time1Str}
-                    </div>
-
-                    <div className="ml-4">
-                      <div className="text-xl overflow-hidden" style={{maxHeight: '3em'}}>
+                  <div className="flex truncate">
+                    <div className="truncate">
+                      <div className="truncate text-2xl">
                         <a target="_blank" rel="noopener noreferrer"
                           className="hover:underline"
                           href={currentVideo.fields['url']} >
@@ -199,7 +200,7 @@ class BottomBar extends React.Component {
                     </div>
                   </div>
 
-                  {
+                  {/* {
                     latlong && 
                     <div className="ml-4 mt-2">
                       <a target="_blank" rel="noopener noreferrer"
@@ -208,20 +209,19 @@ class BottomBar extends React.Component {
                           {latlongLabel}
                       </a>
                     </div>
-                  }
+                  } */}
                 </div>
               </div>
 
               <BrowserView viewClassName="w-4/12 pr-8 flex flex-col text-gray-500">
-                  <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/>
+                  {/* <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/> */}
+                  <div className="mt-2 text-xs font-extrabold whitespace-no-wrap">
+                    {time2Str} — {time3Str}
+                  </div>
 
                   <div className="flex">
-                    <div className="mt-2 font-bold whitespace-no-wrap">
-                      {time2Str}
-                    </div>
-
-                    <div className="ml-4 truncate">
-                      <div className="truncate text-xl">
+                    <div className="truncate">
+                      <div className="truncate text-2xl">
                         {/* <a target="_blank" rel="noopener noreferrer"
                           className="hover:underline"
                           href={nextVideo.fields['url']} > */}
@@ -229,7 +229,7 @@ class BottomBar extends React.Component {
                         {/* </a> */}
                       </div>
 
-                      <div className="">
+                      <div>
                         {/* <a target="_blank" rel="noopener noreferrer"
                           className="hover:underline"
                           href={nextChannelUrl} > */}
@@ -261,4 +261,4 @@ class BottomBar extends React.Component {
 }
 
 
-export default BottomBar;
+export default withTranslation()(BottomBar);

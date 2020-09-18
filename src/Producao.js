@@ -4,22 +4,26 @@ class Producao {
         return Math.floor((new Date().getTime())/1000);
     }
 
-    static computeTimes(currentVideo, videoStartSec) {
+    static computeTimes(currentVideo, nextVideo, videoStartSec) {
       const nowMs = Math.floor(Date.now());
-      let time1, time2;
+      let time1, time2, time3;
 
       time1 = nowMs - videoStartSec*1000;
       time2 = time1 + currentVideo.fields['duration']*60*1000;
+      time3 = time2 + nextVideo.fields['duration']*60*1000;
 
       time1 = new Date(time1);
       time2 = new Date(time2);
+      time3 = new Date(time3);
 
       console.debug('time1 =',time1);
       console.debug('time2 =',time2);
+      console.debug('time3 =',time3);
 
       return {
-        time1: time1,
-        time2: time2
+        time1,
+        time2,
+        time3
       }
     }
 
@@ -58,7 +62,7 @@ class Producao {
         const currentVideo = records[currentVideoIndex];
         const nextVideo = records[nextVideoIndex];
 
-        const { time1, time2 } = this.computeTimes(currentVideo, videoStartSec);
+        const times = this.computeTimes(currentVideo, nextVideo, videoStartSec);
         
         // Print it all
         console.debug('normalizedSeed',normalizedSeed);
@@ -71,8 +75,7 @@ class Producao {
             currentVideo: currentVideo,
             nextVideo: nextVideo,
             videoStart: videoStartSec,
-            time1: time1,
-            time2: time2
+            ...times
         };
       }
 }

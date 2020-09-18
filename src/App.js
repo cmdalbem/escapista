@@ -212,6 +212,7 @@ class App extends React.Component {
               nextVideo={this.state.nextVideo}
               time1={this.state.time1}
               time2={this.state.time2}
+              time3={this.state.time3}
               isMuted={this.state.isMuted}
               setUIState={this.setUIState}
               onToggleMute={this.onToggleMute}
