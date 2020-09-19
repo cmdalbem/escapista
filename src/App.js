@@ -27,12 +27,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.onFullScreenChange = this.onFullScreenChange.bind(this);
+    this.onToggleFullscreen = this.onToggleFullscreen.bind(this);
+    this.setFullscreen = this.setFullscreen.bind(this);
     this.onSwitchCategory = this.onSwitchCategory.bind(this);
-    this.setUIState = this.setUIState.bind(this);
     this.onToggleUI = this.onToggleUI.bind(this);
     this.onToggleMute = this.onToggleMute.bind(this);
     this.sync = this.sync.bind(this);
     this.skipVideo = this.skipVideo.bind(this);
+
+    document.addEventListener('fullscreenchange', this.onFullScreenChange);
 
     this.database = new Database();
 
@@ -45,6 +49,7 @@ class App extends React.Component {
       currentCategory: null,
       currentVideo: null,
       videoStart: 0,
+      isFullScreen: false,
       isUIVisible:
         params.ui !== undefined
           ? params.ui
@@ -156,11 +161,31 @@ class App extends React.Component {
   }
 
   onToggleUI() {
-    this.setUIState(!this.state.isUIVisible)
+    this.setState({ isUIVisible: !this.state.isUIVisible });
   }
 
-  setUIState(value) {
-    this.setState({ isUIVisible: value });
+  setFullscreen(value) {
+    if (value) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  }
+
+  onToggleFullscreen() {
+    this.setFullscreen(!this.state.isFullScreen);
+  }
+
+  onFullScreenChange(e) {
+    const isFullScreen = document.fullscreenElement;
+
+    this.setState({
+      isFullScreen: isFullScreen
+    })
+
+    this.setState({ isUIVisible: !isFullScreen });
   }
 
   onToggleMute() {
@@ -201,7 +226,7 @@ class App extends React.Component {
               videoEnd={this.state.currentVideo.fields.duration * 60}
               isMuted={this.state.isMuted}
               isUIVisible={this.state.isUIVisible}
-              onToggleUI={this.onToggleUI}
+              setFullscreen={this.setFullscreen}
               sync={this.sync}
               skipVideo={this.skipVideo}
             />
@@ -214,8 +239,9 @@ class App extends React.Component {
               time2={this.state.time2}
               time3={this.state.time3}
               isMuted={this.state.isMuted}
-              setUIState={this.setUIState}
+              isFullScreen={this.state.isFullScreen}
               onToggleMute={this.onToggleMute}
+              onToggleFullscreen={this.onToggleFullscreen}
             />
 
             <div

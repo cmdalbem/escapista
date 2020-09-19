@@ -163,11 +163,9 @@ class Player extends React.Component {
                         transform: isUIVisible ? 
                             `translate(${MAIN_BAR_WIDTH}px, -${BOTTOM_BAR_HEIGHT}px)`:
                             `translate(0, 0)`,
-                        cursor: isUIVisible ? 
-                            'zoom-in':
-                            'zoom-out',
+                        cursor: isUIVisible ? 'zoom-in': '',
                     }}
-                    onClick={this.props.onToggleUI}>
+                    onClick={isUIVisible ? () => this.props.setFullscreen(true) : undefined}>
                     
                     <div
                         className="absolute w-full h-full bg-gray-200 flex items-center justify-center"

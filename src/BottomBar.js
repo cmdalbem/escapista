@@ -25,10 +25,7 @@ class BottomBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onFullScreenChange = this.onFullScreenChange.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
-
-    document.addEventListener('fullscreenchange', this.onFullScreenChange);
 
     if (!isMobile) {
       document.addEventListener(
@@ -42,7 +39,6 @@ class BottomBar extends React.Component {
 
     this.state = {
       loading: true,
-      isFullscreen: false,
       open: !isMobile,
       ...this.props
     }
@@ -95,26 +91,6 @@ class BottomBar extends React.Component {
         ...this.props
       })
     }, LABELS_TRANSITION_MS);
-  }
-
-  onToggleFullscreen() {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen(); 
-      }
-    }
-  }
-
-  onFullScreenChange(e) {
-    const isFullScreen = document.fullscreenElement;
-
-    this.setState({
-      isFullScreen: isFullScreen
-    })
-
-    this.props.setUIState(!isFullScreen);
   }
 
   render() {
@@ -248,8 +224,8 @@ class BottomBar extends React.Component {
                 </button>
                 <button
                   className="p-5 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
-                  onClick={this.onToggleFullscreen}>
-                    <IconFullScreen isFullScreen={this.state.isFullScreen}/>
+                  onClick={this.props.onToggleFullscreen}>
+                    <IconFullScreen isFullScreen={this.props.isFullScreen}/>
                 </button>
               </div>
 
