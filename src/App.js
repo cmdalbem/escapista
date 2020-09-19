@@ -16,6 +16,8 @@ import BottomBar from './BottomBar.js'
 import MainBar from './MainBar.js'
 import Player from './Player.js'
 
+import Welcome from './Welcome.js'
+
 import IconRotate from './IconRotate.js'
 
 import './App.css';
@@ -35,6 +37,7 @@ class App extends React.Component {
     this.onToggleMute = this.onToggleMute.bind(this);
     this.sync = this.sync.bind(this);
     this.skipVideo = this.skipVideo.bind(this);
+    this.closeWelcome = this.closeWelcome.bind(this);
 
     document.addEventListener('fullscreenchange', this.onFullScreenChange);
 
@@ -50,6 +53,7 @@ class App extends React.Component {
       currentVideo: null,
       videoStart: 0,
       isFullScreen: false,
+      welcome: true,
       isUIVisible:
         params.ui !== undefined
           ? params.ui
@@ -135,6 +139,10 @@ class App extends React.Component {
     window.localStorage.setItem('escapista-app-state', str);
   }
 
+  closeWelcome() {
+    this.setState({welcome: false});
+  }
+
   sync() {
     const currentPlaylist = this.state.categories[this.state.currentCategory].videos;
     const producao = Producao.computeCurrentVideoAndOffset(currentPlaylist);
@@ -218,7 +226,14 @@ class App extends React.Component {
         </MobileView>
 
         {
-          isReady &&
+          this.state.welcome &&
+          <Welcome
+            onStartClick={this.closeWelcome}
+          />
+        }
+
+        {
+          isReady && !this.state.welcome &&
           <div>
             <Player
               videoId={this.state.currentVideo.fields['id']}
@@ -230,7 +245,7 @@ class App extends React.Component {
               sync={this.sync}
               skipVideo={this.skipVideo}
             />
-            
+
             <BottomBar
               isUIVisible={this.state.isUIVisible}
               currentVideo={this.state.currentVideo}
