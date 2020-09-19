@@ -2,10 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from "react-router-dom";
 
+import LogRocket from 'logrocket';
+
 import './i18n.js';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+if (window.location.hostname !== "localhost") {
+  LogRocket.init('c1d32g/escapista');
+}
 
 const render = Component => {
   return ReactDOM.render(
