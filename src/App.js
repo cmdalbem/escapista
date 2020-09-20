@@ -3,7 +3,8 @@ import { withRouter } from "react-router-dom";
 
 import {
   withOrientationChange,
-  MobileView
+  MobileView,
+  isMobile
 } from "react-device-detect";
 
 import { withTranslation } from 'react-i18next';
@@ -37,7 +38,6 @@ class App extends React.Component {
     this.onToggleMute = this.onToggleMute.bind(this);
     this.sync = this.sync.bind(this);
     this.skipVideo = this.skipVideo.bind(this);
-    this.closeWelcome = this.closeWelcome.bind(this);
 
     document.addEventListener('fullscreenchange', this.onFullScreenChange);
 
@@ -47,13 +47,13 @@ class App extends React.Component {
     const params = this.getParamsFromURL();
 
     this.state = {
+      welcome: !isMobile,
       videos: [],
       categories: [],
       currentCategory: null,
       currentVideo: null,
       videoStart: 0,
       isFullScreen: false,
-      welcome: true,
       isUIVisible:
         params.ui !== undefined
           ? params.ui
@@ -139,10 +139,6 @@ class App extends React.Component {
     window.localStorage.setItem('escapista-app-state', str);
   }
 
-  closeWelcome() {
-    this.setState({welcome: false});
-  }
-
   sync() {
     const currentPlaylist = this.state.categories[this.state.currentCategory].videos;
     const producao = Producao.computeCurrentVideoAndOffset(currentPlaylist);
@@ -209,6 +205,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { i18n, t } = this.props;
     const isReady = this.state.currentVideo;
 
     return (
@@ -218,8 +215,8 @@ class App extends React.Component {
           this.props.isPortrait &&
           <div className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center text-white z-10 bg-green-700">
             <IconRotate/>
-            <div className="w-1/2 my-2 text-2xl text-center leading-tight unna">
-              Gire seu celular para ter a melhor experiência.
+            <div className="w-1/2 my-2 text-2xl text-center leading-tight noto">
+              { t('turn-phone') }
             </div>
           </div>
         }
@@ -228,7 +225,7 @@ class App extends React.Component {
         {
           this.state.welcome &&
           <Welcome
-            onStartClick={this.closeWelcome}
+            onStartClick={() => this.setState({welcome: false})}
           />
         }
 
@@ -274,6 +271,7 @@ class App extends React.Component {
                 categories={this.state.categories}
                 currentCategory={this.state.currentCategory}
                 onSwitchCategory={this.onSwitchCategory}
+                onAboutClick={() => this.setState({welcome: true})}
               />
             </div>
 
