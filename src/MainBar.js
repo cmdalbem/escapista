@@ -1,12 +1,38 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 
+import * as typeformEmbed from '@typeform/embed'
+
 import { BrowserView, isMobile } from "react-device-detect";
 
 import { BOTTOM_BAR_HEIGHT, MAIN_BAR_WIDTH } from './constants.js';
 
 
+const SECONDARY_NAV_STYLE = `
+    py-1 text-left focus:outline-none hover:text-current focus:text-current
+    text-gray-500 text-sm
+`;
+
 class MainBar extends React.Component {
+    typeformPopup;
+
+    constructor(props) {
+        super(props);
+
+        this.onFeedbackClick = this.onFeedbackClick.bind(this);
+    }
+
+    componentDidMount() {
+        this.typeformPopup = typeformEmbed.makePopup('https://form.typeform.com/to/mGm8CpLN',{
+            mode: 'drawer_right',
+            hideHeaders: true,
+            hideFooters: true,
+        });
+    }
+
+    onFeedbackClick() {
+        this.typeformPopup.open();
+    }
     render() {
         const {
             t, i18n,
@@ -53,31 +79,27 @@ class MainBar extends React.Component {
 
                 <BrowserView>
                     <div className="flex flex-col -mb-2">
-                        <a 
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href="https://airtable.com/shrAnseaRWniVl9ar"
-                            className={`
-                                py-2 text-left focus:outline-none hover:text-current focus:text-current
-                                text-gray-500 text-sm 
-                            `}
+                        <button
+                            className={SECONDARY_NAV_STYLE}
+                            onClick={this.props.onAboutClick}
                         >
-                            { t('suggest-videos') }
-                        </a>
-
-                        {/* <button disabled className={`py-2 text-left
-                            text-gray-500 text-xs
-                            `}
-                        >
-                            { t('manifesto') }
+                            { t('about') }
                         </button>
-                        
-                        <button disabled className={`py-2 text-left
-                            text-gray-500 text-xs
-                            `}
+
+                        <button
+                            className={SECONDARY_NAV_STYLE}
+                            onClick={this.onFeedbackClick}
                         >
                             { t('feedback') }
-                        </button> */}
+                        </button>
+
+                        <a 
+                            target="_blank" rel="noopener noreferrer"
+                            href="https://airtable.com/shrAnseaRWniVl9ar"
+                            className={SECONDARY_NAV_STYLE}
+                        >
+                            { t('suggest') }
+                        </a>
                     </div>
                 </BrowserView>
             </div>

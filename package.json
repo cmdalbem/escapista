@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@typeform/embed": "^0.25.0",
     "hamburger-react": "^2.2",
     "i18next": "^19.7.0",
     "i18next-browser-languagedetector": "^6.0.1",
