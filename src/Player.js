@@ -168,7 +168,7 @@ class Player extends React.Component {
                     onClick={isUIVisible ? () => this.props.setFullscreen(true) : undefined}>
                     
                     <div
-                        className="absolute w-full h-full bg-gray-200 flex items-center justify-center"
+                        className="absolute w-full h-full bg-gray-100 flex items-center justify-center"
                         style={{
                             paddingRight: isUIVisible && MAIN_BAR_WIDTH,
                             paddingTop: isUIVisible && BOTTOM_BAR_HEIGHT

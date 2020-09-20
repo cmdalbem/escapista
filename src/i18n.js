@@ -12,9 +12,19 @@ const resources = {
       'fullscreen-off': 'Minimizar tela',
       'menu-on': 'Fechar menu',
       'menu-off': 'Abrir menu',
-      'suggest-videos': 'Sugerir vídeos',
+      
+      'suggest': 'Colabore',
       'manifesto': 'Manifesto',
       'feedback': 'Feedback',
+      'about': 'Sobre',
+      
+      'turn-phone': 'Gire seu celular para ter a melhor experiência.',
+      
+      'welcome-heading': 'Para onde você quer escapar?',
+      'welcome-body1': 'Esta é sua oportunidade de escapar para novos lugares. Escolha um canal e deixe sua mente vagar com a programação que curamos para você.',
+      'welcome-body2': 'Relaxe com os vídeos e o som natural enquanto trabalha, ponha na TV da sala ou combine com amigos para passearem juntos enquanto conversam.',
+      'welcome-body3': 'O Escapista é um pano de fundo para sua vida acontecer.',
+      'welcome-cta': 'Começar'
     }
   },
   'en': {
@@ -25,9 +35,13 @@ const resources = {
       'fullscreen-off': 'Minimize screen',
       'menu-on': 'Close menu',
       'menu-off': 'Open menu',
-      'suggest-videos': 'Suggest videos',
+
+      'suggest': 'Contribute',
       'manifesto': 'Manifesto',
       'feedback': 'Feedback',
+      'about': 'About',
+      
+      'turn-phone': 'Please turn your device for a best experience.'
     }
   },
   'es': {
@@ -38,9 +52,13 @@ const resources = {
       'fullscreen-off': '',
       'menu-on': '',
       'menu-off': '',
-      'suggest-videos': 'Sugerir videos',
+      
+      'suggest': 'Contribuir',
       'manifesto': 'Manifesto',
       'feedback': 'Feedback',
+      'about': 'Acerca',
+      
+      'turn-phone': 'Gire su dispositivo para obtener la mejor experiencia.'
     }
   },
 };
