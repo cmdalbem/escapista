@@ -43,11 +43,11 @@ function Welcome(props) {
                         Escapista
                     </h1>
 
-                    <h2 className="mt-16 max-w-xl font-extrabold text-6xl leading-tight">
+                    <h2 className="mt-8 max-w-xl font-extrabold text-6xl leading-tight">
                         { t('welcome-heading') }
                     </h2>
 
-                    <div className="mt-12 pr-24 text-sm" style={{width: MAIN_BAR_WIDTH}}>
+                    <div className="mt-8 pr-24" style={{width: MAIN_BAR_WIDTH}}>
                         <p className="mt-3">
                             { t('welcome-body1') }
                         </p>

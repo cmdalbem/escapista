@@ -23,7 +23,7 @@ const resources = {
       'welcome-heading': 'Para onde você quer escapar?',
       'welcome-body1': 'Esta é sua oportunidade de escapar para novos lugares. Escolha um canal e deixe sua mente vagar com a programação que curamos para você.',
       'welcome-body2': 'Relaxe com os vídeos e o som natural enquanto trabalha, ponha na TV da sala ou combine com amigos para passearem juntos enquanto conversam.',
-      'welcome-body3': 'O Escapista é um pano de fundo para sua vida acontecer.',
+      'welcome-body3': '',
       'welcome-cta': 'Começar'
     }
   },
