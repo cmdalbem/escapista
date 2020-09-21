@@ -47,7 +47,7 @@ class App extends React.Component {
     const params = this.getParamsFromURL();
 
     this.state = {
-      welcome: !isMobile,
+      welcome: saved.welcome !== undefined ? saved.welcome : !isMobile,
       videos: [],
       categories: [],
       currentCategory: null,
@@ -132,9 +132,10 @@ class App extends React.Component {
     const state = {
       isUIVisible: this.state.isUIVisible,
       isMuted: this.state.isMuted,
-      currentCategory: this.state.currentCategory
+      currentCategory: this.state.currentCategory,
+      welcome: this.state.welcome
     }
-
+ 
     const str = JSON.stringify(state);
     window.localStorage.setItem('escapista-app-state', str);
   }
