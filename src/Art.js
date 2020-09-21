@@ -19,7 +19,7 @@ class Art extends React.Component {
         const yMult = 3;
 
         for (var j = 0; j < layers.length; j++) {
-            const deep = layers[j].getAttribute('parallaxDeep');
+            const deep = layers[j].getAttribute('parallaxdeep');
             const itemX = x * xMult / deep;
             const itemY = y * yMult / deep;
             
