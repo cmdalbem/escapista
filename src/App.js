@@ -47,7 +47,7 @@ class App extends React.Component {
     const params = this.getParamsFromURL();
 
     this.state = {
-      welcome: saved.welcome !== undefined ? saved.welcome : !isMobile,
+      welcome: saved && saved.welcome !== undefined ? saved.welcome : !isMobile,
       videos: [],
       categories: [],
       currentCategory: null,
