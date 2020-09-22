@@ -206,7 +206,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { i18n, t } = this.props;
+    const { t } = this.props;
     const isReady = this.state.currentVideo;
 
     return (

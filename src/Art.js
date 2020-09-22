@@ -5,10 +5,6 @@ import ArtSVG from './assets/ArtSVG.js'
 import { throttle } from './utils.js';
 
 class Art extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     // Inspired by Eugene Burlak
     onMouseMove(e) {
         const x = e.clientX;

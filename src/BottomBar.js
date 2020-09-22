@@ -123,11 +123,11 @@ class BottomBar extends React.Component {
     const nextChannelTitle = 
       nextVideo.fields['channelTitle'] && 
       nextVideo.fields['channelTitle'][0];
-    const nextChannelUrl =
-      nextVideo.fields['channelUrl'] &&
-      nextVideo.fields['channelUrl'][0];
+    // const nextChannelUrl =
+    //   nextVideo.fields['channelUrl'] &&
+    //   nextVideo.fields['channelUrl'][0];
     
-    let latlong, latlongLabel;
+    // let latlong, latlongLabel;
     // latlong = currentVideo.fields['latlong'];
     // latlongLabel = latlong && latlong.split(',').map(i => i+'°').join(' ');
 
