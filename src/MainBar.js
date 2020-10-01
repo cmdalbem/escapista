@@ -72,7 +72,11 @@ class MainBar extends React.Component {
                                 : lang === 'en' 
                                     ? categories[id].fields['title-en']
                                     : categories[id].fields['title']
-                            }</button>
+                            }
+                            <sup className="ml-1 text-xs">
+                                { categories[id].videos.length }
+                            </sup>
+                            </button>
                         )
                     }
                 </div>
