@@ -18,7 +18,7 @@ const resources = {
       'feedback': 'Feedback',
       'about': 'Sobre',
       
-      'turn-phone': 'Gire seu celular para ter a melhor experiência.',
+      'turn-phone': 'Gire seu celular para uma melhor experiência.',
       
       'welcome-heading': 'Para onde você quer escapar?',
       'welcome-body1': 'Esta é sua oportunidade de escapar para novos lugares. Escolha um canal e deixe sua mente vagar com a programação que curamos para você.',
@@ -41,7 +41,7 @@ const resources = {
       'feedback': 'Feedback',
       'about': 'About',
       
-      'turn-phone': 'Please turn your device for a best experience.'
+      'turn-phone': 'Please turn your device for a better experience.'
     }
   },
   'es': {
