@@ -1,5 +1,6 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
+import Screenfull from "screenfull";
 
 import { BrowserView, isMobile } from "react-device-detect";
 
@@ -229,11 +230,15 @@ class BottomBar extends React.Component {
                   onClick={this.props.onToggleMute}>
                     <IconVolume isMuted={this.props.isMuted}/>
                 </button>
-                <button
-                  className="p-5 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
-                  onClick={this.props.onToggleFullscreen}>
-                    <IconFullScreen isFullScreen={this.props.isFullScreen}/>
-                </button>
+                
+                {
+                  Screenfull.isEnabled &&
+                  <button
+                    className="p-5 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
+                    onClick={this.props.onToggleFullscreen}>
+                      <IconFullScreen isFullScreen={Screenfull.isFullscreen}/>
+                  </button>
+                }
               </div>
 
               {/* <div className="w-1/12"></div> */}

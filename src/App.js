@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
+import Screenfull from "screenfull";
 
 import {
   withOrientationChange,
@@ -39,7 +40,7 @@ class App extends React.Component {
     this.sync = this.sync.bind(this);
     this.skipVideo = this.skipVideo.bind(this);
 
-    document.addEventListener('fullscreenchange', this.onFullScreenChange);
+    Screenfull.on('change', this.onFullScreenChange);
 
     this.database = new Database();
 
@@ -53,7 +54,6 @@ class App extends React.Component {
       currentCategory: null,
       currentVideo: null,
       videoStart: 0,
-      isFullScreen: false,
       isUIVisible:
         params.ui !== undefined
           ? params.ui
@@ -170,27 +170,23 @@ class App extends React.Component {
   }
 
   setFullscreen(value) {
-    if (value) {
-      document.documentElement.requestFullscreen();
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
+    if (Screenfull.isEnabled) {
+      if (value) {
+        Screenfull.request();
+      } else {
+        Screenfull.exit();
       }
     }
   }
 
   onToggleFullscreen() {
-    this.setFullscreen(!this.state.isFullScreen);
+    Screenfull.toggle();
   }
 
   onFullScreenChange(e) {
-    const isFullScreen = document.fullscreenElement;
-
     this.setState({
-      isFullScreen: isFullScreen
+      isUIVisible: !Screenfull.isFullscreen
     })
-
-    this.setState({ isUIVisible: !isFullScreen });
   }
 
   onToggleMute() {
@@ -252,7 +248,6 @@ class App extends React.Component {
               time2={this.state.time2}
               time3={this.state.time3}
               isMuted={this.state.isMuted}
-              isFullScreen={this.state.isFullScreen}
               onToggleMute={this.onToggleMute}
               onToggleFullscreen={this.onToggleFullscreen}
             />
