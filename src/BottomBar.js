@@ -93,25 +93,32 @@ class BottomBar extends React.Component {
     }, LABELS_TRANSITION_MS);
   }
 
-  render() {
-    const {
-      currentVideo,
-      nextVideo,
-      time1,
-      time2,
-      time3
-    } = this.state;
-
-    const { i18n } = this.props;
+  getFormatedTimes() {
+    const { time1, time2, time3, i18n } = this.props;
 
     const dateTimeOpts = {
       hour: '2-digit',
       minute: '2-digit',
       hour12: true
     };
-    const time1Str = time1.toLocaleTimeString(i18n.language, dateTimeOpts);
-    const time2Str = time2.toLocaleTimeString(i18n.language, dateTimeOpts);
-    const time3Str = time3.toLocaleTimeString(i18n.language, dateTimeOpts);
+
+    const str1 = time1.toLocaleTimeString(i18n.language, dateTimeOpts);
+    const str2 = time2.toLocaleTimeString(i18n.language, dateTimeOpts);
+    const str3 = time3.toLocaleTimeString(i18n.language, dateTimeOpts);
+
+    return {
+      time1Str: `${str1} — ${str2}`,
+      time2Str: `${str2} — ${str3}`,
+    }
+  }
+
+  render() {
+    const {
+      currentVideo,
+      nextVideo
+    } = this.state;
+
+    const { time1Str, time2Str } = this.getFormatedTimes();
 
     const channelTitle = 
       currentVideo.fields['channelTitle'] &&
@@ -152,7 +159,7 @@ class BottomBar extends React.Component {
             >
               <div className={`${isMobile ? 'w-10/12' : 'w-7/12'} pr-8 flex flex-col`}>
                 <div className="mt-2 text-xs font-extrabold whitespace-no-wrap">
-                    {time1Str} — {time2Str}
+                    { time1Str }
                 </div>
 
                 <div className="flex justify-between">
@@ -192,7 +199,7 @@ class BottomBar extends React.Component {
               <BrowserView viewClassName="w-4/12 pr-8 flex flex-col text-gray-500">
                   {/* <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/> */}
                   <div className="mt-2 text-xs font-extrabold whitespace-no-wrap">
-                    {time2Str} — {time3Str}
+                    { time2Str }
                   </div>
 
                   <div className="flex">
