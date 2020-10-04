@@ -142,7 +142,7 @@ class BottomBar extends React.Component {
           }}>
           <div 
             className={`
-              pt-2 flex justify-between text-green-900 noto
+              pt-2 flex justify-between text-green-900 font-body
               transform transition-all ease-out duration-${LABELS_TRANSITION_MS}
               ${this.state.loading ? '-translate-y-2 opacity-0' : '-translate-y-0 opacity-100'}
             `}

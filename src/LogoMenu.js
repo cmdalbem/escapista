@@ -12,7 +12,7 @@ export default function LogoMenu(props) {
   } = props;
 
   // const logoTypography = 'text-2xl unna';
-  const logoTypography = 'text-lg noto tracking-widest uppercase font-bold';
+  const logoTypography = 'text-lg font-heading tracking-widest uppercase font-bold';
 
   return (
     <button

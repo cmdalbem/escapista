@@ -3,12 +3,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.unna {
-  font-family: Unna, sans-serif;
-  font-weight: 700;
+.font-heading {
+  font-family: Alata, sans-serif;
+  font-weight: 400;
 }
 
-.noto {
+.font-body {
   font-family: Mulish, sans-serif;
 }
 

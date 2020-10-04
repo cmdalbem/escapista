@@ -26,7 +26,7 @@ function Welcome(props) {
         setTimeout(props.onStartClick, 2000);
     }
 
-    const logoTypography = 'text-lg noto tracking-widest uppercase font-bold';
+    const logoTypography = 'text-lg font-heading tracking-widest uppercase font-bold';
 
     const slideIn = `
         transition-all transform duration-1000 ease-in-out
@@ -35,7 +35,7 @@ function Welcome(props) {
     return (
         <div>
             <div
-                className="fixed z-10 pt-16 pl-16 noto w-screen h-full text-green-900 flex flex-col items-start justify-between"
+                className="fixed z-10 pt-16 pl-16 font-body w-screen h-full text-green-900 flex flex-col items-start justify-between"
                 style={{paddingBottom: BOTTOM_BAR_HEIGHT}}
             >
                 <div className={`${slideIn}`}>
