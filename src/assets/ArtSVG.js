@@ -32,13 +32,13 @@ function ArtSVG(props) {
                     ></circle>
                 </g>
 
-                <path
+                {/* <path
                     id="hill-fill"
                     className="parallax-layer" parallaxdeep="1000"
                     fill="#E6FFFA"
                     d="M707.974 474.651c-82.001-87.241-196.768-164.965-336.86-166.594-105.923-1.232-200.52 17.756-278.5 43.805C-7.138 385.183-79.7 430.058-114 458.942v194.747h945.665c-22.214-47.864-64.382-115.94-123.691-179.038z"
                     opacity="1"
-                ></path>
+                ></path> */}
 
                 <path
                     id="hill-contour"
