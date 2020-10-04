@@ -5,7 +5,12 @@ import * as typeformEmbed from '@typeform/embed'
 
 import { BrowserView, isMobile } from "react-device-detect";
 
-import { BOTTOM_BAR_HEIGHT, MAIN_BAR_WIDTH } from './constants.js';
+import {
+    BOTTOM_BAR_HEIGHT,
+    MAIN_BAR_WIDTH,
+    TYPEFORM_IDS,
+    AIRTABLE_URLS
+} from './constants.js';
 
 
 const SECONDARY_NAV_STYLE = `
@@ -23,7 +28,10 @@ class MainBar extends React.Component {
     }
 
     componentDidMount() {
-        this.typeformPopup = typeformEmbed.makePopup('https://form.typeform.com/to/mGm8CpLN',{
+        const lang = this.props.i18n.language.split('-')[0];
+        const typeformUrl = 'https://form.typeform.com/to/' + TYPEFORM_IDS[lang];
+
+        this.typeformPopup = typeformEmbed.makePopup(typeformUrl, {
             mode: 'drawer_right',
             hideHeaders: true,
             hideFooters: true,
@@ -41,6 +49,7 @@ class MainBar extends React.Component {
         } = this.props;
 
         const lang = i18n.language.split('-')[0];
+        const airtableUrl = AIRTABLE_URLS[lang];
 
         return (
             <div
@@ -99,7 +108,7 @@ class MainBar extends React.Component {
 
                         <a 
                             target="_blank" rel="noopener noreferrer"
-                            href="https://airtable.com/shrAnseaRWniVl9ar"
+                            href={airtableUrl}
                             className={SECONDARY_NAV_STYLE}
                         >
                             { t('suggest') }

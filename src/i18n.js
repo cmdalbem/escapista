@@ -70,7 +70,7 @@ const resources = {
       'welcome-body1': 'Esta es tu oportunidad de escapar a nuevos lugares. Elija un canal y deje que su mente divague con los videos que seleccionamos para usted.',
       'welcome-body2': 'Relájese con las imágenes y los sonidos naturales mientras trabaja, enciende la televisión o invita a sus amigos a mirar juntos.',
       'welcome-body3': '',
-      'welcome-cta': 'Start'
+      'welcome-cta': 'Empezar'
     }
   },
 };

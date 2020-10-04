@@ -9,11 +9,12 @@ import {
     MAIN_BAR_WIDTH,
     ESCAPIST_EASING_BEZIER,
     ESCAPIST_EASING_TIMING,
+    MANIFESTO_URLS
 } from './constants.js';
 
 
 function Welcome(props) {
-    const { t } = props;
+    const { t, i18n } = props;
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -25,6 +26,9 @@ function Welcome(props) {
         setLoading(true);
         setTimeout(props.onStartClick, 2000);
     }
+
+    const lang = i18n.language.split('-')[0];
+    const manifestoUrl = MANIFESTO_URLS[lang];
 
     const logoTypography = 'text-lg font-heading tracking-widest uppercase font-bold';
 
@@ -71,7 +75,7 @@ function Welcome(props) {
                     </button>
 
                     <a
-                        href="https://www.notion.so/Manifesto-dac06fb54a264b719a299f06705f15bf"
+                        href={manifestoUrl}
                         className="py-3 px-6 ml-2 rounded hover:bg-gray-200 duration-300"
                         target="_blank" rel="noopener noreferrer"
                     >
