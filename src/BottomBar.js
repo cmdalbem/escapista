@@ -166,7 +166,7 @@ class BottomBar extends React.Component {
                 <div className="flex justify-between">
                   <div className="flex truncate">
                     <div className="truncate">
-                      <div className="truncate text-2xl">
+                      <div className={`truncate ${isMobile ? '' : 'text-2xl'}`}>
                         <a target="_blank" rel="noopener noreferrer"
                           className="hover:underline"
                           href={currentVideo.fields['url']} >

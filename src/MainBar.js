@@ -82,9 +82,12 @@ class MainBar extends React.Component {
                                     ? categories[id].fields['title-en']
                                     : categories[id].fields['title']
                             }
-                            <sup className="ml-1 text-xs">
-                                { categories[id].videos.length }
-                            </sup>
+                            {
+                                !isMobile && 
+                                <sup className="ml-1 text-xs">
+                                    { categories[id].videos.length }
+                                </sup>
+                            }
                             </button>
                         )
                     }
