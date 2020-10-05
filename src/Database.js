@@ -21,16 +21,21 @@ class Database {
         
         const response = await fetch(queryUrl);
         const data = await response.json();
-        let accumulated = data.records;
-
-        accumulated = accumulated.concat(accumulator);
-
-        if (data.offset) {
-            console.debug(`%cfetchTable(${tableName}): offset detected, recursing...`, debugStyles.blue);
-            return this.fetchTable(tableName, view, data.offset, accumulated);
+        
+        if (data.records && data.records.length > 0) {
+            let accumulated = data.records;
+    
+            accumulated = accumulated.concat(accumulator);
+    
+            if (data.offset) {
+                console.debug(`%cfetchTable(${tableName}/${view}): offset detected, recursing...`, debugStyles.blue);
+                return this.fetchTable(tableName, view, data.offset, accumulated);
+            } else {
+                console.debug(`%cfetchTable(${tableName}/${view}): end of pagination, returning.`, debugStyles.blue);
+                return accumulated;
+            }
         } else {
-            console.debug(`%cfetchTable(${tableName}): end of pagination, returning.`, debugStyles.blue);
-            return accumulated;
+            console.warn(`%cfetchTable(${tableName}/${view}): zero records`, debugStyles.blue);
         }
     }
 
@@ -55,7 +60,7 @@ class Database {
     }
 
     async get() {
-        let categories, videos;
+        let categories;
 
         // Query categories
         categories = await this.fetchTable('Categories','Gallery');
@@ -71,9 +76,12 @@ class Database {
         };
 
         // Query videos
-        videos = await this.fetchTable('Videos','Filtered');
+        const filtered = await this.fetchTable('Videos','Filtered');
+        const still = await this.fetchTable('Videos','Still');
+        const videos = filtered.concat(still);
+
         if (videos && videos.length > 0) {
-            console.debug('airtable entries:',videos);
+            console.debug('airtable entries:', videos);
 
             this.videos = videos;
 
@@ -89,11 +97,13 @@ class Database {
                     categories.forEach(i => {
                         const c = this.categories[i];
 
-                        if (c.videos.filter(v => v.fields.id === r.fields.id).length > 0) {
-                            console.debug(`%c[duplicate] ${r.fields.id} ${r.fields.title}`, debugStyles.gray);
-                        } else {
-                            c.videos.push(r);
-                            c.slug = slugify(c.fields.title);
+                        if (c) {
+                            if (c.videos.filter(v => v.fields.id === r.fields.id).length > 0) {
+                                console.debug(`%c[duplicate] ${r.fields.id} ${r.fields.title}`, debugStyles.gray);
+                            } else {
+                                c.videos.push(r);
+                                c.slug = slugify(c.fields.title);
+                            }
                         }
                     });
                 } else {
