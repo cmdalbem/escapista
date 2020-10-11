@@ -60,12 +60,6 @@ class Player extends React.Component {
         this.updateVolume();
 
         setInterval(this.gameLoop, LIVENESS_CHECK_MS);
-
-        // Inject Hotjar whitelist attribute
-        const iframeEl = document.querySelector('iframe');
-        if (iframeEl && iframeEl.setAttribute) {
-            iframeEl.setAttribute('data-hj-allow-iframe','')
-        }
     }
 
     gameLoop() {
@@ -74,7 +68,7 @@ class Player extends React.Component {
 
             // Just to make sure (also turns it up after computer sleeping)
             this.playerRef.current.internalPlayer.playVideo();
-            
+
             // // Update progress bar
             // this.playerRef.current.internalPlayer.getCurrentTime()
             //     .then(time => {
@@ -131,6 +125,11 @@ class Player extends React.Component {
         this.setState({
             playerStatus: statusStr
         });
+
+        // Force captions off
+        const player = e.target;
+        player.unloadModule('captions');
+        player.unloadModule('cc');
     }
 
     render() {
@@ -146,8 +145,6 @@ class Player extends React.Component {
                 fs: 0,
                 loop: 0,
                 rel: 0,
-                showinfo: 0,
-                autohide: 1,
                 origin: 'https://slowproject.app/',
                 start: this.state.videoStart,
                 end: this.state.videoEnd
