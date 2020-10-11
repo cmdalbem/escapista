@@ -9,7 +9,8 @@
 }
 
 .font-body {
-  font-family: Mulish, sans-serif;
+  font-family: DM Sans, sans-serif;
+  font-feature-settings: 'ss02' on, 'ss03' off, 'ss04' off;
 }
 
 .h-2px {
