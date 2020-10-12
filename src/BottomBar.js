@@ -27,28 +27,21 @@ class BottomBar extends React.Component {
     super(props);
 
     this.onMouseMove = this.onMouseMove.bind(this);
-
-    if (!isMobile) {
-      document.addEventListener(
-        'mousemove', 
-        throttle(this.onMouseMove, 300),
-        { capture: true, passive: true }
-      );
-
-      this.autoCloseMenu();
-    }
+    this.throttleMouseMove = throttle(this.onMouseMove, 300);
 
     this.state = {
       loading: true,
-      open: !isMobile,
+      open: false,
       ...this.props
     }
 
     this.delayStateUpdate();
+    this.updateMenuAutocloseBehavior();
   }
 
   onMouseMove(e) {
-    // console.debug('onMouseMove');
+    console.debug('onMouseMove');
+
     if (!this.props.isUIVisible) {
       this.setState({
         open: true
@@ -56,7 +49,32 @@ class BottomBar extends React.Component {
     }
   }
 
+  updateMenuAutocloseBehavior() {
+    if (this.props.isUIVisible)  {
+      document.removeEventListener(
+        'mousemove',
+        this.throttleMouseMove,
+        { capture: true, passive: true });
+    } else {
+      this.setState({
+        open: false
+      })
+
+      setTimeout( () => {
+        document.addEventListener(
+          'mousemove', 
+          this.throttleMouseMove,
+          { capture: true, passive: true }
+        );
+      }, 1500);
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
+    if (!isMobile && prevProps.isUIVisible !== this.props.isUIVisible) {
+      this.updateMenuAutocloseBehavior();
+    }
+
     if (prevProps.currentVideo !== this.props.currentVideo) {
       console.debug('currentVideo', this.props.currentVideo);
 
