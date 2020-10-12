@@ -12,13 +12,13 @@ export default function LogoMenu(props) {
   } = props;
 
   // const logoTypography = 'text-2xl unna';
-  const logoTypography = 'text-lg font-heading tracking-widest uppercase font-bold';
+  const logoTypography = 'text-lg font-heading tracking-widest uppercase font-bold ';
 
   return (
     <button
       className={`
         fixed top-0 left-0 z-1 flex items-center pt-1 
-        cursor-pointer hover:opacity-75 focus:opacity-75
+        cursor-pointer hover:opacity-75 focus:opacity-75 focus:outline-none
         ${isMobile ? 'mt-2 ml-2' : 'mt-8 ml-16'}
         ${isUIVisible ? 'text-green-900' : 'text-white'}`
       }
