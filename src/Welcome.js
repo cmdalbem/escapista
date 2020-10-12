@@ -30,7 +30,7 @@ function Welcome(props) {
     const lang = i18n.language.split('-')[0];
     const manifestoUrl = MANIFESTO_URLS[lang];
 
-    const logoTypography = 'text-lg font-heading tracking-widest uppercase font-bold';
+    const logoTypography = 'text-lg font-logo tracking-widest uppercase font-bold';
 
     const slideIn = `
         transition-all transform duration-1000 ease-in-out
@@ -47,41 +47,43 @@ function Welcome(props) {
                         Escapista
                     </h1>
 
-                    <h2 className="mt-8 max-w-xl font-extrabold text-6xl leading-tight">
-                        { t('welcome-heading') }
-                    </h2>
+                    <div className="ml-16">
+                        <h2 className="mt-8 max-w-xl font-heading text-green-800 whitespace-pre-line font-extrabold text-6xl leading-tight">
+                            { t('welcome-heading') }
+                        </h2>
 
-                    <div className="mt-8 pr-24" style={{width: MAIN_BAR_WIDTH}}>
-                        <p className="mt-3">
-                            { t('welcome-body1') }
-                        </p>
+                        <div className="mt-8 max-w-sm text-lg">
+                            <p className="mt-3">
+                                { t('welcome-body1') }
+                            </p>
 
-                        <p className="mt-3">
-                            { t('welcome-body2') }
-                        </p>
+                            <p className="mt-3">
+                                { t('welcome-body2') }
+                            </p>
 
-                        <p className="mt-3">
-                            { t('welcome-body3') }
-                        </p>
+                            <p className="mt-3">
+                                { t('welcome-body3') }
+                            </p>
+                        </div>
                         
+                        <div className={`mt-32 ${slideIn} delay-200`}>
+                            <button
+                                className="py-3 px-6 bg-green-700 font-medium rounded text-white hover:bg-green-800 duration-300"
+                                onClick={onStartClick}>
+                                { t('welcome-cta') }
+                            </button>
+
+                            <a
+                                href={manifestoUrl}
+                                className="py-3 px-6 ml-2 rounded font-medium hover:bg-gray-200 duration-300"
+                                target="_blank" rel="noopener noreferrer"
+                            >
+                                { t('read-the-manifesto') }
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <div className={`${slideIn} delay-200`}>
-                    <button
-                        className="py-3 px-6 bg-green-700 rounded text-white hover:bg-green-800 duration-300"
-                        onClick={onStartClick}>
-                        { t('welcome-cta') }
-                    </button>
-
-                    <a
-                        href={manifestoUrl}
-                        className="py-3 px-6 ml-2 rounded hover:bg-gray-200 duration-300"
-                        target="_blank" rel="noopener noreferrer"
-                    >
-                        { t('manifesto') }
-                    </a>
-                </div>
             </div>
 
             <div className={`overflow-hidden`}>

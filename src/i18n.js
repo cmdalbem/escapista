@@ -20,11 +20,12 @@ const resources = {
       
       'turn-phone': 'Gire seu celular para uma melhor experiência.',
       
-      'welcome-heading': 'Para onde você quer escapar?',
+      'welcome-heading': 'Para onde você\nquer escapar?',
       'welcome-body1': 'Esta é sua oportunidade de escapar para novos lugares. Escolha um canal e deixe sua mente vagar com a programação que curamos para você.',
       'welcome-body2': 'Relaxe com os vídeos e o som natural enquanto trabalha, ponha na TV da sala ou combine com amigos para passearem juntos enquanto conversam.',
       'welcome-body3': '',
-      'welcome-cta': 'Começar'
+      'welcome-cta': 'Começar',
+      'read-the-manifesto': 'Leia o manifesto',
     }
   },
   'en': {
@@ -43,11 +44,12 @@ const resources = {
       
       'turn-phone': 'Please turn your device for a better experience.',
 
-      'welcome-heading': 'Where do you want to escape?',
+      'welcome-heading': 'Where do you\nwant to escape?',
       'welcome-body1': 'This is your opportunity to escape to new places. Choose a channel and let your mind wander with the videos we curated for you.',
       'welcome-body2': 'Relax with the natural images and sounds while you work, put on your TV or invite your friends to watch together.',
       'welcome-body3': '',
-      'welcome-cta': 'Start'
+      'welcome-cta': 'Start',
+      'read-the-manifesto': 'Read the manifesto',
     }
   },
   'es': {
@@ -66,11 +68,12 @@ const resources = {
       
       'turn-phone': 'Gire su dispositivo para obtener la mejor experiencia.',
 
-      'welcome-heading': '¿A dónde quieres escapar?',
+      'welcome-heading': '¿A dónde\nquieres escapar?',
       'welcome-body1': 'Esta es tu oportunidad de escapar a nuevos lugares. Elija un canal y deje que su mente divague con los videos que seleccionamos para usted.',
       'welcome-body2': 'Relájese con las imágenes y los sonidos naturales mientras trabaja, enciende la televisión o invita a sus amigos a mirar juntos.',
       'welcome-body3': '',
-      'welcome-cta': 'Empezar'
+      'welcome-cta': 'Empezar',
+      'read-the-manifesto': 'Lea el manifesto',
     }
   },
 };
