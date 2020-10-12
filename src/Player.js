@@ -154,7 +154,7 @@ class Player extends React.Component {
         return (
             <div className="overflow-hidden">
                 <div
-                    className="video-background"
+                    className="video-background overflow-hidden"
                     style={{
                         transition: `transform ${ESCAPIST_EASING_TIMING} ${ESCAPIST_EASING_BEZIER}`,
                         transform: isUIVisible ? 
