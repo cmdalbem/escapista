@@ -78,6 +78,12 @@ class Database {
         // Query videos
         const filtered = await this.fetchTable('Videos','Filtered');
         const still = await this.fetchTable('Videos','Still');
+        
+        // Override airtable-filled categories with only Still (to not mix with other categories)
+        still.forEach(v => {
+            v.fields.categories = ['reclgJFyr99pR9H3D'];
+        })
+        
         const videos = filtered.concat(still);
 
         if (videos && videos.length > 0) {
