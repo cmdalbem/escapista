@@ -60,3 +60,12 @@ export function throttle(callback, limit) {
         }
     }
 }
+
+// Thanks https://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari/29696509#29696509
+export function isMobileSafari() {
+    const ua = window.navigator.userAgent;
+    const iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+    const webkit = !!ua.match(/WebKit/i);
+    const iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
+    return iOSSafari;
+  }

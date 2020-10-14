@@ -10,6 +10,9 @@ import {
 
 import { withTranslation } from 'react-i18next';
 
+
+import { isMobileSafari } from './utils.js';
+
 import Database from './Database.js'
 import Producao from './Producao.js'
 
@@ -40,7 +43,9 @@ class App extends React.Component {
     this.sync = this.sync.bind(this);
     this.skipVideo = this.skipVideo.bind(this);
 
-    Screenfull.on('change', this.onFullScreenChange);
+    if (!isMobileSafari()) {
+      Screenfull.on('change', this.onFullScreenChange);
+    }
 
     this.database = new Database();
 
