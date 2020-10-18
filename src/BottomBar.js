@@ -202,6 +202,10 @@ class BottomBar extends React.Component {
                     </div>
                   </div>
 
+                  <div id="airtableId" className="hidden">
+                    { currentVideo.id }
+                  </div>
+
                   {/* {
                     latlong && 
                     <div className="ml-4 mt-2">
