@@ -15,9 +15,9 @@ import {
 
 import { throttle } from './utils.js';
 
-import IconVolume from './IconVolume.js'
-import IconFullScreen from './IconFullScreen.js'
-// import IconGlobe from './IconGlobe.js'
+import IconVolume from './assets/IconVolume.js'
+import IconFullScreen from './assets/IconFullScreen.js'
+// import IconGlobe from './assets/IconGlobe.js'
 
 
 class BottomBar extends React.Component {

@@ -22,7 +22,7 @@ import Player from './Player.js'
 
 import Welcome from './Welcome.js'
 
-import IconRotate from './IconRotate.js'
+import IconRotate from './assets/IconRotate.js'
 
 import './App.css';
 
