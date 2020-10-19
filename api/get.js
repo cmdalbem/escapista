@@ -144,7 +144,7 @@ export default async (req, res) => {
     let airtable = new Airtable();
     const data = await airtable.get();
  
-    res.setHeader('Cache-Control', 's-maxage=30');
+    res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate');
     res.json({
         body: data,
         // query: req.query,
