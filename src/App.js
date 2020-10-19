@@ -13,7 +13,7 @@ import { withTranslation } from 'react-i18next';
 
 import { isMobileSafari } from './utils.js';
 
-import Database from './Database.js'
+// import Database from './Database.js'
 import Producao from './Producao.js'
 
 import LogoMenu from './LogoMenu.js'
@@ -29,7 +29,7 @@ import './App.css';
 
 
 class App extends React.Component {
-  database;
+  // database;
 
   constructor(props) {
     super(props);
@@ -47,7 +47,7 @@ class App extends React.Component {
       Screenfull.on('change', this.onFullScreenChange);
     }
 
-    this.database = new Database();
+    // this.database = new Database();
 
     const saved = this.getStateFromLocalStorage();
     const params = this.getParamsFromURL();
@@ -83,8 +83,13 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    const data = await this.database.get();
-    
+    // const data = await this.database.get();
+    const res = await (await fetch('/api/get')).json();
+    const data = res.body;
+
+    console.debug('data from our own API ✨', res);
+    console.debug(data);
+     
     let category;
     let pathname = this.props.location.pathname.split('/')[1];
     if (pathname) {
