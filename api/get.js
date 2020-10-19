@@ -85,14 +85,16 @@ class Airtable {
         };
 
         // Query videos
-        const filtered = await this.fetchTable('Videos','Filtered');
         const still = await this.fetchTable('Videos','Still');
         
         // Override airtable-filled categories with only Still (to not mix with other categories)
-        still.forEach(v => {
-            v.fields.categories = ['reclgJFyr99pR9H3D'];
-        })
+        if (still && still.length > 0) {
+            still.forEach(v => {
+                v.fields.categories = ['reclgJFyr99pR9H3D'];
+            })
+        }
         
+        const filtered = await this.fetchTable('Videos','Filtered');
         const videos = filtered.concat(still);
 
         if (videos && videos.length > 0) {
