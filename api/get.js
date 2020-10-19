@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 
-
 // Thanks https://medium.com/@mhagemann/the-ultimate-way-to-slugify-a-url-string-in-javascript-b8e4a0d849e1
 export function slugify(str) {
     const a = 'àáäâãåăæçèéëêǵḧìíïîḿńǹñòóöôœøṕŕßśșțùúüûǘẃẍÿź·/_,:;'
@@ -144,10 +143,8 @@ export default async (req, res) => {
     let airtable = new Airtable();
     const data = await airtable.get();
  
-    res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate');
+    res.setHeader('Cache-Control', 's-maxage=30, stale-while-revalidate');
     res.json({
-        body: data,
-        // query: req.query,
-        // cookies: req.cookies,
+        body: data
     })
 }
