@@ -1,8 +1,8 @@
+![Project logo](./public/logo192.png) Escapista
+
 ## [Escapista.app](http://escapista.app/) is an webapp for watching great Slow TV and ambient videos with a TV-like experience: chose your channel, lean-back and relax.
 
-<!-- ![Project logo](./public/logo192.png) Escapista -->
-
-![Project logo](./src/assets/artextended.svg)
+<!-- ![Project logo](./src/assets/artextended.svg) -->
 
 # History & motivation 
 
