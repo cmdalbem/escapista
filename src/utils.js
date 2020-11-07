@@ -69,3 +69,8 @@ export function isMobileSafari() {
     const iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
     return iOSSafari;
   }
+
+// Thanks https://stackoverflow.com/questions/10992921/how-to-remove-emoji-code-using-javascript
+export function stripEmojis(str) {
+    return str.replace(/\p{Emoji}/gu, '');
+}

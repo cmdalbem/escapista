@@ -13,7 +13,7 @@ import {
   ESCAPIST_EASING_TIMING,
 } from './constants.js';
 
-import { throttle } from './utils.js';
+import { throttle, stripEmojis } from './utils.js';
 
 import IconVolume from './assets/IconVolume.js'
 import IconFullScreen from './assets/IconFullScreen.js'
@@ -117,8 +117,7 @@ class BottomBar extends React.Component {
 
     const dateTimeOpts = {
       hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
+      minute: '2-digit'
     };
 
     const str1 = time1.toLocaleTimeString(i18n.language, dateTimeOpts);
@@ -148,13 +147,9 @@ class BottomBar extends React.Component {
       currentVideo.fields['channelUrl'] &&
       currentVideo.fields['channelUrl'][0];
     
-    const nextChannelTitle = 
-      nextVideo.fields['channelTitle'] && 
-      nextVideo.fields['channelTitle'][0];
-    // const nextChannelUrl =
-    //   nextVideo.fields['channelUrl'] &&
-    //   nextVideo.fields['channelUrl'][0];
-    
+    const currentVideoTitle = stripEmojis(currentVideo.fields['title']);
+    const nextVideoTitle = stripEmojis(nextVideo.fields['title']);
+
     // let latlong, latlongLabel;
     // latlong = currentVideo.fields['latlong'];
     // latlongLabel = latlong && latlong.split(',').map(i => i+'°').join(' ');
@@ -178,8 +173,8 @@ class BottomBar extends React.Component {
               paddingLeft: MAIN_BAR_WIDTH,
               height: BOTTOM_BAR_HEIGHT + 'px'}}
             >
-              <div className={`${isMobile ? 'w-10/12' : 'w-5/12'} pr-8 flex flex-col`}>
-                <div className="mt-2 text-xs font-extrabold whitespace-no-wrap">
+              <div className={`${isMobile ? 'w-9/12' : 'w-5/12'} pr-8 flex flex-col`}>
+                <div className="mt-2 text-xs font-extrabold whitespace-no-wrap mb-1">
                     { time1Str }
                 </div>
 
@@ -190,7 +185,7 @@ class BottomBar extends React.Component {
                         <a target="_blank" rel="noopener noreferrer"
                           className="hover:underline"
                           href={currentVideo.fields['url']} >
-                            {currentVideo.fields['title']}
+                            {currentVideoTitle}
                         </a>
                       </div>
 
@@ -223,24 +218,20 @@ class BottomBar extends React.Component {
 
               <BrowserView viewClassName="w-4/12 pr-8 flex flex-col text-gray-400">
                   {/* <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/> */}
-                  <div className="mt-2 text-xs font-extrabold whitespace-no-wrap">
+                  <div className="mt-2 text-xs font-extrabold whitespace-no-wrap mb-1">
                     { t('later') }
                   </div>
 
                   <div className="flex">
                     <div className="truncate">
                       <div className="truncate text-xl">
-                        {/* <a target="_blank" rel="noopener noreferrer"
-                          className="hover:underline"
-                          href={nextVideo.fields['url']} > */}
-                            { nextVideo.fields['title'] }
-                        {/* </a> */}
+                        { nextVideoTitle }
                       </div>
                     </div>
                   </div>
               </BrowserView>
               
-              <div className="w-1/12 pr-2 flex justify-end items-start">
+              <div className="w-1/12 mt-4 pr-2 flex justify-end items-start">
                 <button
                   className="p-5 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
                   onClick={this.props.onToggleMute}>
@@ -256,8 +247,6 @@ class BottomBar extends React.Component {
                   </button>
                 }
               </div>
-
-              {/* <div className="w-1/12"></div> */}
           </div>
         </div>
     );
