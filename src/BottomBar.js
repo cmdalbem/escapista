@@ -167,73 +167,74 @@ class BottomBar extends React.Component {
             transitionTimingFunction: ESCAPIST_EASING_BEZIER,
             transitionDuration: ESCAPIST_EASING_TIMING
           }}>
-          <div 
-            className={`
-              pt-2 flex justify-between text-green-900 font-body
-              transform transition-all ease-out duration-${LABELS_TRANSITION_MS}
-              ${this.state.loading ? '-translate-y-2 opacity-0' : '-translate-y-0 opacity-100'}
-            `}
+          <div
+            className="pt-2 flex justify-between text-green-900 font-body"
             style={{
               paddingLeft: MAIN_BAR_WIDTH,
               height: BOTTOM_BAR_HEIGHT + 'px'}}
             >
-              <div className={`${isMobile ? 'w-9/12' : 'w-5/12'} pr-8 flex flex-col`}>
-                <div className="mt-2 text-xs font-extrabold whitespace-no-wrap mb-1">
-                    { time1Str }
-                </div>
-
-                <div className="flex justify-between">
-                  <div className="flex truncate">
-                    <div className="truncate">
-                      <div className={`truncate ${isMobile ? '' : 'text-xl'}`}>
-                        <a target="_blank" rel="noopener noreferrer"
-                          className="hover:underline"
-                          href={currentVideoUrl} >
-                            {currentVideoTitle}
-                        </a>
-                      </div>
-
-                      <div>
-                        <a target="_blank" rel="noopener noreferrer"
-                          className=" hover:underline"
-                          href={channelUrl} >
-                            {channelTitle}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div id="airtableId" className="hidden">
-                    { currentVideo && currentVideo.id }
-                  </div>
-
-                  {/* {
-                    latlong && 
-                    <div className="ml-4 mt-2">
-                      <a target="_blank" rel="noopener noreferrer"
-                        className="hover:underline text-gray-700 whitespace-no-wrap"
-                        href={`https://www.google.com/maps/@${latlong},12z`} >
-                          {latlongLabel}
-                      </a>
-                    </div>
-                  } */}
-                </div>
-              </div>
-
-              <BrowserView viewClassName="w-4/12 pr-8 flex flex-col text-gray-400">
-                  {/* <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/> */}
+              <div className={`
+                flex w-full transform transition-all ease-out duration-${LABELS_TRANSITION_MS}
+                ${this.state.loading ? '-translate-y-2 opacity-0' : '-translate-y-0 opacity-100'}`}
+              > 
+                <div className={`${isMobile ? 'w-10/12' : 'w-6/12'} pr-8 flex flex-col`}>
                   <div className="mt-2 text-xs font-extrabold whitespace-no-wrap mb-1">
-                    { nextVideoTitle && t('later') }
+                      { time1Str }
                   </div>
 
-                  <div className="flex">
-                    <div className="truncate">
-                      <div className="truncate text-xl">
-                        { nextVideoTitle }
+                  <div className="flex justify-between">
+                    <div className="flex truncate">
+                      <div className="truncate">
+                        <div className={`truncate ${isMobile ? '' : 'text-xl'}`}>
+                          <a target="_blank" rel="noopener noreferrer"
+                            className="hover:underline"
+                            href={currentVideoUrl} >
+                              {currentVideoTitle}
+                          </a>
+                        </div>
+
+                        <div>
+                          <a target="_blank" rel="noopener noreferrer"
+                            className=" hover:underline"
+                            href={channelUrl} >
+                              {channelTitle}
+                          </a>
+                        </div>
                       </div>
                     </div>
+
+                    <div id="airtableId" className="hidden">
+                      { currentVideo && currentVideo.id }
+                    </div>
+
+                    {/* {
+                      latlong && 
+                      <div className="ml-4 mt-2">
+                        <a target="_blank" rel="noopener noreferrer"
+                          className="hover:underline text-gray-700 whitespace-no-wrap"
+                          href={`https://www.google.com/maps/@${latlong},12z`} >
+                            {latlongLabel}
+                        </a>
+                      </div>
+                    } */}
                   </div>
-              </BrowserView>
+                </div>
+
+                <BrowserView viewClassName="w-6/12 pr-8 flex flex-col text-gray-400">
+                    {/* <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/> */}
+                    <div className="mt-2 text-xs font-extrabold whitespace-no-wrap mb-1">
+                      { nextVideoTitle && t('later') }
+                    </div>
+
+                    <div className="flex">
+                      <div className="truncate">
+                        <div className="truncate text-xl">
+                          { nextVideoTitle }
+                        </div>
+                      </div>
+                    </div>
+                </BrowserView>
+              </div>
               
               <div className="w-1/12 mt-4 pr-2 flex justify-end items-start">
                 <button
