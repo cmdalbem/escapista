@@ -162,7 +162,7 @@ class Player extends React.Component {
                             `translate(0, 0)`,
                         cursor: isUIVisible ? 'zoom-in': '',
                     }}
-                    onClick={isUIVisible ? () => this.props.setFullscreen(true) : undefined}>
+                    onClick={isUIVisible ? this.props.onPlayerClick : undefined}>
                     
                     <div
                         className="absolute w-full h-full bg-gray-100 flex items-center justify-center"

@@ -33,7 +33,7 @@ class App extends React.Component {
 
     this.onFullScreenChange = this.onFullScreenChange.bind(this);
     this.onToggleFullscreen = this.onToggleFullscreen.bind(this);
-    this.setFullscreen = this.setFullscreen.bind(this);
+    this.onPlayerClick = this.onPlayerClick.bind(this);
     this.onSwitchCategory = this.onSwitchCategory.bind(this);
     this.onToggleUI = this.onToggleUI.bind(this);
     this.onToggleMute = this.onToggleMute.bind(this);
@@ -49,7 +49,6 @@ class App extends React.Component {
 
     this.state = {
       welcome: saved && saved.welcome !== undefined ? saved.welcome : !isMobile,
-      videos: [],
       categories: [],
       currentCategory: null,
       currentVideo: null,
@@ -173,14 +172,11 @@ class App extends React.Component {
     this.setState({ isUIVisible: !this.state.isUIVisible });
   }
 
-  setFullscreen(value) {
+  onPlayerClick(value) {
     if (Screenfull.isEnabled) {
-      if (value) {
-        Screenfull.request();
-      } else {
-        Screenfull.exit();
-      }
+      Screenfull.request();
     }
+    this.setState({ isUIVisible: false })
   }
 
   onToggleFullscreen() {
@@ -239,7 +235,7 @@ class App extends React.Component {
               videoEnd={this.state.currentVideo.fields.duration * 60}
               isMuted={this.state.isMuted}
               isUIVisible={this.state.isUIVisible}
-              setFullscreen={this.setFullscreen}
+              onPlayerClick={this.onPlayerClick}
               sync={this.sync}
               skipVideo={this.skipVideo}
             />
