@@ -43,5 +43,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "vercel": "^20.1.2"
+  }
 }
