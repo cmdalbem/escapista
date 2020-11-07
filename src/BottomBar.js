@@ -113,7 +113,7 @@ class BottomBar extends React.Component {
   }
 
   getFormatedTimes() {
-    const { time1, time2, time3, i18n } = this.props;
+    const { time1, time2, time3, i18n } = this.state;
 
     const dateTimeOpts = {
       hour: '2-digit',
@@ -176,7 +176,7 @@ class BottomBar extends React.Component {
               paddingLeft: MAIN_BAR_WIDTH,
               height: BOTTOM_BAR_HEIGHT + 'px'}}
             >
-              <div className={`${isMobile ? 'w-10/12' : 'w-7/12'} pr-8 flex flex-col`}>
+              <div className={`${isMobile ? 'w-10/12' : 'w-5/12'} pr-8 flex flex-col`}>
                 <div className="mt-2 text-xs font-extrabold whitespace-no-wrap">
                     { time1Str }
                 </div>
@@ -184,7 +184,7 @@ class BottomBar extends React.Component {
                 <div className="flex justify-between">
                   <div className="flex truncate">
                     <div className="truncate">
-                      <div className={`truncate ${isMobile ? '' : 'text-2xl'}`}>
+                      <div className={`truncate ${isMobile ? '' : 'text-xl'}`}>
                         <a target="_blank" rel="noopener noreferrer"
                           className="hover:underline"
                           href={currentVideo.fields['url']} >
@@ -219,27 +219,19 @@ class BottomBar extends React.Component {
                 </div>
               </div>
 
-              <BrowserView viewClassName="w-4/12 pr-8 flex flex-col text-gray-500">
+              <BrowserView viewClassName="w-4/12 pr-8 flex flex-col text-gray-400">
                   {/* <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/> */}
                   <div className="mt-2 text-xs font-extrabold whitespace-no-wrap">
-                    { time2Str }
+                    Depois
                   </div>
 
                   <div className="flex">
                     <div className="truncate">
-                      <div className="truncate text-2xl">
+                      <div className="truncate text-xl">
                         {/* <a target="_blank" rel="noopener noreferrer"
                           className="hover:underline"
                           href={nextVideo.fields['url']} > */}
                             { nextVideo.fields['title'] }
-                        {/* </a> */}
-                      </div>
-
-                      <div>
-                        {/* <a target="_blank" rel="noopener noreferrer"
-                          className="hover:underline"
-                          href={nextChannelUrl} > */}
-                            { nextChannelTitle }
                         {/* </a> */}
                       </div>
                     </div>

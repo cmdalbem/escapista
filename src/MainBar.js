@@ -15,7 +15,7 @@ import {
 
 const SECONDARY_NAV_STYLE = `
     py-1 text-left focus:outline-none hover:text-current focus:text-current
-    text-gray-500 text-sm
+    text-gray-400 text-sm
 `;
 
 class MainBar extends React.Component {
