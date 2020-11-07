@@ -220,7 +220,7 @@ class BottomBar extends React.Component {
                   </div>
                 </div>
 
-                <BrowserView viewClassName="w-6/12 pr-8 flex flex-col text-gray-400">
+                <BrowserView viewClassName="w-5/12 pr-8 flex flex-col text-gray-400">
                     {/* <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/> */}
                     <div className="mt-2 text-xs font-extrabold whitespace-no-wrap mb-1">
                       { nextVideoTitle && t('later') }
