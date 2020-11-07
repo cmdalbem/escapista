@@ -45,8 +45,12 @@ class MainBar extends React.Component {
         const {
             t, i18n,
             categories,
-            currentCategory
+            currentCategoryId
         } = this.props;
+
+        if (!categories || !currentCategoryId) {
+            return null;
+        }
 
         const lang = i18n.language.split('-')[0];
         const airtableUrl = AIRTABLE_URLS[lang];
@@ -70,7 +74,7 @@ class MainBar extends React.Component {
                                     w-full text-left focus:outline-none
                                     hover:text-current focus:text-current transition-all ease-in duration-300
                                     ${isMobile ? 'py-1 text-lg' : 'py-2 text-xl'}
-                                    ${currentCategory === id ? 'text-current' : 'text-gray-400'}
+                                    ${currentCategoryId === id ? 'text-current' : 'text-gray-400'}
                                 `}
                                 onClick={this.props.onSwitchCategory}
                                 data-id={id}

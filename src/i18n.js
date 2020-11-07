@@ -14,6 +14,8 @@ const resources = {
       'menu-off': 'Abrir menu',
       
       'later': 'A seguir',
+
+      'video-error': 'Opa, esse vídeo parece não estar funcionando.\nPor favor, tente outro canal.',
       
       'suggest': 'Colabore',
       'manifesto': 'Manifesto',
@@ -40,6 +42,8 @@ const resources = {
       'menu-off': 'Open menu',
 
       'later': 'Coming up next',
+
+      'video-error': 'Ops, this video seems to not be working.\nPlease try another channel.',
 
       'suggest': 'Contribute',
       'manifesto': 'Manifesto',
@@ -90,6 +94,7 @@ i18n
   .init({
     resources,
     fallbackLng: 'pt-BR',
+    // lng: 'pt-BR',
 
     keySeparator: false,
 

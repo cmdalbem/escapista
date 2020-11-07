@@ -1,6 +1,8 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 
+import { withTranslation } from 'react-i18next';
+
 import Spinner from './Spinner.js'
 
 import {
@@ -28,10 +30,7 @@ class Player extends React.Component {
         this.playerRef = React.createRef();
 
         this.state = {
-            playerStatus: undefined,
-            videoStart: this.props.videoStart,
-            videoEnd: this.props.videoEnd,
-            videoId: this.props.videoId
+            playerStatus: undefined
         }
     }
 
@@ -40,17 +39,23 @@ class Player extends React.Component {
             this.updateVolume();
         }
 
-        if (prevProps.videoId !== this.props.videoId) {
+        if (prevProps.channelData !== this.props.channelData) {
             this.setState({
                 playerStatus: undefined
             })
 
-            //   Delay update of Player data to give time to animation transition
+            const channelData = this.props.channelData;
+            console.debug('channelData', channelData);
+            const videoId = channelData.currentVideo.fields['id'];
+            const videoEnd = channelData.currentVideo.fields.duration * 60;
+            const videoStart = channelData.videoStart;
+
+            // Delay update of Player data to give time to animation transition
             setTimeout(() => {
                 this.setState({
-                    videoStart: this.props.videoStart,
-                    videoEnd: this.props.videoEnd,
-                    videoId: this.props.videoId
+                    videoStart,
+                    videoEnd,
+                    videoId
                 })
             }, VIDEO_TRANSITION_MS);
         }
@@ -94,7 +99,7 @@ class Player extends React.Component {
 
     onEnd() {
         console.debug('onEnd');
-        this.props.sync();
+        this.props.updateGuide();
     }
 
     onError(e) {
@@ -106,6 +111,11 @@ class Player extends React.Component {
             ,150: 'The owner of the requested video does not allow it to be played in embedded players.'
         };
         console.warn('YouTube Player error', e.data, msg[e.data]);
+
+        this.setState({
+            playerStatus: 'error'
+        });
+        
         this.props.skipVideo();
     }
 
@@ -133,8 +143,8 @@ class Player extends React.Component {
     }
 
     render() {
-        const { isUIVisible } = this.props;
-
+        const { isUIVisible, t } = this.props;
+        
         const youtubeConfig = {
             playerVars: {
                 autoplay: 1,
@@ -172,27 +182,34 @@ class Player extends React.Component {
                         }}
                     >
                         {
-                            this.state.playerStatus !== 'playing' &&
-                            <div className="h-10 w-10 text-gray-400">
-                                <Spinner/>
-                            </div>
+                            this.state.playerStatus === 'error' ?
+                                <div className="max-w-xs text-center text-gray-500">
+                                    {t('video-error')}
+                                </div>
+                                : this.state.playerStatus !== 'playing' &&
+                                <div className="h-10 w-10 text-gray-400">
+                                    <Spinner />
+                                </div>
                         }
                     </div>
                     
-                    <div className={`video-foreground
-                        transition-opacity ease-in-out duration-${VIDEO_TRANSITION_MS}
-                        ${this.state.playerStatus === 'playing' ? 'opacity-100' : 'opacity-0'}
-                    `}>
-                        <YouTube
-                            videoId={this.state.videoId}
-                            opts={youtubeConfig}
-                            onEnd={this.onEnd}
-                            onError={this.onError}
-                            onReady={this.onReady}
-                            onStateChange={this.onStateChange}
-                            ref={this.playerRef}
-                        />
-                    </div>
+                    {
+                        this.state.videoId &&
+                        <div className={`video-foreground
+                            transition-opacity ease-in-out duration-${VIDEO_TRANSITION_MS}
+                            ${this.state.playerStatus === 'playing' ? 'opacity-100' : 'opacity-0'}
+                        `}>
+                            <YouTube
+                                videoId={this.state.videoId}
+                                opts={youtubeConfig}
+                                onEnd={this.onEnd}
+                                onError={this.onError}
+                                onReady={this.onReady}
+                                onStateChange={this.onStateChange}
+                                ref={this.playerRef}
+                            />
+                        </div>
+                    }
                 </div>
             </div>
         );
@@ -200,4 +217,4 @@ class Player extends React.Component {
 }
 
 
-export default Player;
+export default withTranslation()(Player);

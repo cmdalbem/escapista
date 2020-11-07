@@ -31,8 +31,7 @@ class BottomBar extends React.Component {
 
     this.state = {
       loading: true,
-      open: false,
-      ...this.props
+      open: false
     }
 
     this.delayStateUpdate();
@@ -75,9 +74,7 @@ class BottomBar extends React.Component {
       this.updateMenuAutocloseBehavior();
     }
 
-    if (prevProps.currentVideo !== this.props.currentVideo) {
-      console.debug('currentVideo', this.props.currentVideo);
-
+    if (prevProps.channelData !== this.props.channelData) {
       this.setState({
         loading: true
       })
@@ -113,7 +110,8 @@ class BottomBar extends React.Component {
   }
 
   getFormatedTimes() {
-    const { time1, time2, time3, i18n } = this.state;
+    const { time1, time2, time3 } = this.state.channelData;
+    const { i18n } = this.props;
 
     const dateTimeOpts = {
       hour: '2-digit',
@@ -126,29 +124,35 @@ class BottomBar extends React.Component {
 
     return {
       time1Str: `${str1} — ${str2}`,
-      time2Str: `${str2} — ${str3}`,
+      time2Str: `${str2} — ${str3}`
     }
   }
 
   render() {
-    const {
-      currentVideo,
-      nextVideo
-    } = this.state;
-
     const { t } = this.props; 
 
-    const { time1Str, time2Str } = this.getFormatedTimes();
+    let currentVideo, nextVideo;
+    let time1Str, time2Str;
+    let channelTitle, channelUrl;
+    let currentVideoTitle, currentVideoUrl;
+    let nextVideoTitle;
 
-    const channelTitle = 
-      currentVideo.fields['channelTitle'] &&
-      currentVideo.fields['channelTitle'][0];
-    const channelUrl = 
-      currentVideo.fields['channelUrl'] &&
-      currentVideo.fields['channelUrl'][0];
-    
-    const currentVideoTitle = stripEmojis(currentVideo.fields['title']);
-    const nextVideoTitle = stripEmojis(nextVideo.fields['title']);
+    if (this.state.channelData) {
+      ({ time1Str, time2Str } = this.getFormatedTimes()); 
+      ({ currentVideo, nextVideo } = this.state.channelData);
+      
+      channelTitle =
+        currentVideo.fields['channelTitle'] &&
+        currentVideo.fields['channelTitle'][0];
+      channelUrl =
+        currentVideo.fields['channelUrl'] &&
+        currentVideo.fields['channelUrl'][0];
+
+      currentVideoUrl = currentVideo.fields['url'];
+
+      currentVideoTitle = stripEmojis(currentVideo.fields['title']);
+      nextVideoTitle = stripEmojis(nextVideo.fields['title']);
+    }
 
     // let latlong, latlongLabel;
     // latlong = currentVideo.fields['latlong'];
@@ -184,7 +188,7 @@ class BottomBar extends React.Component {
                       <div className={`truncate ${isMobile ? '' : 'text-xl'}`}>
                         <a target="_blank" rel="noopener noreferrer"
                           className="hover:underline"
-                          href={currentVideo.fields['url']} >
+                          href={currentVideoUrl} >
                             {currentVideoTitle}
                         </a>
                       </div>
@@ -200,7 +204,7 @@ class BottomBar extends React.Component {
                   </div>
 
                   <div id="airtableId" className="hidden">
-                    { currentVideo.id }
+                    { currentVideo && currentVideo.id }
                   </div>
 
                   {/* {
@@ -219,7 +223,7 @@ class BottomBar extends React.Component {
               <BrowserView viewClassName="w-4/12 pr-8 flex flex-col text-gray-400">
                   {/* <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/> */}
                   <div className="mt-2 text-xs font-extrabold whitespace-no-wrap mb-1">
-                    { t('later') }
+                    { nextVideoTitle && t('later') }
                   </div>
 
                   <div className="flex">
