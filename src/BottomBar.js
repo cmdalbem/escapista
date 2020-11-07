@@ -137,6 +137,8 @@ class BottomBar extends React.Component {
       nextVideo
     } = this.state;
 
+    const { t } = this.props; 
+
     const { time1Str, time2Str } = this.getFormatedTimes();
 
     const channelTitle = 
@@ -222,7 +224,7 @@ class BottomBar extends React.Component {
               <BrowserView viewClassName="w-4/12 pr-8 flex flex-col text-gray-400">
                   {/* <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/> */}
                   <div className="mt-2 text-xs font-extrabold whitespace-no-wrap">
-                    Depois
+                    { t('later') }
                   </div>
 
                   <div className="flex">

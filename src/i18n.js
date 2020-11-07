@@ -13,6 +13,8 @@ const resources = {
       'menu-on': 'Fechar menu',
       'menu-off': 'Abrir menu',
       
+      'later': 'A seguir',
+      
       'suggest': 'Colabore',
       'manifesto': 'Manifesto',
       'feedback': 'Feedback',
@@ -37,6 +39,8 @@ const resources = {
       'menu-on': 'Close menu',
       'menu-off': 'Open menu',
 
+      'later': 'Coming up next',
+
       'suggest': 'Contribute',
       'manifesto': 'Manifesto',
       'feedback': 'Feedback',
@@ -60,6 +64,8 @@ const resources = {
       'fullscreen-off': '',
       'menu-on': '',
       'menu-off': '',
+
+      'later': 'A continuación',
       
       'suggest': 'Contribuir',
       'manifesto': 'Manifesto',
