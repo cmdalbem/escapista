@@ -13,8 +13,6 @@ import { withTranslation } from 'react-i18next';
 
 import { isMobileSafari } from './utils.js';
 
-import Producao from './GuideBuilder.js'
-
 import LogoMenu from './LogoMenu.js'
 import BottomBar from './BottomBar.js'
 import MainBar from './MainBar.js'
@@ -132,8 +130,9 @@ class App extends React.Component {
 
   async updateGuide() {
     const res = await (await fetch('/api/get')).json();
-    const database = res.body;
-    const guide = Producao.getGuide(database);
+    const guide = res.body;
+
+    console.debug('guide from API', guide);
 
     this.setState({
       guide,

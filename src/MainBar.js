@@ -55,8 +55,6 @@ class MainBar extends React.Component {
         const lang = i18n.language.split('-')[0];
         const airtableUrl = AIRTABLE_URLS[lang];
 
-        console.debug(guide);
-
         return (
             <div
                 className={`

@@ -105,4 +105,4 @@ class GuideBuilder {
   }
 }
 
-export default GuideBuilder;
+module.exports = GuideBuilder;

@@ -118,9 +118,9 @@ class BottomBar extends React.Component {
       minute: '2-digit'
     };
 
-    const str1 = time1.toLocaleTimeString(i18n.language, dateTimeOpts);
-    const str2 = time2.toLocaleTimeString(i18n.language, dateTimeOpts);
-    const str3 = time3.toLocaleTimeString(i18n.language, dateTimeOpts);
+    const str1 = new Date(time1).toLocaleTimeString(i18n.language, dateTimeOpts);
+    const str2 = new Date(time2).toLocaleTimeString(i18n.language, dateTimeOpts);
+    const str3 = new Date(time3).toLocaleTimeString(i18n.language, dateTimeOpts);
 
     return {
       time1Str: `${str1} — ${str2}`,
