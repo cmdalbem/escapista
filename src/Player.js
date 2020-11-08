@@ -98,7 +98,7 @@ class Player extends React.Component {
 
     onEnd() {
         console.debug('onEnd');
-        this.props.updateGuide();
+        this.props.onVideoEnd();
     }
 
     onError(e) {

@@ -44,16 +44,18 @@ class MainBar extends React.Component {
     render() {
         const {
             t, i18n,
-            categories,
-            currentCategoryId
+            guide,
+            currentCategory
         } = this.props;
 
-        if (!categories || !currentCategoryId) {
+        if (!guide || !currentCategory) {
             return null;
         }
 
         const lang = i18n.language.split('-')[0];
         const airtableUrl = AIRTABLE_URLS[lang];
+
+        console.debug(guide);
 
         return (
             <div
@@ -68,30 +70,31 @@ class MainBar extends React.Component {
                 }}>
                 <div className={`flex flex-col items-start`}>
                     {
-                        Object.keys(categories).map(id =>
+                        Object.keys(guide).map(k =>
                             <button
                                 className={`
-                                    w-full text-left focus:outline-none
+                                    flex items-baseline w-full text-left focus:outline-none
                                     hover:text-current focus:text-current transition-all ease-in duration-300
                                     ${isMobile ? 'py-1 text-lg' : 'py-2 text-xl'}
-                                    ${currentCategoryId === id ? 'text-current' : 'text-gray-400'}
+                                    ${currentCategory === k ? 'text-current' : 'text-gray-400'}
                                 `}
                                 onClick={this.props.onSwitchCategory}
-                                data-id={id}
-                                key={id}
-                            >{
-                                lang === 'es' 
-                                    ? categories[id].fields['title-es']
-                                : lang === 'en' 
-                                    ? categories[id].fields['title-en']
-                                    : categories[id].fields['title']
-                            }
-                            {
-                                !isMobile && 
-                                <sup className="ml-1 text-xs">
-                                    { categories[id].videos.length }
-                                </sup>
-                            }
+                                data-id={k}
+                                key={k}
+                            >
+                                {
+                                    lang === 'es'
+                                        ? guide[k]['title-es']
+                                        : lang === 'en'
+                                            ? guide[k]['title-en']
+                                            : guide[k]['title']
+                                }
+                                {
+                                    !isMobile &&
+                                    <sup className="ml-1 text-xs">
+                                        {guide[k].length}
+                                    </sup>
+                                }
                             </button>
                         )
                     }

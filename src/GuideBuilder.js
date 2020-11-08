@@ -1,4 +1,4 @@
-class Producao {
+class GuideBuilder {
   // Seed is based on current clock time, in seconds
   static getSeed() {
     return Math.floor((new Date().getTime()) / 1000);
@@ -29,13 +29,22 @@ class Producao {
     }
   }
 
-  static getGuide(categories) {
+  static getGuide(database) {
     let guide = {};
+    const categories = database.categories;
+
+    console.debug('database', database);
 
     Object.keys(categories).forEach(key => {
       const c = categories[key];
       const channelData = this.computeCurrentVideoAndOffset(c.videos);
-      guide[key] = channelData;
+      guide[c.slug] = {
+        title: c.fields['title'],
+        "title-en": c.fields['title-en'],
+        "title-es": c.fields['title-es'],
+        length: c.videos.length,
+        ...channelData
+      };
     });
 
     return guide;
@@ -96,4 +105,4 @@ class Producao {
   }
 }
 
-export default Producao;
+export default GuideBuilder;

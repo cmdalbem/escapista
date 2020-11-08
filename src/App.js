@@ -13,7 +13,7 @@ import { withTranslation } from 'react-i18next';
 
 import { isMobileSafari } from './utils.js';
 
-import Producao from './Producao.js'
+import Producao from './GuideBuilder.js'
 
 import LogoMenu from './LogoMenu.js'
 import BottomBar from './BottomBar.js'
@@ -34,6 +34,7 @@ class App extends React.Component {
     this.onFullScreenChange = this.onFullScreenChange.bind(this);
     this.onToggleFullscreen = this.onToggleFullscreen.bind(this);
     this.onPlayerClick = this.onPlayerClick.bind(this);
+    this.onVideoEnd = this.onVideoEnd.bind(this);
     this.onSwitchCategory = this.onSwitchCategory.bind(this);
     this.onToggleUI = this.onToggleUI.bind(this);
     this.onToggleMute = this.onToggleMute.bind(this);
@@ -51,7 +52,7 @@ class App extends React.Component {
       welcome: saved && saved.welcome !== undefined ? saved.welcome : !isMobile,
       categories: null,
       guide: null,
-      currentCategoryId: null,
+      currentCategory: null,
       isUIVisible:
         params.ui !== undefined
           ? params.ui
@@ -71,31 +72,17 @@ class App extends React.Component {
     });
   }
 
-  getCategoryByName(categories, name) {
-    return Object.keys(categories).find( i => categories[i].slug === name);
-  }
-
   async componentDidMount() {
-    const res = await (await fetch('/api/get')).json();
-    const data = res.body;
-
-    // console.debug('data from our own API ✨', res);
-    // console.debug(data);
-     
-    let category;
-    let pathname = this.props.location.pathname.split('/')[1];
-    if (pathname) {
-      category = this.getCategoryByName(data.categories, pathname);
-    } else {
+    let category = this.props.location.pathname.split('/')[1];
+    if (!category) {
       const prevState = this.getStateFromLocalStorage();
       if (prevState) {
-        category = prevState.currentCategoryId;
+        category = prevState.currentCategory;
       }
     }
 
     this.setState({
-      ...data,
-      currentCategoryId: category || Object.keys(data.categories)[0]
+      currentCategory: category
     });
 
     this.updateGuide();
@@ -106,8 +93,7 @@ class App extends React.Component {
     // searchParams.set('muted', this.state.isMuted);
     // searchParams.set('ui', this.state.isUIVisible);
     
-    const slug = this.state.categories[this.state.currentCategoryId].slug;
-    
+    const slug = this.state.currentCategory;
     this.props.history.push(`/${slug}?${searchParams.toString()}`);
   }
 
@@ -136,7 +122,7 @@ class App extends React.Component {
     const state = {
       isUIVisible: this.state.isUIVisible,
       isMuted: this.state.isMuted,
-      currentCategoryId: this.state.currentCategoryId,
+      currentCategory: this.state.currentCategory,
       welcome: this.state.welcome
     }
  
@@ -144,20 +130,21 @@ class App extends React.Component {
     window.localStorage.setItem('escapista-app-state', str);
   }
 
-  updateGuide() {
-    const guide = Producao.getGuide(this.state.categories);
+  async updateGuide() {
+    const res = await (await fetch('/api/get')).json();
+    const database = res.body;
+    const guide = Producao.getGuide(database);
 
-    if (guide) {
-      this.setState({
-        guide
-      });
-    }
+    this.setState({
+      guide,
+      currentCategory: this.state.currentCategory || Object.keys(guide)[0]
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.currentCategoryId !== this.state.currentCategoryId) {
+    if (prevState.currentCategory !== this.state.currentCategory) {
       if (this.state.guide) {
-        const currentChannelData = this.state.guide[this.state.currentCategoryId];
+        const currentChannelData = this.state.guide[this.state.currentCategory];
         if (Date.now() > currentChannelData.time2) {
           // Changing channel but current video already ended, rebuild guide
           this.updateGuide();
@@ -167,13 +154,13 @@ class App extends React.Component {
 
     if (this.state.isUIVisible !== prevState.isUIVisible
         || this.state.isMuted !== prevState.isMuted
-        || this.state.currentCategoryId !== prevState.currentCategoryId){
+        || this.state.currentCategory !== prevState.currentCategory){
         this.updateURL();
     }
   }
 
   onSwitchCategory(e) {
-    this.setState({ currentCategoryId: e.currentTarget.dataset.id });
+    this.setState({ currentCategory: e.currentTarget.dataset.id });
   }
 
   onToggleUI() {
@@ -185,6 +172,10 @@ class App extends React.Component {
     //   Screenfull.request();
     // }
     this.setState({ isUIVisible: false })
+  }
+
+  onVideoEnd() {
+    this.updateGuide();
   }
 
   onToggleFullscreen() {
@@ -205,7 +196,7 @@ class App extends React.Component {
     // Disabled with new backend system
     // console.warn('Something went wrong, skipping this video', this.state.currentVideo);
     
-    // const currentPlaylist = this.state.categories[this.state.currentCategoryId].videos;
+    // const currentPlaylist = this.state.categories[this.state.currentCategory].videos;
     // currentPlaylist.splice(this.state.currentVideo, 1);
     // this.updateGuide();
   }
@@ -216,7 +207,7 @@ class App extends React.Component {
 
     let currentChannelData;
     if (isReady) {
-      currentChannelData = this.state.guide[this.state.currentCategoryId];
+      currentChannelData = this.state.guide[this.state.currentCategory];
     }
 
     return (
@@ -248,7 +239,7 @@ class App extends React.Component {
               isMuted={this.state.isMuted}
               isUIVisible={this.state.isUIVisible}
               onPlayerClick={this.onPlayerClick}
-              updateGuide={this.updateGuide}
+              onVideoEnd={this.onVideoEnd}
               skipVideo={this.skipVideo}
             />
 
@@ -272,8 +263,8 @@ class App extends React.Component {
               }}
               >
               <MainBar
-                categories={this.state.categories}
-                currentCategoryId={this.state.currentCategoryId}
+                guide={this.state.guide}
+                currentCategory={this.state.currentCategory}
                 onSwitchCategory={this.onSwitchCategory}
                 onAboutClick={() => this.setState({welcome: true})}
               />
