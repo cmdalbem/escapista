@@ -136,7 +136,7 @@ class App extends React.Component {
 
     this.setState({
       guide,
-      currentCategory: this.state.currentCategory || Object.keys(guide)[0]
+      currentCategory: this.state.currentCategory || Object.keys(guide.channels)[0]
     });
   }
 
