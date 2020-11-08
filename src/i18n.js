@@ -41,7 +41,7 @@ const resources = {
       'menu-on': 'Close menu',
       'menu-off': 'Open menu',
 
-      'later': 'Coming up next',
+      'later': 'Up next',
 
       'video-error': 'Ops, this video seems to not be working.\nPlease try another channel.',
 
