@@ -174,7 +174,7 @@ class BottomBar extends React.Component {
               height: BOTTOM_BAR_HEIGHT + 'px'}}
             >
               <div className={`
-                flex w-11/12 transform transition-all ease-out duration-${LABELS_TRANSITION_MS}
+                flex w-10/12 transform transition-all ease-out duration-${LABELS_TRANSITION_MS}
                 ${this.state.loading ? '-translate-y-2 opacity-0' : '-translate-y-0 opacity-100'}`}
               > 
                 <div className={`${isMobile ? 'w-10/12' : 'w-6/12'} pr-8 flex flex-col`}>
@@ -236,7 +236,7 @@ class BottomBar extends React.Component {
                 </BrowserView>
               </div>
               
-              <div className="w-1/12 mt-4 pr-2 flex justify-end items-start">
+              <div className="w-2/12 mt-4 pr-2 flex justify-end items-start">
                 <button
                   className="p-5 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
                   onClick={this.props.onToggleMute}>

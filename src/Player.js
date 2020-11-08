@@ -45,7 +45,6 @@ class Player extends React.Component {
             })
 
             const channelData = this.props.channelData;
-            console.debug('channelData', channelData);
             const videoId = channelData.currentVideo.fields['id'];
             const videoEnd = channelData.currentVideo.fields.duration * 60;
             const videoStart = channelData.videoStart;
