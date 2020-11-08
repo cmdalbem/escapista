@@ -225,7 +225,7 @@ class App extends React.Component {
         <MobileView>
         {
           this.props.isPortrait &&
-          <div className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center text-white z-10 bg-green-700">
+          <div className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center text-white z-10 bg-teal-700">
             <IconRotate/>
             <div className="w-1/2 my-2 text-2xl text-center leading-tight font-body">
               { t('turn-phone') }

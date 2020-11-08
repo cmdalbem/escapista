@@ -39,7 +39,7 @@ function Welcome(props) {
     return (
         <div>
             <div
-                className="fixed z-10 pt-16 pl-16 font-body w-screen h-full text-green-900 flex flex-col items-start justify-between"
+                className="fixed z-10 pt-16 pl-16 font-body w-screen h-full text-teal-800 flex flex-col items-start justify-between"
                 style={{paddingBottom: BOTTOM_BAR_HEIGHT}}
             >
                 <div className={`${slideIn}`}>
@@ -48,7 +48,7 @@ function Welcome(props) {
                     </h1>
 
                     <div className="ml-16">
-                        <h2 className="mt-8 max-w-xl font-heading text-green-800 whitespace-pre-line font-extrabold text-6xl leading-tight">
+                        <h2 className="mt-8 max-w-xl font-heading text-teal-800 whitespace-pre-line font-extrabold text-6xl leading-tight">
                             { t('welcome-heading') }
                         </h2>
 
@@ -68,7 +68,7 @@ function Welcome(props) {
                         
                         <div className={`mt-32 ${slideIn} delay-200`}>
                             <button
-                                className="py-3 px-6 bg-green-700 font-medium rounded text-white hover:bg-green-800 duration-300"
+                                className="py-3 px-6 bg-teal-800 font-medium rounded text-white hover:bg-teal-800 duration-300"
                                 onClick={onStartClick}>
                                 { t('welcome-cta') }
                             </button>

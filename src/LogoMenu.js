@@ -20,7 +20,7 @@ export default function LogoMenu(props) {
         fixed top-0 left-0 z-1 flex items-center pt-1 
         cursor-pointer hover:opacity-75 focus:opacity-75 focus:outline-none
         ${isMobile ? 'mt-2 ml-2' : 'mt-8 ml-16'}
-        ${isUIVisible ? 'text-green-900' : 'text-white'}`
+        ${isUIVisible ? 'text-teal-800' : 'text-white'}`
       }
       onClick={onToggleUI}
     >

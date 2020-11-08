@@ -59,7 +59,7 @@ class MainBar extends React.Component {
             <div
                 className={`
                     fixed left-0 top-0 z-1 h-full font-body
-                    text-green-900 flex flex-col justify-between
+                    text-teal-800 flex flex-col justify-between
                     ${isMobile ? 'pl-6 pt-16' : 'pl-20 pt-32'}
                 `}
                 style={{

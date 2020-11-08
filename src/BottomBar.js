@@ -168,7 +168,7 @@ class BottomBar extends React.Component {
             transitionDuration: ESCAPIST_EASING_TIMING
           }}>
           <div
-            className="pt-2 flex justify-between text-green-900 font-body"
+            className="pt-2 flex justify-between text-teal-800 font-body"
             style={{
               paddingLeft: MAIN_BAR_WIDTH,
               height: BOTTOM_BAR_HEIGHT + 'px'}}
