@@ -182,9 +182,9 @@ class App extends React.Component {
   }
 
   onPlayerClick(value) {
-    if (Screenfull.isEnabled) {
-      Screenfull.request();
-    }
+    // if (Screenfull.isEnabled) {
+    //   Screenfull.request();
+    // }
     this.setState({ isUIVisible: false })
   }
 

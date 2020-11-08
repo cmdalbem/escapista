@@ -164,9 +164,11 @@ class Player extends React.Component {
         return (
             <div className="overflow-hidden">
                 <div
-                    className="video-background overflow-hidden"
+                    className={
+                        `video-background overflow-hidden
+                        ${isUIVisible ? 'opacity-75 hover:opacity-100' : 'opacity-100'}`}
                     style={{
-                        transition: `transform ${ESCAPIST_EASING_TIMING} ${ESCAPIST_EASING_BEZIER}`,
+                        transition: `transform ${ESCAPIST_EASING_TIMING} ${ESCAPIST_EASING_BEZIER}, opacity 300ms ease-out`,
                         transform: isUIVisible ? 
                             `translate(${MAIN_BAR_WIDTH}px, -${BOTTOM_BAR_HEIGHT}px)`:
                             `translate(0, 0)`,
