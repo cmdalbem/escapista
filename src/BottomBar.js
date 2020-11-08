@@ -174,7 +174,7 @@ class BottomBar extends React.Component {
               height: BOTTOM_BAR_HEIGHT + 'px'}}
             >
               <div className={`
-                flex w-full transform transition-all ease-out duration-${LABELS_TRANSITION_MS}
+                flex w-11/12 transform transition-all ease-out duration-${LABELS_TRANSITION_MS}
                 ${this.state.loading ? '-translate-y-2 opacity-0' : '-translate-y-0 opacity-100'}`}
               > 
                 <div className={`${isMobile ? 'w-10/12' : 'w-6/12'} pr-8 flex flex-col`}>
