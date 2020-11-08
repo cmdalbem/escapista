@@ -14,6 +14,18 @@ import {
     ESCAPIST_EASING_TIMING
 } from './constants.js';
 
+const defaultPlayerVars = {
+    autoplay: 1,
+    controls: 0,
+    disablekb: 1,
+    enablejsapi: 1,
+    modestbranding: 1,
+    fs: 0,
+    loop: 0,
+    rel: 0,
+    origin: 'https://slowproject.app/'
+};
+
 
 class Player extends React.Component {
     playerRef;
@@ -45,16 +57,25 @@ class Player extends React.Component {
             })
 
             const channelData = this.props.channelData;
+
             const videoId = channelData.currentVideo.fields['id'];
             const videoEnd = channelData.currentVideo.fields.duration * 60;
-            const videoStart = channelData.videoStart;
-
+            
+            const guideCreatedAt = new Date(this.props.guideCreatedAt);
+            const videoStartOffset = Math.ceil((new Date() - guideCreatedAt) / 1000);
+            const videoStart = channelData.videoStart + videoStartOffset;
+            
             // Delay update of Player data to give time to animation transition
             setTimeout(() => {
                 this.setState({
-                    videoStart,
-                    videoEnd,
-                    videoId
+                    videoId,
+                    playerOpts: {
+                        playerVars: {
+                            ...defaultPlayerVars,
+                            start: videoStart,
+                            end: videoEnd
+                        },
+                    }
                 })
             }, VIDEO_TRANSITION_MS);
         }
@@ -144,22 +165,6 @@ class Player extends React.Component {
     render() {
         const { isUIVisible, t } = this.props;
         
-        const youtubeConfig = {
-            playerVars: {
-                autoplay: 1,
-                controls: 0,
-                disablekb: 1,
-                enablejsapi: 1,
-                modestbranding: 1,
-                fs: 0,
-                loop: 0,
-                rel: 0,
-                origin: 'https://slowproject.app/',
-                start: this.state.videoStart,
-                end: this.state.videoEnd
-            },
-        };
-
         return (
             <div className="overflow-hidden">
                 <div
@@ -202,7 +207,7 @@ class Player extends React.Component {
                         `}>
                             <YouTube
                                 videoId={this.state.videoId}
-                                opts={youtubeConfig}
+                                opts={this.state.playerOpts}
                                 onEnd={this.onEnd}
                                 onError={this.onError}
                                 onReady={this.onReady}

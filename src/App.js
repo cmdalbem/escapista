@@ -143,7 +143,7 @@ class App extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.currentCategory !== this.state.currentCategory) {
       if (this.state.guide) {
-        const currentChannelData = this.state.guide[this.state.currentCategory];
+        const currentChannelData = this.state.guide.channels[this.state.currentCategory];
         if (Date.now() > currentChannelData.time2) {
           // Changing channel but current video already ended, rebuild guide
           this.updateGuide();
@@ -202,11 +202,11 @@ class App extends React.Component {
 
   render() {
     const { t } = this.props;
-    const isReady = this.state.guide;
+    const isReady = !!this.state.guide;
 
     let currentChannelData;
     if (isReady) {
-      currentChannelData = this.state.guide[this.state.currentCategory];
+      currentChannelData = this.state.guide.channels[this.state.currentCategory];
     }
 
     return (
@@ -235,6 +235,7 @@ class App extends React.Component {
           <div>
             <Player
               channelData={currentChannelData}
+              guideCreatedAt={isReady && this.state.guide.createdAt}
               isMuted={this.state.isMuted}
               isUIVisible={this.state.isUIVisible}
               onPlayerClick={this.onPlayerClick}
@@ -262,7 +263,7 @@ class App extends React.Component {
               }}
               >
               <MainBar
-                guide={this.state.guide}
+                channels={isReady && this.state.guide.channels}
                 currentCategory={this.state.currentCategory}
                 onSwitchCategory={this.onSwitchCategory}
                 onAboutClick={() => this.setState({welcome: true})}

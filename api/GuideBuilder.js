@@ -30,7 +30,10 @@ class GuideBuilder {
   }
 
   static getGuide(database) {
-    let guide = {};
+    let guide = {
+      createdAt: new Date(),
+      channels: {}
+    };
     const categories = database.categories;
 
     console.debug('database', database);
@@ -38,7 +41,8 @@ class GuideBuilder {
     Object.keys(categories).forEach(key => {
       const c = categories[key];
       const channelData = this.computeCurrentVideoAndOffset(c.videos);
-      guide[c.slug] = {
+      guide.channels[c.slug] = {
+        slug: c.slug,
         title: c.fields['title'],
         "title-en": c.fields['title-en'],
         "title-es": c.fields['title-es'],

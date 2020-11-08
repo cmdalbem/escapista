@@ -44,11 +44,11 @@ class MainBar extends React.Component {
     render() {
         const {
             t, i18n,
-            guide,
+            channels,
             currentCategory
         } = this.props;
 
-        if (!guide || !currentCategory) {
+        if (!channels || !currentCategory) {
             return null;
         }
 
@@ -68,7 +68,7 @@ class MainBar extends React.Component {
                 }}>
                 <div className={`flex flex-col items-start`}>
                     {
-                        Object.keys(guide).map(k =>
+                        Object.keys(channels).map(k =>
                             <button
                                 className={`
                                     flex items-baseline w-full text-left focus:outline-none
@@ -77,20 +77,20 @@ class MainBar extends React.Component {
                                     ${currentCategory === k ? 'text-current' : 'text-gray-400'}
                                 `}
                                 onClick={this.props.onSwitchCategory}
-                                data-id={k}
+                                data-id={channels[k].slug}
                                 key={k}
                             >
                                 {
                                     lang === 'es'
-                                        ? guide[k]['title-es']
+                                        ? channels[k]['title-es']
                                         : lang === 'en'
-                                            ? guide[k]['title-en']
-                                            : guide[k]['title']
+                                            ? channels[k]['title-en']
+                                            : channels[k]['title']
                                 }
                                 {
                                     !isMobile &&
                                     <sup className="ml-1 text-xs">
-                                        {guide[k].length}
+                                        {channels[k].length}
                                     </sup>
                                 }
                             </button>
