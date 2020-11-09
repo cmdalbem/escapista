@@ -134,9 +134,17 @@ class App extends React.Component {
 
     console.debug('guide from API', guide);
 
+    // Check if selected category is valid
+    let currentCategory;
+    if (this.state.currentCategory && guide.channels[this.state.currentCategory]) {
+      currentCategory = this.state.currentCategory;
+    } else {
+      currentCategory = Object.keys(guide.channels)[0];
+    }
+
     this.setState({
       guide,
-      currentCategory: this.state.currentCategory || Object.keys(guide.channels)[0]
+      currentCategory
     });
   }
 
