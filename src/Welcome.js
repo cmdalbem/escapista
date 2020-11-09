@@ -66,7 +66,7 @@ function Welcome(props) {
                             </p>
                         </div>
                         
-                        <div className={`mt-32 ${slideIn} delay-200`}>
+                        <div className={`mt-8 ${slideIn} delay-200`}>
                             <button
                                 className="py-3 px-6 bg-teal-800 font-medium rounded text-white hover:bg-teal-800 duration-300"
                                 onClick={onStartClick}>
