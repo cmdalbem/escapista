@@ -51,12 +51,7 @@ class App extends React.Component {
       categories: null,
       guide: null,
       currentCategory: null,
-      isUIVisible:
-        params.ui !== undefined
-          ? params.ui
-        : saved
-          ? saved.isUIVisible
-          : true,
+      isUIVisible: true,
       isMuted:
         params.muted !== undefined
           ? params.muted
