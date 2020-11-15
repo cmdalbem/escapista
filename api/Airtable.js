@@ -55,63 +55,59 @@ class Airtable {
         });
     }
 
-    async get() {
-        let categories;
-
-        // Query categories
-        categories = await this.fetchTable('Categories','Gallery');
+    async buildCategories() {
+        const categories = await this.fetchTable('Categories','Gallery');
         if (categories && categories.length > 0) {
             // Fill our map of categories, still empty
-            categories.forEach(record => {
-                this.categories[record.id] = record;
-                this.categories[record.id].videos = [];
+            categories.forEach(c => {
+                this.categories[c.id] = c;
+                this.categories[c.id].videos = [];
+                this.categories[c.id].slug = slugify(c.fields.title);
             });
-            // console.debug('categories', this.categories);
         } else {
             console.error('No categories from Airtable.')
         };
+    }
 
-        // Query videos
-        const still = await this.fetchTable('Videos','Still');
+    async fetchSpecialCategory(name) {
+        const videos = await this.fetchTable('Videos', name);
+        const catId = Object.keys(this.categories).filter(k => {
+            return this.categories[k].fields['title-en'] === name;
+        });
         
-        // Override airtable-filled categories with only Still (to not mix with other categories)
-        if (still && still.length > 0) {
-            still.forEach(v => {
-                v.fields.categories = ['reclgJFyr99pR9H3D'];
-            })
-        }
-        
-        const filtered = await this.fetchTable('Videos','Filtered');
-        const videos = filtered.concat(still);
+        this.categories[catId].videos = videos;
+    }
 
+    async get() {
+        await this.buildCategories();
+
+        await this.fetchSpecialCategory('Still');
+        await this.fetchSpecialCategory('Nature');
+        await this.fetchSpecialCategory('Urban');
+
+        const videos = await this.fetchTable('Videos','Filtered');
         if (videos && videos.length > 0) {
-            // console.debug('airtable entries:', videos);
-
-            this.videos = videos;
-
             // Fill categories map
             videos.forEach(r => {
-                let categories = r.fields.categories;
-                if (categories) {
+                let vcats = r.fields.categories;
+                if (vcats) {
                     // Remove duplicated categories (damn, Airtable!)
-                    categories = categories.filter( (value, index, self) => { 
+                    vcats = vcats.filter( (value, index, self) => { 
                         return self.indexOf(value) === index;
                     })
 
-                    categories.forEach(i => {
-                        const c = this.categories[i];
-
-                        if (c) {
-                            if (c.videos.filter(v => v.fields.id === r.fields.id).length > 0) {
-                                console.debug(`[duplicate] ${r.fields.id} ${r.fields.title}`);
-                            } else {
+                    vcats.forEach(vc => {
+                        const c = this.categories[vc];
+                        if (c && c.fields.type === 'regular') {
+                            if (c.videos.filter(v => v.fields.id === r.fields.id).length === 0) {
                                 c.videos.push(r);
-                                c.slug = slugify(c.fields.title);
+                            } else {
+                                console.debug(`[duplicate] ${r.fields.id} ${r.fields.title}`);
                             }
                         }
                     });
                 } else {
-                    // console.debug(`[no category] ${r.fields.title}`);
+                    console.debug(`[no category] ${r.fields.title}`);
                 }
             });
 
@@ -119,7 +115,6 @@ class Airtable {
             // this.printCategories();
 
             return {    
-                videos: this.videos,
                 categories: this.categories
             };
         } else {
