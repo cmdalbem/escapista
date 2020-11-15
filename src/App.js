@@ -17,8 +17,8 @@ import LogoMenu from './LogoMenu.js'
 import BottomBar from './BottomBar.js'
 import MainBar from './MainBar.js'
 import Player from './Player.js'
-
 import Welcome from './Welcome.js'
+import Analytics from './Analytics.js'
 
 import IconRotate from './assets/IconRotate.js'
 
@@ -66,6 +66,12 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
+    Analytics.setUserProperty({
+      isUIVisible: this.state.isUIVisible,
+      isMuted: this.state.isMuted,
+      isFullscreen: false
+    });
+
     let category = this.props.location.pathname.split('/')[1];
     if (!category) {
       const prevState = this.getStateFromLocalStorage();
@@ -151,13 +157,29 @@ class App extends React.Component {
           // Changing channel but current video already ended, rebuild guide
           this.updateGuide();
         }
+
+        // Guess not needed anymore with automatic video events from GA4?
+        // Analytics.event('impression', {
+        //   currentId: currentChannelData.currentVideo.fields.id,
+        //   currentTitle: currentChannelData.currentVideo.fields.title
+        // });
+
+        const prevChannelData = this.state.guide.channels[prevState.currentCategory];
+        Analytics.event('skip', {
+          prevTitle: prevChannelData.currentVideo.fields.title,
+          prevId: prevChannelData.currentVideo.fields.id
+        });
       }
+
+      this.updateURL();
     }
 
     if (this.state.isUIVisible !== prevState.isUIVisible
-        || this.state.isMuted !== prevState.isMuted
-        || this.state.currentCategory !== prevState.currentCategory){
-        this.updateURL();
+        || this.state.isMuted !== prevState.isMuted) {
+        Analytics.setUserProperty({
+          isUIVisible: this.state.isUIVisible,
+          isMuted: this.state.isMuted
+        });
     }
   }
 
@@ -188,6 +210,10 @@ class App extends React.Component {
     this.setState({
       isUIVisible: !Screenfull.isFullscreen
     })
+
+    Analytics.setUserProperty({
+      isFullscreen: Screenfull.isFullscreen
+    });
   }
 
   onToggleMute() {
