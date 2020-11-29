@@ -164,11 +164,7 @@ class App extends React.Component {
         //   currentTitle: currentChannelData.currentVideo.fields.title
         // });
 
-        const prevChannelData = this.state.guide.channels[prevState.currentCategory];
-        Analytics.event('skip', {
-          prevTitle: prevChannelData.currentVideo.fields.title,
-          prevId: prevChannelData.currentVideo.fields.id
-        });
+        Analytics.event('category_skipped');
       }
 
       this.updateURL();

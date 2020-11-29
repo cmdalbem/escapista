@@ -4,6 +4,7 @@ import YouTube from 'react-youtube';
 import { withTranslation } from 'react-i18next';
 
 import Spinner from './Spinner.js'
+import Analytics from './Analytics.js'
 
 import {
     MAIN_BAR_WIDTH,
@@ -93,6 +94,8 @@ class Player extends React.Component {
 
             // Just to make sure (also turns it up after computer sleeping)
             this.playerRef.current.internalPlayer.playVideo();
+
+            Analytics.event('player_status_' + this.state.playerStatus);
 
             // // Update progress bar
             // this.playerRef.current.internalPlayer.getCurrentTime()
