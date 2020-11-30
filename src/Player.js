@@ -90,12 +90,10 @@ class Player extends React.Component {
 
     gameLoop() {
         if (this.playerRef.current) {
-            console.debug('.');
+            Analytics.event('player_status_' + this.state.playerStatus);
 
             // Just to make sure (also turns it up after computer sleeping)
             this.playerRef.current.internalPlayer.playVideo();
-
-            Analytics.event('player_status_' + this.state.playerStatus);
 
             // // Update progress bar
             // this.playerRef.current.internalPlayer.getCurrentTime()
