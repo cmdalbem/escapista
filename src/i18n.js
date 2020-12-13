@@ -17,16 +17,18 @@ const resources = {
 
       'video-error': 'Opa, esse vídeo parece não estar funcionando.\nPor favor, tente outro canal.',
       
-      'suggest': 'Colabore',
+      'suggest': 'Sugerir vídeo',
       'manifesto': 'Manifesto',
       'feedback': 'Feedback',
       'about': 'Sobre',
       
-      'turn-phone': 'Gire seu celular para uma melhor experiência.',
+      'buymeacoffee': 'Pague um café',
       
+      'turn-phone': 'Gire seu celular para uma melhor experiência.',
+
       'welcome-heading': 'Para onde você\nquer escapar?',
-      'welcome-body1': 'Esta é sua oportunidade de escapar para novos lugares. Escolha um canal e deixe sua mente vagar com a programação que curamos para você.',
-      'welcome-body2': 'Relaxe com os vídeos e o som natural enquanto trabalha, ponha na TV da sala ou combine com amigos para passearem juntos enquanto conversam.',
+      'welcome-body1': 'Escolha um canal e deixe sua mente vagar com a programação de vídeos que curamos para você. Relaxe com as imagens e sons naturais enquanto trabalha, ponha na TV da sala ou combine com amigos para passearem juntos enquanto conversam',
+      'welcome-body2': '',
       'welcome-body3': '',
       'welcome-cta': 'Começar',
       'read-the-manifesto': 'Leia o manifesto',
@@ -45,16 +47,18 @@ const resources = {
 
       'video-error': 'Ops, this video seems to not be working.\nPlease try another channel.',
 
-      'suggest': 'Contribute',
+      'suggest': 'Suggest video',
       'manifesto': 'Manifesto',
       'feedback': 'Feedback',
       'about': 'About',
+
+      'buymeacoffee': 'Buy me a coffee',
       
       'turn-phone': 'Please turn your device for a better experience.',
 
       'welcome-heading': 'Where do you\nwant to escape?',
-      'welcome-body1': 'This is your opportunity to escape to new places. Choose a channel and let your mind wander with the videos we curated for you.',
-      'welcome-body2': 'Relax with the natural images and sounds while you work, put on your TV or invite your friends to watch together.',
+      'welcome-body1': 'Choose a channel and let your mind wander with the great Slow TV and ambient videos we handpicked for you. Relax with the natural images and sounds while you work, put on your TV or invite your friends to watch together.',
+      'welcome-body2': '',
       'welcome-body3': '',
       'welcome-cta': 'Start',
       'read-the-manifesto': 'Read the manifesto',
@@ -71,7 +75,7 @@ const resources = {
 
       'later': 'A continuación',
       
-      'suggest': 'Contribuir',
+      'suggest': 'Sugerir video',
       'manifesto': 'Manifesto',
       'feedback': 'Feedback',
       'about': 'Acerca',
@@ -94,7 +98,7 @@ i18n
   .init({
     resources,
     fallbackLng: 'pt-BR',
-    // lng: 'pt-BR',
+    // lng: 'en-US',
 
     keySeparator: false,
 
