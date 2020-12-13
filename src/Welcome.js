@@ -69,13 +69,14 @@ function Welcome(props) {
                         <div className={`mt-8 ${slideIn} delay-200`}>
                             <button
                                 className="py-3 px-6 bg-teal-800 font-medium rounded text-white hover:bg-teal-800 duration-300"
+                                style={{minWidth: 120}}
                                 onClick={onStartClick}>
                                 { t('welcome-cta') }
                             </button>
 
                             <a
                                 href={manifestoUrl}
-                                className="py-3 px-6 ml-2 rounded font-medium hover:bg-gray-200 duration-300"
+                                className="py-3 px-6 ml-2 bg-white rounded font-medium hover:bg-gray-200 duration-300"
                                 target="_blank" rel="noopener noreferrer"
                             >
                                 { t('read-the-manifesto') }
