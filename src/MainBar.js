@@ -121,6 +121,14 @@ class MainBar extends React.Component {
                         >
                             { t('suggest') }
                         </a>
+
+                        <a 
+                            target="_blank" rel="noopener noreferrer"
+                            href={'https://www.buymeacoffee.com/cmdalbem'}
+                            className={SECONDARY_NAV_STYLE}
+                        >
+                            { t('buymeacoffee') }
+                        </a>
                     </div>
                 </BrowserView>
             </div>
