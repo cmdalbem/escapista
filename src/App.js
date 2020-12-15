@@ -36,6 +36,7 @@ class App extends React.Component {
     this.onSwitchCategory = this.onSwitchCategory.bind(this);
     this.onToggleUI = this.onToggleUI.bind(this);
     this.onToggleMute = this.onToggleMute.bind(this);
+    this.onChangeVolume = this.onChangeVolume.bind(this);
     this.updateGuide = this.updateGuide.bind(this);
     this.skipVideo = this.skipVideo.bind(this);
 
@@ -44,18 +45,23 @@ class App extends React.Component {
     }
 
     const saved = this.getStateFromLocalStorage();
-    const params = this.getParamsFromURL();
+    // const params = this.getParamsFromURL();
 
     this.state = {
-      welcome: saved && saved.welcome !== undefined ? saved.welcome : !isMobile,
+      welcome: 
+        saved && saved.welcome !== undefined 
+          ? saved.welcome
+          : !isMobile,
       categories: null,
       guide: null,
       currentCategory: null,
       isUIVisible: true,
+      volume:
+        saved && saved.volume !== undefined
+          ? saved.volume
+          : 1,
       isMuted:
-        params.muted !== undefined
-          ? params.muted
-        : saved
+        saved && saved.isMuted !== undefined
           ? saved.isMuted
           : false,
     };
@@ -122,7 +128,8 @@ class App extends React.Component {
       isUIVisible: this.state.isUIVisible,
       isMuted: this.state.isMuted,
       currentCategory: this.state.currentCategory,
-      welcome: this.state.welcome
+      welcome: this.state.welcome,
+      volume: this.state.volume
     }
  
     const str = JSON.stringify(state);
@@ -213,7 +220,14 @@ class App extends React.Component {
   }
 
   onToggleMute() {
-    this.setState({ isMuted: !this.state.isMuted });
+    this.setState({
+      isMuted: !this.state.isMuted,
+      // volume: this.state.isMuted ? 1 : 0
+    });
+  }
+
+  onChangeVolume(newVolume) {
+    this.setState({ volume: newVolume });
   }
 
   skipVideo() {
@@ -262,6 +276,7 @@ class App extends React.Component {
               channelData={currentChannelData}
               guideCreatedAt={isReady && this.state.guide.createdAt}
               isMuted={this.state.isMuted}
+              volume={this.state.volume}
               isUIVisible={this.state.isUIVisible}
               onPlayerClick={this.onPlayerClick}
               onVideoEnd={this.onVideoEnd}
@@ -272,6 +287,8 @@ class App extends React.Component {
               channelData={currentChannelData}
               isUIVisible={this.state.isUIVisible}
               isMuted={this.state.isMuted}
+              volume={this.state.volume}
+              onChangeVolume={this.onChangeVolume}
               onToggleMute={this.onToggleMute}
               onToggleFullscreen={this.onToggleFullscreen}
             />

@@ -48,7 +48,8 @@ class Player extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.isMuted !== this.props.isMuted) {
+        if (prevProps.isMuted !== this.props.isMuted ||
+            prevProps.volume !== this.props.volume) {
             this.updateVolume();
         }
 
@@ -110,6 +111,8 @@ class Player extends React.Component {
 
     updateVolume() {
         if (this.playerRef.current) {
+            this.playerRef.current.internalPlayer.setVolume(this.props.volume*100);
+
             if (this.props.isMuted) {
                 this.playerRef.current.internalPlayer.mute();
             } else {

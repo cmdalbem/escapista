@@ -31,7 +31,8 @@ class BottomBar extends React.Component {
 
     this.state = {
       loading: true,
-      open: false
+      open: false,
+      showVolumeSlider: false
     }
 
     this.delayStateUpdate();
@@ -237,11 +238,41 @@ class BottomBar extends React.Component {
               </div>
               
               <div className="w-2/12 mt-4 pr-2 flex justify-end items-start">
-                <button
-                  className="p-5 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
-                  onClick={this.props.onToggleMute}>
-                    <IconVolume isMuted={this.props.isMuted}/>
-                </button>
+                <div
+                  className="relative"
+                  onMouseEnter={() => this.setState({showVolumeSlider: true})} 
+                  onMouseLeave={() => this.setState({showVolumeSlider: false})}
+                >
+                  <button
+                    className="p-5 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
+                    onClick={this.props.onToggleMute}>
+                      <IconVolume isMuted={this.props.isMuted}/>
+                  </button>
+  
+                  {
+                    !isMobile &&
+                    <div
+                      className={`
+                        absolute flex bg-white p-5 rounded-lg
+                        transition-opacity ease-in-out duration-300
+                        ${this.state.showVolumeSlider ? 'opacity-100' : 'opacity-0'}`}
+                      style={{
+                        transform: 'rotate(-90deg)',
+                        top: -112,
+                        right: -56
+                        }}>
+                      <input
+                        className={!this.props.isMuted && `cursor-pointer`}
+                        type="range" min={0} max={1} step={0.02}
+                        value={this.props.volume}
+                        disabled={this.props.isMuted}
+                        onChange={e => {
+                          this.props.onChangeVolume(e.target.value);
+                        }}
+                      />
+                    </div>
+                  }
+                </div>
                 
                 {
                   Screenfull.isEnabled &&
