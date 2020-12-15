@@ -243,21 +243,17 @@ class BottomBar extends React.Component {
                   onMouseEnter={() => this.setState({showVolumeSlider: true})} 
                   onMouseLeave={() => this.setState({showVolumeSlider: false})}
                 >
-                  <button
-                    className="p-5 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
-                    onClick={this.props.onToggleMute}>
-                      <IconVolume isMuted={this.props.isMuted}/>
-                  </button>
-  
                   {
                     !isMobile &&
+                    this.state.showVolumeSlider &&
                     <div
                       className={`
                         absolute flex bg-white p-5 rounded-lg
-                        transition-opacity ease-in-out duration-300
-                        ${this.state.showVolumeSlider ? 'opacity-100' : 'opacity-0'}`}
+                        transition-all ease-in-out duration-300
+                        ${this.state.showVolumeSlider ? 'opacity-100' : 'opacity-0'}
+                      `}
                       style={{
-                        transform: 'rotate(-90deg)',
+                        transform: `rotate(-90deg)`,
                         top: -112,
                         right: -56
                         }}>
@@ -272,6 +268,12 @@ class BottomBar extends React.Component {
                       />
                     </div>
                   }
+
+                  <button
+                    className="p-5 hover:bg-gray-200 transition-colors duration-300 rounded-lg"
+                    onClick={this.props.onToggleMute}>
+                      <IconVolume isMuted={this.props.isMuted}/>
+                  </button>
                 </div>
                 
                 {
