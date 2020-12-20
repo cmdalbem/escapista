@@ -63,7 +63,7 @@ class App extends React.Component {
       isMuted:
         saved && saved.isMuted !== undefined
           ? saved.isMuted
-          : false,
+          : true,
     };
 
     window.addEventListener('beforeunload', e => {
