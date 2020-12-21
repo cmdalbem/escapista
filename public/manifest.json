@@ -3,8 +3,8 @@
   "name": "Escapista",
   "start_url": ".",
   "display": "fullscreen",
-  "description": "Para onde você quer escapar?",
-  "theme_color": "#2F855A",
+  "description": "Curated videos to relax and explore the world from home.",
+  "theme_color": "#008080",
   "background_color": "#ffffff",
   "orientation": "landscape",
   "icons": [
