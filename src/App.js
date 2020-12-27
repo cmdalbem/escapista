@@ -171,7 +171,10 @@ class App extends React.Component {
         //   currentTitle: currentChannelData.currentVideo.fields.title
         // });
 
-        Analytics.event('category_skipped');
+        // Don't count on startup
+        if (prevState.currentCategory) {
+          Analytics.event('category_skipped');
+        }
       }
 
       this.updateURL();
