@@ -12,7 +12,8 @@ import {
     LIVENESS_CHECK_MS,
     VIDEO_TRANSITION_MS,
     ESCAPIST_EASING_BEZIER,
-    ESCAPIST_EASING_TIMING
+    ESCAPIST_EASING_TIMING,
+    MAX_CONSECUTIVE_UNSTARTEDS
 } from './constants.js';
 
 const defaultPlayerVars = {
@@ -102,11 +103,25 @@ class Player extends React.Component {
         }
 
         this.gameLoopInterval = setInterval(this.gameLoop, LIVENESS_CHECK_MS);
+
+        this.consecutiveUnstarted = 0;
     }
 
     gameLoop() {
         if (this.playerRef.current) {
             Analytics.event('player_status_' + this.state.playerStatus);
+
+            if (this.state.playerStatus === 'unstarted') {
+                this.consecutiveUnstarted += 1;
+                console.debug('consecutiveUnstarted', this.consecutiveUnstarted);
+
+                if (this.consecutiveUnstarted > MAX_CONSECUTIVE_UNSTARTEDS) {
+                    console.debug('force set muted');
+                    this.props.setMuted();
+                }
+            } else {
+                this.consecutiveUnstarted = 0;
+            }
 
             // Just to make sure (also turns it up after computer sleeping)
             this.playerRef.current.internalPlayer.playVideo();
@@ -192,7 +207,7 @@ class Player extends React.Component {
             <div className="overflow-hidden">
                 <div
                     className={
-                        `video-background overflow-hidden
+                        `video-background overflow-hidden transition-opacity duration-1000
                         ${isUIVisible ? 'opacity-75 hover:opacity-100' : 'opacity-100'}`}
                     style={{
                         transition: `transform ${ESCAPIST_EASING_TIMING} ${ESCAPIST_EASING_BEZIER}, opacity 300ms ease-out`,
@@ -215,7 +230,7 @@ class Player extends React.Component {
                                 <div className="max-w-xs text-center text-gray-500">
                                     {t('video-error')}
                                 </div>
-                                : this.state.playerStatus !== 'playing' &&
+                            : this.state.playerStatus !== 'playing' &&
                                 <div className="h-10 w-10 text-gray-400">
                                     <Spinner />
                                 </div>

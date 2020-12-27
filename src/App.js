@@ -39,6 +39,7 @@ class App extends React.Component {
     this.onChangeVolume = this.onChangeVolume.bind(this);
     this.updateGuide = this.updateGuide.bind(this);
     this.skipVideo = this.skipVideo.bind(this);
+    this.setMuted = this.setMuted.bind(this);
 
     if (!isMobileSafari()) {
       Screenfull.on('change', this.onFullScreenChange);
@@ -60,7 +61,7 @@ class App extends React.Component {
         saved && saved.volume !== undefined
           ? saved.volume
           : 1,
-      isMuted:
+      isMuted: 
         saved && saved.isMuted !== undefined
           ? saved.isMuted
           : true,
@@ -246,6 +247,12 @@ class App extends React.Component {
     });
   }
 
+  setMuted() {
+    this.setState({
+      isMuted: true
+    });
+  }
+
   onChangeVolume(newVolume) {
     this.setState({ volume: newVolume });
   }
@@ -301,6 +308,7 @@ class App extends React.Component {
               onPlayerClick={this.onPlayerClick}
               onVideoEnd={this.onVideoEnd}
               skipVideo={this.skipVideo}
+              setMuted={this.setMuted}
             />
 
             <BottomBar
