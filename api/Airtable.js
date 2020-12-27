@@ -81,9 +81,14 @@ class Airtable {
     async get() {
         await this.buildCategories();
 
-        await this.fetchSpecialCategory('Still');
-        await this.fetchSpecialCategory('Nature');
-        await this.fetchSpecialCategory('Urban');
+        for (const k of Object.keys(this.categories)) {
+            const c = this.categories[k];
+            if (c.fields.type === 'special') {
+                const viewName = c.fields['title-en'];
+                console.debug('Fetching special category:', viewName)
+                await this.fetchSpecialCategory(viewName);
+            }
+        }
 
         const videos = await this.fetchTable('Videos','Filtered');
         if (videos && videos.length > 0) {
