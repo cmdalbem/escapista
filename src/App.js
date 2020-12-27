@@ -64,6 +64,7 @@ class App extends React.Component {
         saved && saved.isMuted !== undefined
           ? saved.isMuted
           : true,
+      savedGuide: saved && saved.guide
     };
 
     window.addEventListener('beforeunload', e => {
@@ -129,7 +130,8 @@ class App extends React.Component {
       isMuted: this.state.isMuted,
       currentCategory: this.state.currentCategory,
       welcome: this.state.welcome,
-      volume: this.state.volume
+      volume: this.state.volume,
+      guide: this.state.guide
     }
  
     const str = JSON.stringify(state);
@@ -140,14 +142,29 @@ class App extends React.Component {
     const res = await (await fetch('/api/get')).json();
     const guide = res.body;
 
-    console.debug('guide from API', guide);
+    console.debug('New computed guide:', guide);
 
-    // Check if selected category is valid
+    // Check if selected category is valid according to new guide
     let currentCategory;
     if (this.state.currentCategory && guide.channels[this.state.currentCategory]) {
       currentCategory = this.state.currentCategory;
     } else {
       currentCategory = Object.keys(guide.channels)[0];
+    }
+
+    // Calculate diff of channels lengths
+    if (this.state.savedGuide && this.state.savedGuide.channels) {
+      const currentChannels = guide.channels;
+      const prevChannels = this.state.savedGuide.channels;
+      Object.keys(currentChannels).forEach( k => {
+        if (prevChannels[k]) {
+          const l1 = prevChannels[k].length;
+          const l2 = currentChannels[k].length;
+          const diff = l2 - l1;
+          currentChannels[k].diff = diff > 0 ? diff : 0;
+          // console.debug(`${k} was ${l1} now its ${l2} = ${l2 - l1}`);
+        }
+      })
     }
 
     this.setState({
