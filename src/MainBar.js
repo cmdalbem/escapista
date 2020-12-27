@@ -25,6 +25,10 @@ class MainBar extends React.Component {
         super(props);
 
         this.onFeedbackClick = this.onFeedbackClick.bind(this);
+
+        this.state = {
+            fadeOutDiffs: false
+        }
     }
 
     componentDidMount() {
@@ -36,6 +40,14 @@ class MainBar extends React.Component {
             hideHeaders: true,
             hideFooters: true,
         });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.channels !== this.props.channels) {
+            setTimeout(() => {
+                this.setState({ fadeOutDiffs: true });
+            }, 3000);
+        }
     }
 
     onFeedbackClick() {
@@ -94,7 +106,10 @@ class MainBar extends React.Component {
                                         {
                                             channels[k].diff ?
                                             // <span className="bg-orange-600 text-white font-bold py-0 px-1 rounded-full text-xs">
-                                            <span className="text-orange-600 font-bold py-0 px-1 text-xs">
+                                            <span className={`
+                                                text-orange-600 font-bold py-0 px-1 text-xs
+                                                ${this.state.fadeOutDiffs ? 'opacity-0' : 'opacity-100'}`}
+                                                style={{transition: 'opacity 10s ease-in'}}>
                                                 +{ channels[k].diff }
                                             </span>
                                             : null
