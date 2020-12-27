@@ -258,7 +258,7 @@ class BottomBar extends React.Component {
                         right: -56
                         }}>
                       <input
-                        className={!this.props.isMuted && `cursor-pointer`}
+                        className={this.props.isMuted ? undefined : `cursor-pointer`}
                         type="range" min={0} max={1} step={0.02}
                         value={this.props.volume}
                         disabled={this.props.isMuted}
