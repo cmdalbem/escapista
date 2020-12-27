@@ -39,6 +39,7 @@ class Player extends React.Component {
         this.onError = this.onError.bind(this);
         this.onReady = this.onReady.bind(this);
         this.onStateChange = this.onStateChange.bind(this);
+        this.onPlaybackQualityChange = this.onPlaybackQualityChange.bind(this);
         this.gameLoop = this.gameLoop.bind(this);
 
         this.playerRef = React.createRef();
@@ -175,6 +176,10 @@ class Player extends React.Component {
         player.unloadModule('cc');
     }
 
+    onPlaybackQualityChange(e) {
+        console.debug('onPlaybackQualityChange', e.data);
+    }
+
     render() {
         const { isUIVisible, t } = this.props;
         
@@ -225,6 +230,7 @@ class Player extends React.Component {
                                 onError={this.onError}
                                 onReady={this.onReady}
                                 onStateChange={this.onStateChange}
+                                onPlaybackQualityChange={this.onPlaybackQualityChange}
                                 ref={this.playerRef}
                             />
                         </div>
