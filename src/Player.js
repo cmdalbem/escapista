@@ -96,7 +96,12 @@ class Player extends React.Component {
     onReady(e) {
         this.updateVolume();
 
-        setInterval(this.gameLoop, LIVENESS_CHECK_MS);
+        if (this.gameLoopInterval) {
+            console.debug('clear game loop interval');
+            clearInterval(this.gameLoopInterval);
+        }
+
+        this.gameLoopInterval = setInterval(this.gameLoop, LIVENESS_CHECK_MS);
     }
 
     gameLoop() {
