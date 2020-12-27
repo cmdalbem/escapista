@@ -122,7 +122,7 @@ class MainBar extends React.Component {
                 </div>
 
                 <BrowserView>
-                    <div className="flex flex-col -mb-2">
+                    <div className="flex flex-col -mb-2 mt-4">
                         <button
                             className={SECONDARY_NAV_STYLE}
                             onClick={this.props.onAboutClick}
