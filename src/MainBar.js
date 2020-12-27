@@ -107,10 +107,10 @@ class MainBar extends React.Component {
                                             channels[k].diff ?
                                             // <span className="bg-orange-600 text-white font-bold py-0 px-1 rounded-full text-xs">
                                             <span className={`
-                                                text-orange-600 font-bold py-0 px-1 text-xs
+                                                text-teal-600 font-bold py-0 px-1 text-xs
                                                 ${this.state.fadeOutDiffs ? 'opacity-0' : 'opacity-100'}`}
                                                 style={{transition: 'opacity 10s ease-in'}}>
-                                                +{ channels[k].diff }
+                                                <span className="font-logo">↑</span>{ channels[k].diff }
                                             </span>
                                             : null
                                         }
