@@ -91,6 +91,14 @@ class MainBar extends React.Component {
                                     !isMobile &&
                                     <sup className="ml-1 text-xs">
                                         {channels[k].length}
+                                        {
+                                            channels[k].diff ?
+                                            // <span className="bg-orange-600 text-white font-bold py-0 px-1 rounded-full text-xs">
+                                            <span className="text-orange-600 font-bold py-0 px-1 text-xs">
+                                                +{ channels[k].diff }
+                                            </span>
+                                            : null
+                                        }
                                     </sup>
                                 }
                             </button>
