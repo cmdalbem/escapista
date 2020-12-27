@@ -45,6 +45,34 @@ class Player extends React.Component {
         this.state = {
             playerStatus: undefined
         }
+
+        this.updateChannelData();
+    }
+
+    updateChannelData() {
+        const channelData = this.props.channelData;
+        if (channelData && channelData.currentVideo) {
+            const videoId = channelData.currentVideo.fields['id'];
+            const videoEnd = channelData.currentVideo.fields.duration * 60;
+    
+            const guideCreatedAt = new Date(this.props.guideCreatedAt);
+            const videoStartOffset = Math.ceil((new Date() - guideCreatedAt) / 1000);
+            const videoStart = channelData.videoStart + videoStartOffset;
+    
+            // Delay update of Player data to give time to animation transition
+            setTimeout(() => {
+                this.setState({
+                    videoId,
+                    playerOpts: {
+                        playerVars: {
+                            ...defaultPlayerVars,
+                            start: videoStart,
+                            end: videoEnd
+                        },
+                    }
+                })
+            }, VIDEO_TRANSITION_MS);
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -59,28 +87,7 @@ class Player extends React.Component {
                 videoId: undefined
             })
 
-            const channelData = this.props.channelData;
-
-            const videoId = channelData.currentVideo.fields['id'];
-            const videoEnd = channelData.currentVideo.fields.duration * 60;
-
-            const guideCreatedAt = new Date(this.props.guideCreatedAt);
-            const videoStartOffset = Math.ceil((new Date() - guideCreatedAt) / 1000);
-            const videoStart = channelData.videoStart + videoStartOffset;
-
-            // Delay update of Player data to give time to animation transition
-            setTimeout(() => {
-                this.setState({
-                    videoId,
-                    playerOpts: {
-                        playerVars: {
-                            ...defaultPlayerVars,
-                            start: videoStart,
-                            end: videoEnd
-                        },
-                    }
-                })
-            }, VIDEO_TRANSITION_MS);
+            this.updateChannelData();
         }
     }
 
