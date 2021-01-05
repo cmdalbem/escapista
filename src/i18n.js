@@ -99,7 +99,7 @@ i18n
   .use(LanguageDetector)
   .init({
     resources,
-    fallbackLng: 'pt-BR',
+    fallbackLng: 'en-US',
     // lng: 'en-US',
 
     keySeparator: false,
