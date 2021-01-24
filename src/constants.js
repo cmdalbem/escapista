@@ -12,7 +12,8 @@ export const LIVENESS_CHECK_MS = 1000;
 export const VIDEO_TRANSITION_MS = 1000;
 export const LABELS_TRANSITION_MS = 1000;
 
-export const MAX_CONSECUTIVE_UNSTARTEDS = 10;
+export const UNSTARTED_TIMEOUT_TO_MUTE = 10;
+export const UNSTARTED_TIMEOUT_GIVEUP = 30;
 
 
 export const TYPEFORM_IDS = {

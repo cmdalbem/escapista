@@ -13,7 +13,8 @@ import {
     VIDEO_TRANSITION_MS,
     ESCAPIST_EASING_BEZIER,
     ESCAPIST_EASING_TIMING,
-    MAX_CONSECUTIVE_UNSTARTEDS
+    UNSTARTED_TIMEOUT_TO_MUTE,
+    UNSTARTED_TIMEOUT_GIVEUP
 } from './constants.js';
 
 const defaultPlayerVars = {
@@ -109,16 +110,36 @@ class Player extends React.Component {
 
     gameLoop() {
         if (this.playerRef.current) {
-            Analytics.event('player_status_' + this.state.playerStatus);
+            let opts = {};
+
+            // If video play failed we need to manually send to Analytics its data
+            if (this.state.playerStatus === 'error') {
+                const channelData = this.props.channelData;
+                if (channelData) {
+                    opts = {
+                        video_title: this.props.channelData.currentVideo.fields.title,
+                        video_url: this.props.channelData.currentVideo.fields.url,
+                    }
+                }
+            }
+
+            Analytics.event('player_status_' + this.state.playerStatus, opts);
 
             if (this.state.playerStatus === 'unstarted') {
                 this.consecutiveUnstarted += 1;
                 console.debug('consecutiveUnstarted', this.consecutiveUnstarted);
 
-                if (this.consecutiveUnstarted > MAX_CONSECUTIVE_UNSTARTEDS) {
+                if (this.consecutiveUnstarted > UNSTARTED_TIMEOUT_TO_MUTE) {
                     console.debug('force set muted');
                     this.props.setMuted();
+
+                    if (this.consecutiveUnstarted > UNSTARTED_TIMEOUT_GIVEUP) {
+                        this.setState({playerStatus: 'error'});
+                    }
                 }
+            } else if(this.state.playerStatus === undefined) {
+                // Edge case that seem to happen on videos that were disabled
+                this.setState({playerStatus: 'error'});
             } else {
                 this.consecutiveUnstarted = 0;
             }
