@@ -125,7 +125,8 @@ class Player extends React.Component {
 
             Analytics.event('player_status_' + this.state.playerStatus, opts);
 
-            if (this.state.playerStatus === 'unstarted') {
+            if (this.state.playerStatus === 'unstarted'
+                || this.state.playerStatus === undefined) {
                 this.consecutiveUnstarted += 1;
                 console.debug('consecutiveUnstarted', this.consecutiveUnstarted);
 
@@ -137,9 +138,6 @@ class Player extends React.Component {
                         this.setState({playerStatus: 'error'});
                     }
                 }
-            } else if(this.state.playerStatus === undefined) {
-                // Edge case that seem to happen on videos that were disabled
-                this.setState({playerStatus: 'error'});
             } else {
                 this.consecutiveUnstarted = 0;
             }
