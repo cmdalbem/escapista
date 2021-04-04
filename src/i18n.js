@@ -56,11 +56,12 @@ const resources = {
       
       'turn-phone': 'Please turn your device for a better experience.',
 
-      'welcome-heading': 'Where do you want to escape to?',
+      'welcome-heading': 'Curated videos to relax and explore the world from home',
       'welcome-body1': 'Choose a channel and let your mind wander with the great Slow TV and ambient videos we handpicked for you. Relax with the natural images and sounds while you work, put on your TV or invite your friends to watch together.',
       'welcome-body2': '',
       'welcome-body3': '',
-      'welcome-cta': 'Start',
+      'welcome-cta': 'Start watching',
+      'know-more': 'Know more',
       'read-the-manifesto': 'Read the manifesto',
     }
   },
