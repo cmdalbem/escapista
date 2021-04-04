@@ -59,8 +59,7 @@ function Welcome(props) {
         ${loading ? '-translate-y-3 opacity-0' : '-translate-y-0 opacity-100'}`;
 
     return (
-        <div
-            className="relative font-body"
+        <div className="relative font-body overflow-hidden"
             style={{
                 color: '#006E6E',
                 backgroundColor: '#F6F5F2'}}
@@ -91,7 +90,7 @@ function Welcome(props) {
 
                     <div className="flex flex-col flex-auto mt-24">
                         <div className={slideIn}>
-                            <h2 className="max-w-6xl font-heading font-regular whitespace-pre-line text-6xl leading-tight">
+                            <h2 className="max-w-5xl font-heading font-regular whitespace-pre-line text-6xl leading-tight">
                                 { t('welcome-heading') }
                             </h2>
 
@@ -108,25 +107,26 @@ function Welcome(props) {
                                 ></Button>
                             </div>
                         </div>
-                        
-                        {/* {
-                            !isMobile && 
-                            <ProductHuntBadge/>
-                        } */}
+                    
+                    </div>
+                    
+                    <div className="w-screen flex justify-end pr-32">
+                        <ProductHuntBadge/>
                     </div>
                 </div>
             </div>
             
-
-            <div className="w-full pl-16 h-screen flex justify-between items-center">
-                <div className=" flex justify-center">
+            <div className="w-full h-screen flex justify-between items-center relative">
+                <div className="w-6/12 ml-16">
                     <LandingHeading
                         title="Choose a channel and let your mind wander with the continous stream of content"
                         body="It's television at the speed of life. And, as in life, it doesn't come with pause or skips buttons. It's the ultimate minimalistic, relaxing experience."
                     />
                 </div>
 
-                <img className="object-contain h-full  z-10" src={comp1}></img>
+                <img className="w-6/12 z-10" src={comp1}></img>
+
+                <BackgroundBlurryGlows/>
             </div>
 
             <div className="pr-16 w-full h-screen flex justify-end items-center relative">
@@ -135,7 +135,7 @@ function Welcome(props) {
                 ></Thumb>
 
                 <Thumb name="City Walks" img={thumbcitywalks}
-                    x="40%" y="20%"
+                    x="40%" y="15%"
                 ></Thumb>
 
                 <Thumb name="J Utah" img={thumbjutah}
@@ -143,28 +143,27 @@ function Welcome(props) {
                 ></Thumb>
 
                 <Thumb name="Bike the World" img={thumbbiketheworld}
-                    x="30%" y="50%"
+                    x="30%" y="45%"
                 ></Thumb>
 
                 <Thumb name="Wanna Walk" img={thumbwannawalk}
-                    x="10%" y="75%"
+                    x="10%" y="70%"
                 ></Thumb>
 
                 <LandingHeading
+                    _className="w-4/12"
                     title="A selection of videos from the best creators and stunning places around the world"
                     body="It's built on top of a simple YouTube Player, so all views and ad revenue goes to the original creators - the real artists here :)"
                 />
             </div>
 
-            <BackgroundBlurryGlows/>
-
             <div className="w-full h-screen flex justify-start items-center relative">
                 <Thumb name="Rambalac" img={thumbrambalac}
-                    x="40%" y="0%"
+                    x="35%" y="0%"
                 ></Thumb>
 
                 <Thumb name="TheSilentWatcher" img={thumbthesilentwatcher}
-                    x="1%" y="5%"
+                    x="1%" y="0%"
                 ></Thumb>
 
                 <Thumb name="The Vagabond Gene Family" img={thumbthevagabondgenefamily}
@@ -193,26 +192,25 @@ function Welcome(props) {
 
                 <LandingHeading
                     _className="ml-16"
-                    title="Watch hundreds of hours of Slow TV content dearly curated by human beings"
+                    title="Watch hundreds of hours of Slow TV content, dearly curated by human beings"
                     body="We swept the World Wide Web to collect only the best adventures. For each video selected, ten other weren't."
+                />
+
+                <BackgroundBlurryGlows/>
+            </div>
+
+            <div className="w-full h-screen flex justify-between items-center mt-64 pr-16">
+                <img className="object-contain w-8/12" src={comp2}></img>
+
+                <LandingHeading
+                    _className="w-4/12"
+                    title="Enjoy it while you work, put on your TV or invite a friend for a remote stroll"
+                    body="Videos are always in sync, so just share the link with someone you want to watch together and you're good to go."
                 />
             </div>
 
-            <BackgroundBlurryGlows/>
-
-            <div className="w-full h-screen flex justify-between items-center mt-64 pr-16">
-                <img className="object-contain h-full " src={comp2}></img>
-
-                <div className=" flex justify-center">
-                    <LandingHeading
-                        title="Enjoy it while you work, put on your TV or invite a friend for a remote stroll"
-                        body="Videos are always in sync, so just share the link with someone you want to watch together and you're good to go."
-                    />
-                </div>
-            </div>
-
             <div className="w-full h-screen flex flex-col justify-center items-start relative overflow-hidden pl-16">
-                <h2 className="max-w-2xl font-heading font-regular whitespace-pre-line text-6xl leading-tight">
+                <h2 className="max-w-xl font-heading font-regular whitespace-pre-line text-6xl leading-tight">
                     Where do you want to escape to?
                 </h2>
 
@@ -290,103 +288,101 @@ function Thumb({img, name, url, x, y}) {
 }
 
 function BackgroundBlurryGlows() {
-    return (<>
-        <div
-            className="absolute w-screen h-screen pointer-events-none opacity-50"
-            style={{
-                filter: `blur(500px)`,
-                mixBlendMode: 'darken'
-        }}>
-            <div className="absolute rounded-full" style={{
-                background: '#C39934',
-                top: 0,
-                left: '50%',
-                width: 800,
-                height: 800
-            }}></div>
-            <div className="absolute rounded-full" style={{
-                background: '#FEB2B2',
-                top: '100%',
-                left: '10%',
-                width: 800,
-                height: 800
-            }}></div>
-            <div className="absolute rounded-full" style={{
-                background: '#FFC0B2',
-                top: '150%',
-                left: '50%',
-                width: 800,
-                height: 800
-            }}></div>
-            {/* <div className="absolute rounded-full" style={{
-                background: '#006E6E',
-                top: '150%',
-                left: '10%',
-                width: 800,
-                height: 800
-            }}></div> */}
-        </div>
+    return (
+        <div className="bgblur absolute top-0">
+            <div
+                className="absolute opacity-25"
+                style={{
+                    filter: `blur(500px)`,
+                    mixBlendMode: 'darken'
+            }}>
+                <div className="absolute rounded-full" style={{
+                    background: '#ead8ae',
+                    top: 0,
+                    left: '50%',
+                    width: 800, height: 800
+                }}></div>
+                <div className="absolute rounded-full" style={{
+                    background: '#FEB2B2',
+                    top: '100%',
+                    left: '10%',
+                    width: 800, height: 800
+                }}></div>
+                <div className="absolute rounded-full" style={{
+                    background: '#FFC0B2',
+                    top: '150%',
+                    left: '50%',
+                    width: 800, height: 800
+                }}></div>
+                {/* <div className="absolute rounded-full" style={{
+                    background: '#006E6E',
+                    top: '150%',
+                    left: '10%',
+                    width: 800, height: 800
+                }}></div> */}
+            </div>
 
-        <div
-            className="absolute w-screen h-screen pointer-events-none top-0 z-20"
-            style={{
-                filter: `blur(200px)`,
-                mixBlendMode: 'soft-light'
-        }}>
-            <div className="absolute rounded-full" style={{
-                background: '#C39934',
-                top: 0,
-                left: '50%',
-                width: 800,
-                height: 800
-            }}></div>
-            <div className="absolute rounded-full" style={{
-                background: '#FEB2B2',
-                top: '100%',
-                left: '10%',
-                width: 800,
-                height: 800
-            }}></div>
-            <div className="absolute rounded-full" style={{
-                background: '#FF8062',
-                top: '120%',
-                left: '50%',
-                width: 800,
-                height: 800
-            }}></div>
+            <div
+                className="absolute w-screen h-screen z-20 opacity-25"
+                style={{
+                    filter: `blur(200px)`,
+                    mixBlendMode: 'overlay'
+            }}>
+                <div className="absolute rounded-full" style={{
+                    background: '#C39934',
+                    top: 0,
+                    left: '50%',
+                    width: 800, height: 800
+                }}></div>
+                <div className="absolute rounded-full" style={{
+                    background: '#FEB2B2',
+                    top: '100%',
+                    left: '10%',
+                    width: 800, height: 800
+                }}></div>
+                <div className="absolute rounded-full" style={{
+                    background: '#FF8062',
+                    top: '120%',
+                    left: '50%',
+                    width: 800, height: 800
+                }}></div>
+            </div>
         </div>
-    </>)
+    )
 }
 
 function BlurryGlows() {
     return (<>
-        <div className="absolute w-screen h-screen pointer-events-none top-0 z-10">
-            
+        <div className="absolute w-screen h-screen  top-0">
+            <div className="absolute rounded-full" style={{
+                background: '#FEFCBF',
+                top: '20%',
+                left: '55%',
+                width: 700, height: 700,
+                filter: `blur(100px)`,
+            }}></div>
             <div className="absolute rounded-full" style={{
                 background: '#FF8062',
                 top: '30%',
                 left: '50%',
-                width: 400,
-                height: 400,
+                width: 400, height: 400,
                 filter: `blur(100px)`
             }}></div>
             <div className="absolute rounded-full" style={{
                 background: '#FF8062',
                 top: '30%',
                 left: '50%',
-                width: 400,
-                height: 400,
+                width: 400, height: 400,
                 filter: `blur(50px)`,
                 mixBlendMode: 'overlay'
             }}></div>
             <div className="absolute rounded-full" style={{
-                background: '#FEFCBF',
-                top: '20%',
-                left: '55%',
-                width: 700,
-                height: 700,
+                background: '#FF8062',
+                top: '30%',
+                left: '30%',
+                width: 400, height: 400,
                 filter: `blur(100px)`,
-                mixBlendMode: 'soft-light'
+                mixBlendMode: 'lighten'
             }}></div>
         </div>
     </>)
