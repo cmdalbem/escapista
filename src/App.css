@@ -15,7 +15,6 @@
 
 .font-heading {
   font-family: PP Woodland, sans-serif;
-  font-weight: 400;
 }
 
 @font-face {
@@ -23,9 +22,15 @@
   src: url('assets/ppwoodland-regular-webfont.woff2') format('woff2'),
        url('assets/ppwoodland-regular-webfont.woff') format('woff');
   font-weight: normal;
-  font-style: normal;
 }
 
+@font-face {
+  font-family: 'PP Woodland';
+  src: url('assets/ppwoodland-bold-webfont.woff2') format('woff2'),
+       url('assets/ppwoodland-bold-webfont.woff') format('woff');
+  font-weight: bold;
+}
+ 
 .h-2px {
   height: 2px;
 }
