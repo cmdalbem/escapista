@@ -90,12 +90,12 @@ function Welcome(props) {
                     </div>
 
                     <div className="flex flex-col flex-auto mt-24">
-                        <div>
+                        <div className={slideIn}>
                             <h2 className="max-w-6xl font-heading font-regular whitespace-pre-line text-6xl leading-tight">
                                 { t('welcome-heading') }
                             </h2>
 
-                            <div className={`mt-10 ${slideIn} delay-200`}>
+                            <div className={`mt-10 delay-200`}>
                                 <Button
                                     primary
                                     label={ t('welcome-cta') }
@@ -116,6 +116,7 @@ function Welcome(props) {
                     </div>
                 </div>
             </div>
+            
 
             <div className="w-full pl-16 h-screen flex justify-between items-center">
                 <div className=" flex justify-center">
@@ -154,6 +155,8 @@ function Welcome(props) {
                     body="It's built on top of a simple YouTube Player, so all views and ad revenue goes to the original creators - the real artists here :)"
                 />
             </div>
+
+            <BackgroundBlurryGlows/>
 
             <div className="w-full h-screen flex justify-start items-center relative">
                 <Thumb name="Rambalac" img={thumbrambalac}
@@ -195,6 +198,8 @@ function Welcome(props) {
                 />
             </div>
 
+            <BackgroundBlurryGlows/>
+
             <div className="w-full h-screen flex justify-between items-center mt-64 pr-16">
                 <img className="object-contain h-full " src={comp2}></img>
 
@@ -206,8 +211,8 @@ function Welcome(props) {
                 </div>
             </div>
 
-            <div className="w-full h-screen flex flex-col justify-center items-center">
-                <h2 className="max-w-2xl text-center font-heading font-regular whitespace-pre-line text-6xl leading-tight">
+            <div className="w-full h-screen flex flex-col justify-center items-start relative overflow-hidden pl-16">
+                <h2 className="max-w-2xl font-heading font-regular whitespace-pre-line text-6xl leading-tight">
                     Where do you want to escape to?
                 </h2>
 
@@ -220,12 +225,14 @@ function Welcome(props) {
 
                     <a
                         href={manifestoUrl}
-                        className="py-3 px-6 ml-4 rounded font-medium hover:bg-white duration-300"
+                        className="py-3 px-6 ml-4 rounded font-medium hover:text-teal-600 duration-300"
                         target="_blank" rel="noopener noreferrer"
                     >
                         { t('read-the-manifesto') }
                     </a>
                 </div>
+
+                <BlurryGlows/>
             </div>
 
             <div style={{height: 700}} className="w-full flex flex-col justify-center items-center text-white bg-teal-700">
@@ -273,16 +280,116 @@ function LandingHeading({title, body, _className}) {
 
 function Thumb({img, name, url, x, y}) {
     return (
-        <div className="flex flex-col absolute" style={{width: 330}}
-            style={{top: y, left: x}}>
-            <div>
-                <img src={img}></img>
-            </div>
+        <div className="flex flex-col absolute" style={{width: '20vw', top: y, left: x}}>
+            <img src={img}></img>
             <div className="text-xs mt-1">
                 { name }
             </div>
         </div>
     );
+}
+
+function BackgroundBlurryGlows() {
+    return (<>
+        <div
+            className="absolute w-screen h-screen pointer-events-none opacity-50"
+            style={{
+                filter: `blur(500px)`,
+                mixBlendMode: 'darken'
+        }}>
+            <div className="absolute rounded-full" style={{
+                background: '#C39934',
+                top: 0,
+                left: '50%',
+                width: 800,
+                height: 800
+            }}></div>
+            <div className="absolute rounded-full" style={{
+                background: '#FEB2B2',
+                top: '100%',
+                left: '10%',
+                width: 800,
+                height: 800
+            }}></div>
+            <div className="absolute rounded-full" style={{
+                background: '#FFC0B2',
+                top: '150%',
+                left: '50%',
+                width: 800,
+                height: 800
+            }}></div>
+            {/* <div className="absolute rounded-full" style={{
+                background: '#006E6E',
+                top: '150%',
+                left: '10%',
+                width: 800,
+                height: 800
+            }}></div> */}
+        </div>
+
+        <div
+            className="absolute w-screen h-screen pointer-events-none top-0 z-20"
+            style={{
+                filter: `blur(200px)`,
+                mixBlendMode: 'soft-light'
+        }}>
+            <div className="absolute rounded-full" style={{
+                background: '#C39934',
+                top: 0,
+                left: '50%',
+                width: 800,
+                height: 800
+            }}></div>
+            <div className="absolute rounded-full" style={{
+                background: '#FEB2B2',
+                top: '100%',
+                left: '10%',
+                width: 800,
+                height: 800
+            }}></div>
+            <div className="absolute rounded-full" style={{
+                background: '#FF8062',
+                top: '120%',
+                left: '50%',
+                width: 800,
+                height: 800
+            }}></div>
+        </div>
+    </>)
+}
+
+function BlurryGlows() {
+    return (<>
+        <div className="absolute w-screen h-screen pointer-events-none top-0 z-10">
+            
+            <div className="absolute rounded-full" style={{
+                background: '#FF8062',
+                top: '30%',
+                left: '50%',
+                width: 400,
+                height: 400,
+                filter: `blur(100px)`
+            }}></div>
+            <div className="absolute rounded-full" style={{
+                background: '#FF8062',
+                top: '30%',
+                left: '50%',
+                width: 400,
+                height: 400,
+                filter: `blur(50px)`,
+                mixBlendMode: 'overlay'
+            }}></div>
+            <div className="absolute rounded-full" style={{
+                background: '#FEFCBF',
+                top: '20%',
+                left: '55%',
+                width: 700,
+                height: 700,
+                filter: `blur(100px)`,
+                mixBlendMode: 'soft-light'
+            }}></div>
+        </div>
+    </>)
 }
 
 export default withTranslation()(Welcome);
