@@ -137,6 +137,7 @@ class BottomBar extends React.Component {
     let channelTitle, channelUrl;
     let currentVideoTitle, currentVideoUrl;
     let nextVideoTitle;
+    let shouldShowNextVideo;
 
     if (this.state.channelData) {
       ({ time1Str, time2Str } = this.getFormatedTimes()); 
@@ -153,6 +154,11 @@ class BottomBar extends React.Component {
 
       currentVideoTitle = stripEmojis(currentVideo.fields['title']);
       nextVideoTitle = stripEmojis(nextVideo.fields['title']);
+
+      const remainingTimeSec = (new Date(this.state.channelData.time2) - new Date()) / 1000;
+      shouldShowNextVideo = 
+        nextVideoTitle &&
+        remainingTimeSec < 10 * 60
     }
 
     // let latlong, latlongLabel;
@@ -222,20 +228,23 @@ class BottomBar extends React.Component {
                   </div>
                 </div>
 
-                <BrowserView viewClassName="w-5/12 pr-8 flex flex-col text-gray-400">
-                    {/* <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/> */}
-                    <div className="mt-2 text-xs font-extrabold whitespace-no-wrap mb-1">
-                      { nextVideoTitle && t('later') }
-                    </div>
+                {
+                  shouldShowNextVideo &&
+                  <BrowserView viewClassName="w-5/12 pr-8 flex flex-col text-gray-400">
+                      {/* <div className="mb-1 mt-2 h-2px w-full bg-gray-300"/> */}
+                      <div className="mt-2 text-xs font-extrabold whitespace-no-wrap mb-1">
+                        { t('later') }
+                      </div>
 
-                    <div className="flex">
-                      <div className="truncate">
-                        <div className="truncate text-xl">
-                          { nextVideoTitle }
+                      <div className="flex">
+                        <div className="truncate">
+                          <div className="truncate text-xl">
+                            { nextVideoTitle }
+                          </div>
                         </div>
                       </div>
-                    </div>
-                </BrowserView>
+                  </BrowserView>
+                }
               </div>
               
               <div className="w-2/12 mt-4 pr-2 flex justify-end items-start">
