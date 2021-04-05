@@ -9,8 +9,8 @@ import {
 import Art from './Art.js'
 import ProductHuntBadge from './ProductHuntBadge.js'
 
-import logo from './assets/logo-dark.png';
-import logoMini from './assets/logo-mini.png';
+import logo from './assets/logo-dark.svg';
+import logoMini from './assets/logo-mini.svg';
 
 import comp1 from './assets/comp1.png';
 import comp2 from './assets/comp2.png';
@@ -25,8 +25,8 @@ import thumbthevagabondgenefamily from './assets/thumb-thevagabondgenefamily.png
 import thumbchillandexplore from './assets/thumb-chillandexplore.png';
 import thumbwanderlust from './assets/thumb-wanderlust.png';
 import thumbwanderingthomas from './assets/thumb-wanderingthomas.png';
-import thumbwrambalac2 from './assets/thumb-rambalac2.png';
-import thumbw4krelaxationchannel from './assets/thumb-4krelaxationchannel.png';
+import thumbdutchman from './assets/thumb-dutchman.png';
+import thumbnippon from './assets/thumb-nippon.png';
 
 import {
     ESCAPIST_EASING_BEZIER,
@@ -64,19 +64,8 @@ function Welcome(props) {
                 color: '#006E6E',
                 backgroundColor: '#F6F5F2'}}
         >
-            <div className="absolute left-0 top-0">
-                <div
-                    className="w-screen h-screen"
-                    style={{
-                        transition: `transform ${ESCAPIST_EASING_TIMING} ${ESCAPIST_EASING_BEZIER}`,
-                        // transform: `translate(${MAIN_BAR_WIDTH}px, -${BOTTOM_BAR_HEIGHT}px)`,
-                        // paddingRight: MAIN_BAR_WIDTH,
-                        // paddingTop: BOTTOM_BAR_HEIGHT
-                    }}>
-                    <div className={`absolute top-0 left-0 right-0 transition-opacity duration-1000 delay-500 ${loading ? 'opacity-0' : 'opacity-100'}`}>
-                        <Art />
-                    </div>
-                </div>
+            <div className={`absolute top-0 right-0 transition-opacity duration-1000 delay-500 ${loading ? 'opacity-0' : 'opacity-100'}`} style={{left: '-10%'}}>
+                <Art />
             </div>
 
             <div className="pt-16 pl-16 w-screen h-screen flex flex-col items-start justify-between">
@@ -110,9 +99,9 @@ function Welcome(props) {
                     
                     </div>
                     
-                    <div className="w-screen flex justify-end pr-32">
+                    {/* <div className="w-screen flex justify-end pr-32">
                         <ProductHuntBadge/>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             
@@ -182,11 +171,11 @@ function Welcome(props) {
                     x="80%" y="55%"
                 ></Thumb>
                 
-                <Thumb name="Rambalac" img={thumbwrambalac2}
+                <Thumb name="The Flying Dutchman" img={thumbdutchman}
                     x="30%" y="90%"
                 ></Thumb>
                 
-                <Thumb name="4k Relaxation Channel" img={thumbw4krelaxationchannel}
+                <Thumb name="Nippon Wandering TV" img={thumbnippon}
                     x="70%" y="85%"
                 ></Thumb>
 
@@ -199,7 +188,28 @@ function Welcome(props) {
                 <BackgroundBlurryGlows/>
             </div>
 
-            <div className="w-full h-screen flex justify-between items-center mt-64 pr-16">
+            <div className="w-full h-screen flex justify-center mt-64" style={{height: 300}}>
+                <div className="w-full max-w-6xl flex justify-around items-center">
+                    <BigNum
+                        value="100+"
+                        label="creators"
+                    ></BigNum>
+                    <BigNum
+                        value="500+"
+                        label="hours of content"
+                    ></BigNum>
+                    <BigNum
+                        value="600+"
+                        label="curated videos"
+                    ></BigNum>
+                    <BigNum
+                        value="2400+"
+                        label="logged videos"
+                    ></BigNum>
+                </div>
+            </div>
+
+            <div className="w-full h-screen flex justify-between items-center mt-32 pr-16">
                 <img className="object-contain w-8/12" src={comp2}></img>
 
                 <LandingHeading
@@ -244,6 +254,19 @@ function Welcome(props) {
     );
 }
 
+function BigNum({value, label}) {
+    return (
+        <div className="flex flex-col justify-center text-center">
+            <div className="font-heading leading-tight" style={{fontSize: 72}}>
+                { value }
+            </div>
+            <div className="text-regular mt-0">
+                { label }
+            </div>
+        </div>
+    );
+}
+
 function Button({label, onClick, primary}) {
     let classes = 'py-4 px-8 rounded font-medium duration-300 ';
 
@@ -269,7 +292,7 @@ function LandingHeading({title, body, _className}) {
             <div className="font-heading whitespace-pre-line font-bold text-4xl leading-tight mb-4">
                 { title }
             </div>
-            <div className="text-lg max-w-sm">
+            <div className="text-lg">
                 { body }
             </div>
         </div>
@@ -289,7 +312,7 @@ function Thumb({img, name, url, x, y}) {
 
 function BackgroundBlurryGlows() {
     return (
-        <div className="bgblur absolute top-0">
+        <div className="bgblur absolute top-0 pointer-events-none">
             <div
                 className="absolute opacity-25"
                 style={{
@@ -353,7 +376,7 @@ function BackgroundBlurryGlows() {
 
 function BlurryGlows() {
     return (<>
-        <div className="absolute w-screen h-screen  top-0">
+        <div className="absolute w-screen h-screen top-0 pointer-events-none">
             <div className="absolute rounded-full" style={{
                 background: '#FEFCBF',
                 top: '20%',

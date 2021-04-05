@@ -9,8 +9,7 @@
 }
 
 .font-body {
-  font-family: DM Sans, sans-serif;
-  font-feature-settings: 'ss02' on, 'ss03' off, 'ss04' off;
+  font-family: DM Sans ss02, sans-serif;
 }
 
 .font-heading {
@@ -19,15 +18,29 @@
 
 @font-face {
   font-family: 'PP Woodland';
-  src: url('assets/ppwoodland-regular-webfont.woff2') format('woff2'),
-       url('assets/ppwoodland-regular-webfont.woff') format('woff');
+  src: url('assets/fonts/ppwoodland-regular-webfont.woff2') format('woff2'),
+       url('assets/fonts/ppwoodland-regular-webfont.woff') format('woff');
   font-weight: normal;
 }
 
 @font-face {
   font-family: 'PP Woodland';
-  src: url('assets/ppwoodland-bold-webfont.woff2') format('woff2'),
-       url('assets/ppwoodland-bold-webfont.woff') format('woff');
+  src: url('assets/fonts/ppwoodland-bold-webfont.woff2') format('woff2'),
+       url('assets/fonts/ppwoodland-bold-webfont.woff') format('woff');
+  font-weight: bold;
+}
+ 
+@font-face {
+  font-family: 'DM Sans ss02';
+  src: url('assets/fonts/dmsans-regular-webfont.woff2') format('woff2'),
+       url('assets/fonts/dmsans-regular-webfont.woff') format('woff');
+  font-weight: normal;
+} 
+
+@font-face {
+  font-family: 'DM Sans ss02';
+  src: url('assets/fonts/dmsans-bold-webfont.woff2') format('woff2'),
+       url('assets/fonts/dmsans-bold-webfont.woff') format('woff');
   font-weight: bold;
 }
  
