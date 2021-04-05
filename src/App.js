@@ -45,27 +45,29 @@ class App extends React.Component {
       Screenfull.on('change', this.onFullScreenChange);
     }
 
-    const saved = this.getStateFromLocalStorage();
+    const saved = this.getStateFromLocalStorage() || {};
     // const params = this.getParamsFromURL();
 
     this.state = {
       welcome: 
-        saved && saved.welcome !== undefined 
-          ? saved.welcome
-          : !isMobile,
+        isMobile 
+          ? false 
+          : saved.welcome_v2 !== undefined 
+            ? saved.welcome_v2
+            : true,
       categories: null,
       guide: null,
       currentCategory: null,
       isUIVisible: true,
       volume:
-        saved && saved.volume !== undefined
+        saved.volume !== undefined
           ? saved.volume
           : 1,
       isMuted: 
-        saved && saved.isMuted !== undefined
+        saved.isMuted !== undefined
           ? saved.isMuted
           : true,
-      savedGuide: saved && saved.guide
+      savedGuide: saved.guide
     };
 
     window.addEventListener('beforeunload', e => {
@@ -130,7 +132,7 @@ class App extends React.Component {
       isUIVisible: this.state.isUIVisible,
       isMuted: this.state.isMuted,
       currentCategory: this.state.currentCategory,
-      welcome: this.state.welcome,
+      welcome_v2: this.state.welcome,
       volume: this.state.volume,
       guide: this.state.guide
     }
