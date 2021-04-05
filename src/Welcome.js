@@ -80,7 +80,7 @@ function Welcome(props) {
                     <div className="flex flex-col flex-auto mt-24">
                         <div className={slideIn}>
                             <h2 className="max-w-5xl font-heading font-regular whitespace-pre-line text-6xl leading-tight">
-                                { t('welcome-heading') }
+                                { t('welcome-title') }
                             </h2>
 
                             <div className={`mt-10 delay-200`}>
@@ -91,8 +91,8 @@ function Welcome(props) {
                                 ></Button>
 
                                 <Button
-                                    label="Read more"
-                                    onClick={onStartClick}
+                                    label={ t('read-more') }
+                                    onClick={() => document.querySelector('#scrollTo').scrollIntoView({ behavior: 'smooth' })}
                                 ></Button>
                             </div>
                         </div>
@@ -105,11 +105,11 @@ function Welcome(props) {
                 </div>
             </div>
             
-            <div className="w-full h-screen flex justify-between items-center relative">
+            <div id="scrollTo" className="w-full h-screen flex justify-between items-center relative">
                 <div className="w-6/12 ml-16">
                     <LandingHeading
-                        title="Choose a channel and let your mind wander with the continous stream of content"
-                        body="It's television at the speed of life. And, as in life, it doesn't come with pause or skips buttons. It's the ultimate minimalistic, relaxing experience."
+                        title={ t('welcome-heading1') }
+                        body={ t('welcome-body1') }
                     />
                 </div>
 
@@ -141,8 +141,8 @@ function Welcome(props) {
 
                 <LandingHeading
                     _className="w-4/12"
-                    title="A selection of videos from the best creators and stunning places around the world"
-                    body="It's built on top of a simple YouTube Player, so all views and ad revenue goes to the original creators - the real artists here :)"
+                    title={ t('welcome-heading2') }
+                    body={ t('welcome-body2') }
                 />
             </div>
 
@@ -181,8 +181,8 @@ function Welcome(props) {
 
                 <LandingHeading
                     _className="ml-16"
-                    title="Watch hundreds of hours of Slow TV content, dearly curated by human beings"
-                    body="We swept the World Wide Web to collect only the best adventures. For each video selected, ten other weren't."
+                    title={ t('welcome-heading3') }
+                    body={ t('welcome-body3') }
                 />
 
                 <BackgroundBlurryGlows/>
@@ -192,19 +192,19 @@ function Welcome(props) {
                 <div className="w-full max-w-6xl flex justify-around items-center">
                     <BigNum
                         value="7"
-                        label="continents"
+                        label={ t('welcome-bignum1') }
                     ></BigNum>
                     <BigNum
                         value="76"
-                        label="Slow TV creators"
+                        label={ t('welcome-bignum2') }
                     ></BigNum>
                     <BigNum
                         value="552"
-                        label="curated videos"
+                        label={ t('welcome-bignum3') }
                     ></BigNum>
                     <BigNum
                         value="781"
-                        label="hours of content"
+                        label={ t('welcome-bignum4') }
                     ></BigNum>
                 </div>
             </div>
@@ -214,14 +214,14 @@ function Welcome(props) {
 
                 <LandingHeading
                     _className="w-4/12"
-                    title="Enjoy it while you work, put on your TV or invite a friend for a remote stroll"
-                    body="Videos are always in sync, so just share the link with someone you want to watch together and you're good to go."
+                    title={ t('welcome-heading4') }
+                    body={ t('welcome-body4') }
                 />
             </div>
 
             <div className="w-full h-screen flex flex-col justify-center items-start relative overflow-hidden pl-16">
-                <h2 className="max-w-xl font-heading font-regular whitespace-pre-line text-6xl leading-tight">
-                    Where do you want to escape to?
+                <h2 className={`${slideIn} max-w-xl font-heading font-regular whitespace-pre-line text-6xl leading-tight`}>
+                    { t('welcome-final') }
                 </h2>
 
                 <div className={`mt-8 ${slideIn} delay-200`}>
@@ -245,7 +245,7 @@ function Welcome(props) {
 
             <div style={{height: 700}} className="w-full flex flex-col justify-center items-center text-white bg-teal-700">
                 <div>
-                    If you can, stay home. Save lives.
+                    { t('footer') }
                 </div>
 
                 <img className="mt-8" src={logo}></img>
@@ -268,18 +268,18 @@ function BigNum({value, label}) {
 }
 
 function Button({label, onClick, primary}) {
-    let classes = 'py-4 px-8 rounded font-medium duration-300 ';
+    let classes = 'py-4 px-8 mr-4 rounded font-bold duration-200 ';
 
     if (primary) {
         classes += 'bg-teal-800 text-white hover:bg-teal-600 '
     } else {
-        classes += 'hover:bg-white'
+        classes += 'hover:bg-white font-bold'
     }
 
     return (
         <button
             className={classes}
-            style={{minWidth: 140}}
+            style={{minWidth: 160}}
             onClick={onClick}>
             { label }
         </button>
