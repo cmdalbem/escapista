@@ -163,7 +163,7 @@ i18n
   .init({
     resources,
     fallbackLng: 'en',
-    lng: 'es',
+    // lng: 'es',
 
     keySeparator: false,
 

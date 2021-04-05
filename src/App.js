@@ -49,10 +49,7 @@ class App extends React.Component {
     // const params = this.getParamsFromURL();
 
     this.state = {
-      welcome: 
-        isMobile 
-          ? false 
-          : saved.welcome_v2 !== undefined 
+      welcome: saved.welcome_v2 !== undefined 
             ? saved.welcome_v2
             : true,
       categories: null,
@@ -281,7 +278,7 @@ class App extends React.Component {
       <div>
         <MobileView>
         {
-          this.props.isPortrait &&
+          this.props.isPortrait && !this.state.welcome &&
           <div className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center text-white z-10 bg-teal-800">
             <IconRotate/>
             <div className="w-1/2 my-2 text-lg text-center leading-tight font-body">

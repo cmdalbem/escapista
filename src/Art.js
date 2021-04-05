@@ -1,5 +1,9 @@
 import React from 'react';
 
+import {
+    isMobile
+  } from "react-device-detect";
+
 import ArtSVG from './assets/ArtSVG.js'
 
 import { throttle } from './utils.js';
@@ -24,11 +28,13 @@ class Art extends React.Component {
     }
 
     componentDidMount() {
-        document.addEventListener(
-            'mousemove',
-            throttle(this.onMouseMove, 10),
-            { capture: true, passive: true }
-        );
+        if (!isMobile) {
+            document.addEventListener(
+                'mousemove',
+                throttle(this.onMouseMove, 10),
+                { capture: true, passive: true }
+            );
+        }
     }
 
     componentWillUnmount() {

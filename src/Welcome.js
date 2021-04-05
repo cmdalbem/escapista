@@ -27,6 +27,7 @@ import thumbwanderlust from './assets/thumb-wanderlust.png';
 import thumbwanderingthomas from './assets/thumb-wanderingthomas.png';
 import thumbdutchman from './assets/thumb-dutchman.png';
 import thumbnippon from './assets/thumb-nippon.png';
+import thumbrailcowgirl from './assets/thumb-railcowgirl.png';
 
 import {
     ESCAPIST_EASING_BEZIER,
@@ -64,11 +65,17 @@ function Welcome(props) {
                 color: '#006E6E',
                 backgroundColor: '#F6F5F2'}}
         >
-            <div className={`absolute top-0 right-0 transition-opacity duration-1000 delay-500 ${loading ? 'opacity-0' : 'opacity-100'}`} style={{left: '-10%'}}>
-                <Art />
-            </div>
+            <div className="pt-4 sm:pt-16 pl-4 sm:pl-16 w-screen h-screen flex flex-col items-start justify-between relative">
+                <div
+                    className={`absolute bottom-0 right-0 h-screen transition-opacity duration-1000 delay-500 ${loading ? 'opacity-0' : 'opacity-100'}`}
+                    style={{
+                        left: '-10%',
+                        width: isMobile && '170vh',
+                        transform: isMobile && 'translate(-46%, 15%)'
+                }}>
+                    <Art />
+                </div>
 
-            <div className="pt-16 pl-16 w-screen h-screen flex flex-col items-start justify-between">
                 <div className={`${slideIn} flex flex-auto flex-col`}>
                     <div className="flex items-center">
                         <img src={logoMini} className="mr-3"></img>
@@ -79,7 +86,7 @@ function Welcome(props) {
 
                     <div className="flex flex-col flex-auto mt-24">
                         <div className={slideIn}>
-                            <h2 className="max-w-5xl font-heading font-regular whitespace-pre-line text-6xl leading-tight">
+                            <h2 className="max-w-lg sm:max-w-5xl font-heading font-regular whitespace-pre-line text-4xl sm:text-6xl leading-tight">
                                 { t('welcome-title') }
                             </h2>
 
@@ -105,82 +112,89 @@ function Welcome(props) {
                 </div>
             </div>
             
-            <div id="scrollTo" className="w-full h-screen flex justify-between items-center relative">
-                <div className="w-6/12 ml-16">
-                    <LandingHeading
-                        title={ t('welcome-heading1') }
-                        body={ t('welcome-body1') }
-                    />
-                </div>
+            <div id="scrollTo" className="w-full sm:h-screen flex-col sm:flex-row flex justify-between items-center relative">
+                <LandingHeading
+                    _className="sm:w-6/12 px-4 sm:ml-16"
+                    title={ t('welcome-heading1') }
+                    body={ t('welcome-body1') }
+                />
 
-                <img className="w-6/12 z-10" src={comp1}></img>
+                <img className="sm:w-6/12 z-10" src={comp1}></img>
 
                 <BackgroundBlurryGlows/>
             </div>
 
-            <div className="pr-16 w-full h-screen flex justify-end items-center relative">
-                <Thumb name="Prowalk Tours" img={thumbprowalk}
-                    x="10%" y="0%"
-                ></Thumb>
+            <div className="sm:pr-16 w-full sm:h-screen flex flex-col sm:flex-row justify-end items-center relative">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-none -mx-4">
+                    <Thumb name="Prowalk Tours" img={thumbprowalk}
+                        x="10%" y="0%"
+                    ></Thumb>
 
-                <Thumb name="City Walks" img={thumbcitywalks}
-                    x="40%" y="15%"
-                ></Thumb>
+                    <Thumb name="City Walks" img={thumbcitywalks}
+                        x="35%" y="10%"
+                    ></Thumb>
 
-                <Thumb name="J Utah" img={thumbjutah}
-                    x="5%" y="35%"
-                ></Thumb>
+                    <Thumb name="J Utah" img={thumbjutah}
+                        x="5%" y="30%"
+                    ></Thumb>
 
-                <Thumb name="Via Rio" img={thumbviario}
-                    x="35%" y="45%"
-                ></Thumb>
+                    <Thumb name="Via Rio" img={thumbviario}
+                        x="30%" y="40%"
+                    ></Thumb>
 
-                <Thumb name="Wanna Walk" img={thumbwannawalk}
-                    x="10%" y="70%"
-                ></Thumb>
+                    <Thumb name="Wanna Walk" img={thumbwannawalk}
+                        x="1%" y="65%"
+                    ></Thumb>
+
+                    <Thumb name="RailCowGirl" img={thumbrailcowgirl}
+                        x="40%" y="70%"
+                    ></Thumb>
+                </div>
 
                 <LandingHeading
-                    _className="w-4/12"
+                    _className={`px-4 sm:w-4/12`}
                     title={ t('welcome-heading2') }
                     body={ t('welcome-body2') }
                 />
             </div>
 
-            <div className="w-full h-screen flex justify-start items-center relative">
-                <Thumb name="Rambalac" img={thumbrambalac}
-                    x="35%" y="0%"
-                ></Thumb>
+            <div className="w-full sm:h-screen flex flex-col sm:flex-row justify-start items-center relative">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-none -mx-4">
+                    <Thumb name="Rambalac" img={thumbrambalac}
+                        x="35%" y="0%"
+                    ></Thumb>
 
-                <Thumb name="TheSilentWatcher" img={thumbthesilentwatcher}
-                    x="1%" y="0%"
-                ></Thumb>
+                    <Thumb name="TheSilentWatcher" img={thumbthesilentwatcher}
+                        x="5%" y="0%"
+                    ></Thumb>
 
-                <Thumb name="The Vagabond Gene Family" img={thumbthevagabondgenefamily}
-                    x="45%" y="30%"
-                ></Thumb>
+                    <Thumb name="The Vagabond Gene Family" img={thumbthevagabondgenefamily}
+                        x="45%" y="30%"
+                    ></Thumb>
 
-                <Thumb name="Chill & Explore" img={thumbchillandexplore}
-                    x="75%" y="20%"
-                ></Thumb>
+                    <Thumb name="Chill & Explore" img={thumbchillandexplore}
+                        x="75%" y="20%"
+                    ></Thumb>
 
-                <Thumb name="Wanderlust Travel Videos" img={thumbwanderlust}
-                    x="50%" y="60%"
-                ></Thumb>
+                    <Thumb name="Wanderlust Travel Videos" img={thumbwanderlust}
+                        x="48%" y="60%"
+                    ></Thumb>
 
-                <Thumb name="Wandering Thomas" img={thumbwanderingthomas}
-                    x="80%" y="55%"
-                ></Thumb>
-                
-                <Thumb name="The Flying Dutchman" img={thumbdutchman}
-                    x="30%" y="90%"
-                ></Thumb>
-                
-                <Thumb name="Nippon Wandering TV" img={thumbnippon}
-                    x="70%" y="85%"
-                ></Thumb>
+                    <Thumb name="Wandering Thomas" img={thumbwanderingthomas}
+                        x="85%" y="55%"
+                    ></Thumb>
+                    
+                    <Thumb name="The Flying Dutchman" img={thumbdutchman}
+                        x="30%" y="90%"
+                    ></Thumb>
+                    
+                    <Thumb name="Nippon Wandering TV" img={thumbnippon}
+                        x="70%" y="85%"
+                    ></Thumb>
+                </div>
 
                 <LandingHeading
-                    _className="ml-16"
+                    _className={`px-4 sm:ml-16`}
                     title={ t('welcome-heading3') }
                     body={ t('welcome-body3') }
                 />
@@ -188,8 +202,8 @@ function Welcome(props) {
                 <BackgroundBlurryGlows/>
             </div>
 
-            <div className="w-full h-screen flex justify-center mt-64" style={{height: 300}}>
-                <div className="w-full max-w-6xl flex justify-around items-center">
+            <div className="w-full hidden sm:flex justify-center mt-64" style={{height: 300}}>
+                <div className="w-full max-w-6xl flex flex-col sm:flex-row justify-around items-center">
                     <BigNum
                         value="7"
                         label={ t('welcome-bignum1') }
@@ -209,17 +223,17 @@ function Welcome(props) {
                 </div>
             </div>
 
-            <div className="w-full h-screen flex justify-between items-center mt-32 pr-16">
-                <img className="object-contain w-8/12" src={comp2}></img>
+            <div className="w-full sm:h-screen flex flex-col sm:flex-row justify-between items-center mt-32 pr-4 sm:pr-16">
+                <img className="object-contain sm:w-8/12" src={comp2}></img>
 
                 <LandingHeading
-                    _className="w-4/12"
+                    _className="mx-4 sm:w-4/12"
                     title={ t('welcome-heading4') }
                     body={ t('welcome-body4') }
                 />
             </div>
 
-            <div className="w-full h-screen flex flex-col justify-center items-start relative overflow-hidden pl-16">
+            <div className="w-full h-screen flex flex-col justify-center items-start relative pl-4 sm:pl-16 overflow-hidden">
                 <h2 className={`${slideIn} max-w-xl font-heading font-regular whitespace-pre-line text-6xl leading-tight`}>
                     { t('welcome-final') }
                 </h2>
@@ -233,7 +247,7 @@ function Welcome(props) {
 
                     <a
                         href={manifestoUrl}
-                        className="py-3 px-6 ml-4 rounded font-medium hover:text-teal-600 duration-300"
+                        className="py-4 px-8 ml-4 rounded font-bold hover:text-teal-600 duration-300 bg-white sm:bg-transparent"
                         target="_blank" rel="noopener noreferrer"
                     >
                         { t('read-the-manifesto') }
@@ -256,11 +270,14 @@ function Welcome(props) {
 
 function BigNum({value, label}) {
     return (
-        <div className="flex flex-col justify-center text-center">
-            <div className="font-heading leading-tight" style={{fontSize: 128}}>
+        <div className="flex flex-col justify-center text-center mt-8 sm:mt-0">
+            <div 
+                className="font-heading leading-tight" 
+                style={{fontSize: isMobile ? 72 : 128}
+            }>
                 { value }
             </div>
-            <div className="text-regular mt-0 capitalize">
+            <div className="text-regular capitalize">
                 { label }
             </div>
         </div>
@@ -273,7 +290,7 @@ function Button({label, onClick, primary}) {
     if (primary) {
         classes += 'bg-teal-800 text-white hover:bg-teal-600 '
     } else {
-        classes += 'hover:bg-white font-bold'
+        classes += 'hover:bg-white font-bold bg-white sm:bg-transparent'
     }
 
     return (
@@ -287,12 +304,19 @@ function Button({label, onClick, primary}) {
 }
 
 function LandingHeading({title, body, _className}) {
+    // className={`sm:max-w-lg text-teal-800 ${_className} ${isMobile && '-my-20 py-20 z-20'}`}
+    //         style={{
+    //             background: isMobile && 'linear-gradient(transparent, #f7f1ee 15%, #f7f1ee 85%, transparent)'
+    //         }}
+
     return (
-        <div className={`max-w-lg text-teal-800 ${_className}`}>
-            <div className="font-heading whitespace-pre-line font-bold text-4xl leading-tight mb-4">
+        <div 
+            className={`sm:max-w-lg text-teal-800 ${_className} py-8 sm:py-0`}
+        >
+            <div className="font-heading whitespace-pre-line font-bold text-2xl sm:text-4xl leading-tight mb-2 sm:mb-4">
                 { title }
             </div>
-            <div className="text-lg">
+            <div className="text-md sm:text-lg">
                 { body }
             </div>
         </div>
@@ -301,9 +325,12 @@ function LandingHeading({title, body, _className}) {
 
 function Thumb({img, name, url, x, y}) {
     return (
-        <div className="flex flex-col absolute" style={{width: '20vw', top: y, left: x}}>
+        <div
+            className="flex flex-col sm:absolute sm:opacity-75 hover:opacity-100 transition-opacity duration-500"
+            style={{width: isMobile ? '' : '20vw', top: y, left: x}
+        }>
             <img src={img}></img>
-            <div className="text-xs mt-1">
+            <div className="text-xs sm:mt-1 hidden sm:block">
                 { name }
             </div>
         </div>
@@ -377,14 +404,14 @@ function BackgroundBlurryGlows() {
 function BlurryGlows() {
     return (<>
         <div className="absolute w-screen h-screen top-0 pointer-events-none">
-            <div className="absolute rounded-full" style={{
+            <div className="absolute rounded-full opacity-25 sm:opacity-100" style={{
                 background: '#FEFCBF',
                 top: '20%',
                 left: '55%',
                 width: 700, height: 700,
                 filter: `blur(100px)`,
             }}></div>
-            <div className="absolute rounded-full" style={{
+            <div className="absolute rounded-full opacity-0 sm:opacity-100" style={{
                 background: '#FF8062',
                 top: '30%',
                 left: '50%',
