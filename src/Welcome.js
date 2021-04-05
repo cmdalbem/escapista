@@ -17,7 +17,7 @@ import comp2 from './assets/comp2.png';
 import thumbcitywalks from './assets/thumb-citywalks.png';
 import thumbjutah from './assets/thumb-jutah.png';
 import thumbwannawalk from './assets/thumb-wannawalk.png';
-import thumbbiketheworld from './assets/thumb-biketheworld.png';
+import thumbviario from './assets/thumb-viario.png';
 import thumbprowalk from './assets/thumb-prowalk.png';
 import thumbrambalac from './assets/thumb-rambalac.png';
 import thumbthesilentwatcher from './assets/thumb-thesilentwatcher.png';
@@ -131,8 +131,8 @@ function Welcome(props) {
                     x="5%" y="35%"
                 ></Thumb>
 
-                <Thumb name="Bike the World" img={thumbbiketheworld}
-                    x="30%" y="45%"
+                <Thumb name="Via Rio" img={thumbviario}
+                    x="35%" y="45%"
                 ></Thumb>
 
                 <Thumb name="Wanna Walk" img={thumbwannawalk}
@@ -191,20 +191,20 @@ function Welcome(props) {
             <div className="w-full h-screen flex justify-center mt-64" style={{height: 300}}>
                 <div className="w-full max-w-6xl flex justify-around items-center">
                     <BigNum
-                        value="100+"
-                        label="creators"
+                        value="7"
+                        label="continents"
                     ></BigNum>
                     <BigNum
-                        value="500+"
-                        label="hours of content"
+                        value="76"
+                        label="Slow TV creators"
                     ></BigNum>
                     <BigNum
-                        value="600+"
+                        value="552"
                         label="curated videos"
                     ></BigNum>
                     <BigNum
-                        value="2400+"
-                        label="logged videos"
+                        value="781"
+                        label="hours of content"
                     ></BigNum>
                 </div>
             </div>
@@ -257,10 +257,10 @@ function Welcome(props) {
 function BigNum({value, label}) {
     return (
         <div className="flex flex-col justify-center text-center">
-            <div className="font-heading leading-tight" style={{fontSize: 72}}>
+            <div className="font-heading leading-tight" style={{fontSize: 128}}>
                 { value }
             </div>
-            <div className="text-regular mt-0">
+            <div className="text-regular mt-0 capitalize">
                 { label }
             </div>
         </div>
