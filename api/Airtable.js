@@ -1,21 +1,28 @@
 import fetch from "node-fetch";
 import { slugify } from "../src/utils.js";
 
-
-const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
+const AIRTABLE_TOKEN = process.env.AIRTABLE_TOKEN;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
 
 class Airtable {
     categories = {};
-    videos = []
+    videos = [];
 
     async fetchTable(tableName, view, offset, accumulator=[]) {
-        let queryUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?api_key=${AIRTABLE_API_KEY}&view=${view}`;
+        console.debug(tableName);
+        console.debug(view);
+        
+        let queryUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?view=${view}`;
         if (offset) {
             queryUrl += `&offset=${offset}`;
         }
         
-        const response = await fetch(queryUrl);
+        const response = await fetch(
+            queryUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+            }});
         const data = await response.json();
         
         if (data.records && data.records.length > 0) {
