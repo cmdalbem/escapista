@@ -9,9 +9,6 @@ class Airtable {
     videos = [];
 
     async fetchTable(tableName, view, offset, accumulator=[]) {
-        console.debug(tableName);
-        console.debug(view);
-        
         let queryUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}?view=${view}`;
         if (offset) {
             queryUrl += `&offset=${offset}`;

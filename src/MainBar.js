@@ -129,13 +129,13 @@ class MainBar extends React.Component {
                         >
                             { t('about') }
                         </button>
-
+{/* 
                         <button
                             className={SECONDARY_NAV_STYLE}
                             onClick={this.onFeedbackClick}
                         >
                             { t('feedback') }
-                        </button>
+                        </button> */}
 
                         <a 
                             target="_blank" rel="noopener noreferrer"
