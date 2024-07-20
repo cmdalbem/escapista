@@ -3,24 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@typeform/embed": "^0.25.0",
-    "hamburger-react": "^2.2",
-    "i18next": "^19.7.0",
-    "i18next-browser-languagedetector": "^6.0.1",
-    "logrocket": "^1.0.13",
-    "node-fetch": "^2.6.7",
-    "react": "^16.13.1",
-    "react-device-detect": "^1.13.1",
-    "react-dom": "^16.13.1",
-    "react-i18next": "^11.7.2",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "react-youtube": "^7.11.3",
-    "screenfull": "^5.0.2",
-    "tailwindcss": "^1.8.9"
+    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@typeform/embed": "^5.0.0",
+    "hamburger-react": "^2.5.1",
+    "i18next": "^23.12.2",
+    "i18next-browser-languagedetector": "^8.0.0",
+    "logrocket": "^8.1.1",
+    "node-fetch": "2",
+    "react": "^18.3.1",
+    "react-device-detect": "^2.2.3",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^15.0.0",
+    "react-router": "5.2.0",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "^5.0.1",
+    "react-youtube": "^10.1.0",
+    "screenfull": "^6.0.2",
+    "tailwindcss": "^3.4.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "vercel": "^20.1.2"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "vercel": "^35.1.0"
   }
 }

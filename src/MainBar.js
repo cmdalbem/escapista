@@ -32,14 +32,14 @@ class MainBar extends React.Component {
     }
 
     componentDidMount() {
-        const lang = this.props.i18n.language.split('-')[0];
-        const typeformUrl = 'https://form.typeform.com/to/' + TYPEFORM_IDS[lang];
+        // const lang = this.props.i18n.language.split('-')[0];
+        // const typeformUrl = 'https://form.typeform.com/to/' + TYPEFORM_IDS[lang];
 
-        this.typeformPopup = typeformEmbed.makePopup(typeformUrl, {
-            mode: 'drawer_right',
-            hideHeaders: true,
-            hideFooters: true,
-        });
+        // this.typeformPopup = typeformEmbed.makePopup(typeformUrl, {
+        //     mode: 'drawer_right',
+        //     hideHeaders: true,
+        //     hideFooters: true,
+        // });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -51,7 +51,7 @@ class MainBar extends React.Component {
     }
 
     onFeedbackClick() {
-        this.typeformPopup.open();
+        // this.typeformPopup.open();
     }
     render() {
         const {

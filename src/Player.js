@@ -27,7 +27,7 @@ const defaultPlayerVars = {
     loop: 0,
     rel: 0,
     muted: 1,
-    origin: 'https://slowproject.app/'
+    origin: 'https://escapista.app/'
 };
 
 

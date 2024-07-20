@@ -139,7 +139,10 @@ class App extends React.Component {
   }
 
   async updateGuide() {
-    const res = await (await fetch('/api/get')).json();
+    const apiResponse = await fetch('/api/get');
+    console.debug(apiResponse);
+    const res = await (apiResponse).json();
+    console.debug(res);
     const guide = res.body;
 
     console.debug('New computed guide:', guide);

@@ -1,5 +1,5 @@
-const fetch = require('node-fetch');
-const slugify = require('./utils.js');
+import fetch from "node-fetch";
+import { slugify } from "../src/utils.js";
 
 
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
